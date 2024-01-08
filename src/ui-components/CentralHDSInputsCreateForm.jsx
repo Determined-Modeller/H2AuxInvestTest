@@ -6,176 +6,10 @@
 
 /* eslint-disable */
 import * as React from "react";
-import {
-  Badge,
-  Button,
-  Divider,
-  Flex,
-  Grid,
-  Icon,
-  ScrollView,
-  Text,
-  TextField,
-  useTheme,
-} from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { CentralHDSInputs } from "../models";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { DataStore } from "aws-amplify/datastore";
-function ArrayField({
-  items = [],
-  onChange,
-  label,
-  inputFieldRef,
-  children,
-  hasError,
-  setFieldValue,
-  currentFieldValue,
-  defaultFieldValue,
-  lengthLimit,
-  getBadgeText,
-  runValidationTasks,
-  errorMessage,
-}) {
-  const labelElement = <Text>{label}</Text>;
-  const {
-    tokens: {
-      components: {
-        fieldmessages: { error: errorStyles },
-      },
-    },
-  } = useTheme();
-  const [selectedBadgeIndex, setSelectedBadgeIndex] = React.useState();
-  const [isEditing, setIsEditing] = React.useState();
-  React.useEffect(() => {
-    if (isEditing) {
-      inputFieldRef?.current?.focus();
-    }
-  }, [isEditing]);
-  const removeItem = async (removeIndex) => {
-    const newItems = items.filter((value, index) => index !== removeIndex);
-    await onChange(newItems);
-    setSelectedBadgeIndex(undefined);
-  };
-  const addItem = async () => {
-    const { hasError } = runValidationTasks();
-    if (
-      currentFieldValue !== undefined &&
-      currentFieldValue !== null &&
-      currentFieldValue !== "" &&
-      !hasError
-    ) {
-      const newItems = [...items];
-      if (selectedBadgeIndex !== undefined) {
-        newItems[selectedBadgeIndex] = currentFieldValue;
-        setSelectedBadgeIndex(undefined);
-      } else {
-        newItems.push(currentFieldValue);
-      }
-      await onChange(newItems);
-      setIsEditing(false);
-    }
-  };
-  const arraySection = (
-    <React.Fragment>
-      {!!items?.length && (
-        <ScrollView height="inherit" width="inherit" maxHeight={"7rem"}>
-          {items.map((value, index) => {
-            return (
-              <Badge
-                key={index}
-                style={{
-                  cursor: "pointer",
-                  alignItems: "center",
-                  marginRight: 3,
-                  marginTop: 3,
-                  backgroundColor:
-                    index === selectedBadgeIndex ? "#B8CEF9" : "",
-                }}
-                onClick={() => {
-                  setSelectedBadgeIndex(index);
-                  setFieldValue(items[index]);
-                  setIsEditing(true);
-                }}
-              >
-                {getBadgeText ? getBadgeText(value) : value.toString()}
-                <Icon
-                  style={{
-                    cursor: "pointer",
-                    paddingLeft: 3,
-                    width: 20,
-                    height: 20,
-                  }}
-                  viewBox={{ width: 20, height: 20 }}
-                  paths={[
-                    {
-                      d: "M10 10l5.09-5.09L10 10l5.09 5.09L10 10zm0 0L4.91 4.91 10 10l-5.09 5.09L10 10z",
-                      stroke: "black",
-                    },
-                  ]}
-                  ariaLabel="button"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    removeItem(index);
-                  }}
-                />
-              </Badge>
-            );
-          })}
-        </ScrollView>
-      )}
-      <Divider orientation="horizontal" marginTop={5} />
-    </React.Fragment>
-  );
-  if (lengthLimit !== undefined && items.length >= lengthLimit && !isEditing) {
-    return (
-      <React.Fragment>
-        {labelElement}
-        {arraySection}
-      </React.Fragment>
-    );
-  }
-  return (
-    <React.Fragment>
-      {labelElement}
-      {isEditing && children}
-      {!isEditing ? (
-        <>
-          <Button
-            onClick={() => {
-              setIsEditing(true);
-            }}
-          >
-            Add item
-          </Button>
-          {errorMessage && hasError && (
-            <Text color={errorStyles.color} fontSize={errorStyles.fontSize}>
-              {errorMessage}
-            </Text>
-          )}
-        </>
-      ) : (
-        <Flex justifyContent="flex-end">
-          {(currentFieldValue || isEditing) && (
-            <Button
-              children="Cancel"
-              type="button"
-              size="small"
-              onClick={() => {
-                setFieldValue(defaultFieldValue);
-                setIsEditing(false);
-                setSelectedBadgeIndex(undefined);
-              }}
-            ></Button>
-          )}
-          <Button size="small" variation="link" onClick={addItem}>
-            {selectedBadgeIndex !== undefined ? "Save" : "Add"}
-          </Button>
-        </Flex>
-      )}
-      {arraySection}
-    </React.Fragment>
-  );
-}
 export default function CentralHDSInputsCreateForm(props) {
   const {
     clearOnSuccess = true,
@@ -195,7 +29,7 @@ export default function CentralHDSInputsCreateForm(props) {
     TTMaxFleetSize: "",
     TTLingeringTime: "",
     TTTimeToFill: "",
-    TTFillingProfile: [],
+    TTFillingProfile: "",
   };
   const [PipelineSupplyPressure, setPipelineSupplyPressure] = React.useState(
     initialValues.PipelineSupplyPressure
@@ -230,12 +64,8 @@ export default function CentralHDSInputsCreateForm(props) {
     setTTLingeringTime(initialValues.TTLingeringTime);
     setTTTimeToFill(initialValues.TTTimeToFill);
     setTTFillingProfile(initialValues.TTFillingProfile);
-    setCurrentTTFillingProfileValue("");
     setErrors({});
   };
-  const [currentTTFillingProfileValue, setCurrentTTFillingProfileValue] =
-    React.useState("");
-  const TTFillingProfileRef = React.createRef();
   const validations = {
     PipelineSupplyPressure: [{ type: "Required" }],
     PipelineSupplyFlowrateMax: [{ type: "Required" }],
@@ -619,9 +449,22 @@ export default function CentralHDSInputsCreateForm(props) {
         hasError={errors.TTTimeToFill?.hasError}
         {...getOverrideProps(overrides, "TTTimeToFill")}
       ></TextField>
-      <ArrayField
-        onChange={async (items) => {
-          let values = items;
+      <TextField
+        label={
+          <span style={{ display: "inline-flex" }}>
+            <span>Tube Trailer Filling Profile</span>
+            <span style={{ color: "red" }}>*</span>
+          </span>
+        }
+        isRequired={true}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={TTFillingProfile}
+        onChange={(e) => {
+          let value = isNaN(parseFloat(e.target.value))
+            ? e.target.value
+            : parseFloat(e.target.value);
           if (onChange) {
             const modelFields = {
               PipelineSupplyPressure,
@@ -631,60 +474,21 @@ export default function CentralHDSInputsCreateForm(props) {
               TTMaxFleetSize,
               TTLingeringTime,
               TTTimeToFill,
-              TTFillingProfile: values,
+              TTFillingProfile: value,
             };
             const result = onChange(modelFields);
-            values = result?.TTFillingProfile ?? values;
+            value = result?.TTFillingProfile ?? value;
           }
-          setTTFillingProfile(values);
-          setCurrentTTFillingProfileValue("");
+          if (errors.TTFillingProfile?.hasError) {
+            runValidationTasks("TTFillingProfile", value);
+          }
+          setTTFillingProfile(value);
         }}
-        currentFieldValue={currentTTFillingProfileValue}
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>Tube Trailer Filling Profile</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
-        items={TTFillingProfile}
-        hasError={errors?.TTFillingProfile?.hasError}
-        runValidationTasks={async () =>
-          await runValidationTasks(
-            "TTFillingProfile",
-            currentTTFillingProfileValue
-          )
-        }
-        errorMessage={errors?.TTFillingProfile?.errorMessage}
-        setFieldValue={setCurrentTTFillingProfileValue}
-        inputFieldRef={TTFillingProfileRef}
-        defaultFieldValue={""}
-      >
-        <TextField
-          label="Tube Trailer Filling Profile"
-          isRequired={true}
-          isReadOnly={false}
-          type="number"
-          step="any"
-          value={currentTTFillingProfileValue}
-          onChange={(e) => {
-            let value = isNaN(parseFloat(e.target.value))
-              ? e.target.value
-              : parseFloat(e.target.value);
-            if (errors.TTFillingProfile?.hasError) {
-              runValidationTasks("TTFillingProfile", value);
-            }
-            setCurrentTTFillingProfileValue(value);
-          }}
-          onBlur={() =>
-            runValidationTasks("TTFillingProfile", currentTTFillingProfileValue)
-          }
-          errorMessage={errors.TTFillingProfile?.errorMessage}
-          hasError={errors.TTFillingProfile?.hasError}
-          ref={TTFillingProfileRef}
-          labelHidden={true}
-          {...getOverrideProps(overrides, "TTFillingProfile")}
-        ></TextField>
-      </ArrayField>
+        onBlur={() => runValidationTasks("TTFillingProfile", TTFillingProfile)}
+        errorMessage={errors.TTFillingProfile?.errorMessage}
+        hasError={errors.TTFillingProfile?.hasError}
+        {...getOverrideProps(overrides, "TTFillingProfile")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

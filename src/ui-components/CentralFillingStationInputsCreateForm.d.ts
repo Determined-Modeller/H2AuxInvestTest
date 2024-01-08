@@ -29,7 +29,7 @@ export declare type CentralFillingStationInputsCreateFormInputValues = {
     VFSizeOfFleet?: number;
     VFTimeToFill?: number;
     VFLingeringTime?: number;
-    VFFillingProfile?: number[];
+    VFFillingProfile?: number;
 };
 export declare type CentralFillingStationInputsCreateFormValidationValues = {
     PipelineSupplyPressure?: ValidationFunction<number>;

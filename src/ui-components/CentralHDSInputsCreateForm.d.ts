@@ -29,7 +29,7 @@ export declare type CentralHDSInputsCreateFormInputValues = {
     TTMaxFleetSize?: number;
     TTLingeringTime?: number;
     TTTimeToFill?: number;
-    TTFillingProfile?: number[];
+    TTFillingProfile?: number;
 };
 export declare type CentralHDSInputsCreateFormValidationValues = {
     PipelineSupplyPressure?: ValidationFunction<number>;

@@ -25,10 +25,10 @@ export declare type DistributedIndustrialUserCreateFormInputValues = {
     TTSupplyPressure?: number;
     TTEffectiveCapacity?: number;
     NumTTDeliveries?: number;
-    TTUsageProfile?: number[];
+    TTUsageProfile?: number;
     MinServiceFlowrate?: number;
     MinServicePressure?: number;
-    IndUsageProfile?: number[];
+    IndUsageProfile?: number;
 };
 export declare type DistributedIndustrialUserCreateFormValidationValues = {
     TTSupplyPressure?: ValidationFunction<number>;

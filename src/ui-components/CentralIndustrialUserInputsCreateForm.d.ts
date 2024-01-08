@@ -28,7 +28,7 @@ export declare type CentralIndustrialUserInputsCreateFormInputValues = {
     MinServicePressure?: number;
     MinServiceTemperature?: number;
     IndDemandHours?: number;
-    IndUsageProfile?: number[];
+    IndUsageProfile?: number;
 };
 export declare type CentralIndustrialUserInputsCreateFormValidationValues = {
     PipelineSupplyPressure?: ValidationFunction<number>;

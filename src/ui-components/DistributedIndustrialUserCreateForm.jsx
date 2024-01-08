@@ -6,176 +6,10 @@
 
 /* eslint-disable */
 import * as React from "react";
-import {
-  Badge,
-  Button,
-  Divider,
-  Flex,
-  Grid,
-  Icon,
-  ScrollView,
-  Text,
-  TextField,
-  useTheme,
-} from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { DistributedIndustrialUser } from "../models";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { DataStore } from "aws-amplify/datastore";
-function ArrayField({
-  items = [],
-  onChange,
-  label,
-  inputFieldRef,
-  children,
-  hasError,
-  setFieldValue,
-  currentFieldValue,
-  defaultFieldValue,
-  lengthLimit,
-  getBadgeText,
-  runValidationTasks,
-  errorMessage,
-}) {
-  const labelElement = <Text>{label}</Text>;
-  const {
-    tokens: {
-      components: {
-        fieldmessages: { error: errorStyles },
-      },
-    },
-  } = useTheme();
-  const [selectedBadgeIndex, setSelectedBadgeIndex] = React.useState();
-  const [isEditing, setIsEditing] = React.useState();
-  React.useEffect(() => {
-    if (isEditing) {
-      inputFieldRef?.current?.focus();
-    }
-  }, [isEditing]);
-  const removeItem = async (removeIndex) => {
-    const newItems = items.filter((value, index) => index !== removeIndex);
-    await onChange(newItems);
-    setSelectedBadgeIndex(undefined);
-  };
-  const addItem = async () => {
-    const { hasError } = runValidationTasks();
-    if (
-      currentFieldValue !== undefined &&
-      currentFieldValue !== null &&
-      currentFieldValue !== "" &&
-      !hasError
-    ) {
-      const newItems = [...items];
-      if (selectedBadgeIndex !== undefined) {
-        newItems[selectedBadgeIndex] = currentFieldValue;
-        setSelectedBadgeIndex(undefined);
-      } else {
-        newItems.push(currentFieldValue);
-      }
-      await onChange(newItems);
-      setIsEditing(false);
-    }
-  };
-  const arraySection = (
-    <React.Fragment>
-      {!!items?.length && (
-        <ScrollView height="inherit" width="inherit" maxHeight={"7rem"}>
-          {items.map((value, index) => {
-            return (
-              <Badge
-                key={index}
-                style={{
-                  cursor: "pointer",
-                  alignItems: "center",
-                  marginRight: 3,
-                  marginTop: 3,
-                  backgroundColor:
-                    index === selectedBadgeIndex ? "#B8CEF9" : "",
-                }}
-                onClick={() => {
-                  setSelectedBadgeIndex(index);
-                  setFieldValue(items[index]);
-                  setIsEditing(true);
-                }}
-              >
-                {getBadgeText ? getBadgeText(value) : value.toString()}
-                <Icon
-                  style={{
-                    cursor: "pointer",
-                    paddingLeft: 3,
-                    width: 20,
-                    height: 20,
-                  }}
-                  viewBox={{ width: 20, height: 20 }}
-                  paths={[
-                    {
-                      d: "M10 10l5.09-5.09L10 10l5.09 5.09L10 10zm0 0L4.91 4.91 10 10l-5.09 5.09L10 10z",
-                      stroke: "black",
-                    },
-                  ]}
-                  ariaLabel="button"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    removeItem(index);
-                  }}
-                />
-              </Badge>
-            );
-          })}
-        </ScrollView>
-      )}
-      <Divider orientation="horizontal" marginTop={5} />
-    </React.Fragment>
-  );
-  if (lengthLimit !== undefined && items.length >= lengthLimit && !isEditing) {
-    return (
-      <React.Fragment>
-        {labelElement}
-        {arraySection}
-      </React.Fragment>
-    );
-  }
-  return (
-    <React.Fragment>
-      {labelElement}
-      {isEditing && children}
-      {!isEditing ? (
-        <>
-          <Button
-            onClick={() => {
-              setIsEditing(true);
-            }}
-          >
-            Add item
-          </Button>
-          {errorMessage && hasError && (
-            <Text color={errorStyles.color} fontSize={errorStyles.fontSize}>
-              {errorMessage}
-            </Text>
-          )}
-        </>
-      ) : (
-        <Flex justifyContent="flex-end">
-          {(currentFieldValue || isEditing) && (
-            <Button
-              children="Cancel"
-              type="button"
-              size="small"
-              onClick={() => {
-                setFieldValue(defaultFieldValue);
-                setIsEditing(false);
-                setSelectedBadgeIndex(undefined);
-              }}
-            ></Button>
-          )}
-          <Button size="small" variation="link" onClick={addItem}>
-            {selectedBadgeIndex !== undefined ? "Save" : "Add"}
-          </Button>
-        </Flex>
-      )}
-      {arraySection}
-    </React.Fragment>
-  );
-}
 export default function DistributedIndustrialUserCreateForm(props) {
   const {
     clearOnSuccess = true,
@@ -191,10 +25,10 @@ export default function DistributedIndustrialUserCreateForm(props) {
     TTSupplyPressure: "",
     TTEffectiveCapacity: "",
     NumTTDeliveries: "",
-    TTUsageProfile: [],
+    TTUsageProfile: "",
     MinServiceFlowrate: "",
     MinServicePressure: "",
-    IndUsageProfile: [],
+    IndUsageProfile: "",
   };
   const [TTSupplyPressure, setTTSupplyPressure] = React.useState(
     initialValues.TTSupplyPressure
@@ -223,19 +57,11 @@ export default function DistributedIndustrialUserCreateForm(props) {
     setTTEffectiveCapacity(initialValues.TTEffectiveCapacity);
     setNumTTDeliveries(initialValues.NumTTDeliveries);
     setTTUsageProfile(initialValues.TTUsageProfile);
-    setCurrentTTUsageProfileValue("");
     setMinServiceFlowrate(initialValues.MinServiceFlowrate);
     setMinServicePressure(initialValues.MinServicePressure);
     setIndUsageProfile(initialValues.IndUsageProfile);
-    setCurrentIndUsageProfileValue("");
     setErrors({});
   };
-  const [currentTTUsageProfileValue, setCurrentTTUsageProfileValue] =
-    React.useState("");
-  const TTUsageProfileRef = React.createRef();
-  const [currentIndUsageProfileValue, setCurrentIndUsageProfileValue] =
-    React.useState("");
-  const IndUsageProfileRef = React.createRef();
   const validations = {
     TTSupplyPressure: [{ type: "Required" }],
     TTEffectiveCapacity: [{ type: "Required" }],
@@ -427,63 +253,40 @@ export default function DistributedIndustrialUserCreateForm(props) {
         hasError={errors.NumTTDeliveries?.hasError}
         {...getOverrideProps(overrides, "NumTTDeliveries")}
       ></TextField>
-      <ArrayField
-        onChange={async (items) => {
-          let values = items;
+      <TextField
+        label="Tube Trailer Usage Profile"
+        isRequired={true}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={TTUsageProfile}
+        onChange={(e) => {
+          let value = isNaN(parseFloat(e.target.value))
+            ? e.target.value
+            : parseFloat(e.target.value);
           if (onChange) {
             const modelFields = {
               TTSupplyPressure,
               TTEffectiveCapacity,
               NumTTDeliveries,
-              TTUsageProfile: values,
+              TTUsageProfile: value,
               MinServiceFlowrate,
               MinServicePressure,
               IndUsageProfile,
             };
             const result = onChange(modelFields);
-            values = result?.TTUsageProfile ?? values;
+            value = result?.TTUsageProfile ?? value;
           }
-          setTTUsageProfile(values);
-          setCurrentTTUsageProfileValue("");
+          if (errors.TTUsageProfile?.hasError) {
+            runValidationTasks("TTUsageProfile", value);
+          }
+          setTTUsageProfile(value);
         }}
-        currentFieldValue={currentTTUsageProfileValue}
-        label={"Tube Trailer Usage Profile"}
-        items={TTUsageProfile}
-        hasError={errors?.TTUsageProfile?.hasError}
-        runValidationTasks={async () =>
-          await runValidationTasks("TTUsageProfile", currentTTUsageProfileValue)
-        }
-        errorMessage={errors?.TTUsageProfile?.errorMessage}
-        setFieldValue={setCurrentTTUsageProfileValue}
-        inputFieldRef={TTUsageProfileRef}
-        defaultFieldValue={""}
-      >
-        <TextField
-          label="Tube Trailer Usage Profile"
-          isRequired={true}
-          isReadOnly={false}
-          type="number"
-          step="any"
-          value={currentTTUsageProfileValue}
-          onChange={(e) => {
-            let value = isNaN(parseFloat(e.target.value))
-              ? e.target.value
-              : parseFloat(e.target.value);
-            if (errors.TTUsageProfile?.hasError) {
-              runValidationTasks("TTUsageProfile", value);
-            }
-            setCurrentTTUsageProfileValue(value);
-          }}
-          onBlur={() =>
-            runValidationTasks("TTUsageProfile", currentTTUsageProfileValue)
-          }
-          errorMessage={errors.TTUsageProfile?.errorMessage}
-          hasError={errors.TTUsageProfile?.hasError}
-          ref={TTUsageProfileRef}
-          labelHidden={true}
-          {...getOverrideProps(overrides, "TTUsageProfile")}
-        ></TextField>
-      </ArrayField>
+        onBlur={() => runValidationTasks("TTUsageProfile", TTUsageProfile)}
+        errorMessage={errors.TTUsageProfile?.errorMessage}
+        hasError={errors.TTUsageProfile?.hasError}
+        {...getOverrideProps(overrides, "TTUsageProfile")}
+      ></TextField>
       <TextField
         label="Minimum Service Flowrate"
         descriptiveText="Minimum industrial use flowrate when in use"
@@ -558,9 +361,17 @@ export default function DistributedIndustrialUserCreateForm(props) {
         hasError={errors.MinServicePressure?.hasError}
         {...getOverrideProps(overrides, "MinServicePressure")}
       ></TextField>
-      <ArrayField
-        onChange={async (items) => {
-          let values = items;
+      <TextField
+        label="Service usage profile"
+        isRequired={true}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={IndUsageProfile}
+        onChange={(e) => {
+          let value = isNaN(parseFloat(e.target.value))
+            ? e.target.value
+            : parseFloat(e.target.value);
           if (onChange) {
             const modelFields = {
               TTSupplyPressure,
@@ -569,55 +380,21 @@ export default function DistributedIndustrialUserCreateForm(props) {
               TTUsageProfile,
               MinServiceFlowrate,
               MinServicePressure,
-              IndUsageProfile: values,
+              IndUsageProfile: value,
             };
             const result = onChange(modelFields);
-            values = result?.IndUsageProfile ?? values;
+            value = result?.IndUsageProfile ?? value;
           }
-          setIndUsageProfile(values);
-          setCurrentIndUsageProfileValue("");
+          if (errors.IndUsageProfile?.hasError) {
+            runValidationTasks("IndUsageProfile", value);
+          }
+          setIndUsageProfile(value);
         }}
-        currentFieldValue={currentIndUsageProfileValue}
-        label={"Service usage profile"}
-        items={IndUsageProfile}
-        hasError={errors?.IndUsageProfile?.hasError}
-        runValidationTasks={async () =>
-          await runValidationTasks(
-            "IndUsageProfile",
-            currentIndUsageProfileValue
-          )
-        }
-        errorMessage={errors?.IndUsageProfile?.errorMessage}
-        setFieldValue={setCurrentIndUsageProfileValue}
-        inputFieldRef={IndUsageProfileRef}
-        defaultFieldValue={""}
-      >
-        <TextField
-          label="Service usage profile"
-          isRequired={true}
-          isReadOnly={false}
-          type="number"
-          step="any"
-          value={currentIndUsageProfileValue}
-          onChange={(e) => {
-            let value = isNaN(parseFloat(e.target.value))
-              ? e.target.value
-              : parseFloat(e.target.value);
-            if (errors.IndUsageProfile?.hasError) {
-              runValidationTasks("IndUsageProfile", value);
-            }
-            setCurrentIndUsageProfileValue(value);
-          }}
-          onBlur={() =>
-            runValidationTasks("IndUsageProfile", currentIndUsageProfileValue)
-          }
-          errorMessage={errors.IndUsageProfile?.errorMessage}
-          hasError={errors.IndUsageProfile?.hasError}
-          ref={IndUsageProfileRef}
-          labelHidden={true}
-          {...getOverrideProps(overrides, "IndUsageProfile")}
-        ></TextField>
-      </ArrayField>
+        onBlur={() => runValidationTasks("IndUsageProfile", IndUsageProfile)}
+        errorMessage={errors.IndUsageProfile?.errorMessage}
+        hasError={errors.IndUsageProfile?.hasError}
+        {...getOverrideProps(overrides, "IndUsageProfile")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

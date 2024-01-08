@@ -25,13 +25,13 @@ export declare type DistributedFillingStationInputsCreateFormInputValues = {
     TTSupplyPressure?: number;
     TTEffectiveCapacity?: number;
     NumTTDeliveries?: number;
-    TTUsageProfile?: number[];
+    TTUsageProfile?: number;
     VFDispensingOption?: string;
     VFMaxVehicleTankCapacity?: number;
     VFSizeOfFleet?: number;
     VFTimeToFill?: number;
     VFLingeringTime?: number;
-    VFFillingProfile?: number[];
+    VFFillingProfile?: number;
 };
 export declare type DistributedFillingStationInputsCreateFormValidationValues = {
     TTSupplyPressure?: ValidationFunction<number>;

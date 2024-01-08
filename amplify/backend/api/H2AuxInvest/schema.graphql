@@ -3,13 +3,13 @@ type DistributedFillingStationInputs @model @auth(rules: [{allow: public}]) {
   TTSupplyPressure: Float!
   TTEffectiveCapacity: Float!
   NumTTDeliveries: Float!
-  TTUsageProfile: [Float!]
+  TTUsageProfile: Float!
   VFDispensingOption: String!
   VFMaxVehicleTankCapacity: Float!
   VFSizeOfFleet: Float!
   VFTimeToFill: Float!
   VFLingeringTime: Float!
-  VFFillingProfile: [Float!]
+  VFFillingProfile: Float!
 }
 
 type DistributedIndustrialUser @model @auth(rules: [{allow: public}]) {
@@ -17,10 +17,10 @@ type DistributedIndustrialUser @model @auth(rules: [{allow: public}]) {
   TTSupplyPressure: Float!
   TTEffectiveCapacity: Float!
   NumTTDeliveries: Float!
-  TTUsageProfile: [Float!]
+  TTUsageProfile: Float!
   MinServiceFlowrate: Float!
   MinServicePressure: Float!
-  IndUsageProfile: [Float!]
+  IndUsageProfile: Float!
 }
 
 type CentralHDSInputs @model @auth(rules: [{allow: public}]) {
@@ -32,7 +32,7 @@ type CentralHDSInputs @model @auth(rules: [{allow: public}]) {
   TTMaxFleetSize: Float!
   TTLingeringTime: Float!
   TTTimeToFill: Float!
-  TTFillingProfile: [Float!]
+  TTFillingProfile: Float!
 }
 
 type CentralFillingStationInputs @model @auth(rules: [{allow: public}]) {
@@ -44,7 +44,7 @@ type CentralFillingStationInputs @model @auth(rules: [{allow: public}]) {
   VFSizeOfFleet: Float!
   VFTimeToFill: Float!
   VFLingeringTime: Float!
-  VFFillingProfile: [Float!]
+  VFFillingProfile: Float!
 }
 
 type CentralIndustrialUserInputs @model @auth(rules: [{allow: public}]) {
@@ -55,7 +55,7 @@ type CentralIndustrialUserInputs @model @auth(rules: [{allow: public}]) {
   MinServicePressure: Float!
   MinServiceTemperature: Float!
   IndDemandHours: Float!
-  IndUsageProfile: [Float!]
+  IndUsageProfile: Float!
 }
 
 type ProjectSetup @model @auth(rules: [{allow: public}]) {
