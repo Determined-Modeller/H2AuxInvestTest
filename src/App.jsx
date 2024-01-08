@@ -3,21 +3,6 @@ import '@aws-amplify/ui-react/styles.css';
 import {
  ProjectSetupCreateForm 
 } from './ui-components';
-import {
- CentralFillingStationInputsCreateForm 
-} from './ui-components';
-import {
- CentralHDSInputsCreateForm 
-} from './ui-components';
-import {
- CentralIndustrialUserInputsCreateForm 
-} from './ui-components';
-import {
- DistributedFillingStationInputsCreateForm 
-} from './ui-components';
-import {
- DistributedIndustrialUserCreateForm 
-} from './ui-components';
 
 
 function App() {
