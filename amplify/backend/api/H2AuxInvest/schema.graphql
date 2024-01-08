@@ -1,0 +1,70 @@
+type DistributedFillingStationInputs @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  TTSupplyPressure: Float!
+  TTEffectiveCapacity: Float!
+  NumTTDeliveries: Float!
+  TTUsageProfile: [Float!]
+  VFDispensingOption: String!
+  VFMaxVehicleTankCapacity: Float!
+  VFSizeOfFleet: Float!
+  VFTimeToFill: Float!
+  VFLingeringTime: Float!
+  VFFillingProfile: [Float!]
+}
+
+type DistributedIndustrialUser @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  TTSupplyPressure: Float!
+  TTEffectiveCapacity: Float!
+  NumTTDeliveries: Float!
+  TTUsageProfile: [Float!]
+  MinServiceFlowrate: Float!
+  MinServicePressure: Float!
+  IndUsageProfile: [Float!]
+}
+
+type CentralHDSInputs @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  PipelineSupplyPressure: Float!
+  PipelineSupplyFlowrateMax: Float!
+  TTEffectiveCapacity: Float!
+  TTPressureReq: Float!
+  TTMaxFleetSize: Float!
+  TTLingeringTime: Float!
+  TTTimeToFill: Float!
+  TTFillingProfile: [Float!]
+}
+
+type CentralFillingStationInputs @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  PipelineSupplyPressure: Float!
+  PipelineSupplyFlowrateMax: Float!
+  VFDispensingOption: String!
+  VFMaxVehicleTankCapacity: Float!
+  VFSizeOfFleet: Float!
+  VFTimeToFill: Float!
+  VFLingeringTime: Float!
+  VFFillingProfile: [Float!]
+}
+
+type CentralIndustrialUserInputs @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  PipelineSupplyPressure: Float!
+  PipelineSupplyFlowrateMax: Float!
+  MinServiceFlowrate: Float!
+  MinServicePressure: Float!
+  MinServiceTemperature: Float!
+  IndDemandHours: Float!
+  IndUsageProfile: [Float!]
+}
+
+type ProjectSetup @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  ProjectName: String!
+  ProjectArchetype: String!
+  H2Supply: String!
+  UserType: String!
+  PurityRequirement: Float!
+  MaxAnnualUtilisation: Float!
+}
+ 
