@@ -1,6 +1,6 @@
 
 
-import { Box, Typography, Input, Button, Select, Option, FormControl, FormHelperText, FormLabel } from "@mui/joy";
+import { Box, Typography, Input, Button, Select, Option, FormControl, FormLabel } from "@mui/joy";
 
 
 import ProgressTracker from "../components/ProgressTracker";
@@ -14,7 +14,6 @@ type Inputs = {
 
 const CalculatorIntake = () => {
     const {
-        register,
         handleSubmit,
         watch,
         formState: { errors },
@@ -124,7 +123,7 @@ const CalculatorIntake = () => {
                         </Button>
                         <Button
                             component="a"
-                            href={ROUTE_CONSTANTS.CALCULATOR_INTAKE}
+                            href={ROUTE_CONSTANTS.CALCULATOR_PLANT_TYPE}
                             size="lg"
                         >
                             Next
