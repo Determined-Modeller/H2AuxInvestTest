@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { Box, CssVarsProvider } from '@mui/joy';
+import { CssBaseline } from '@mui/material';
+// import HeroLeft01 from './blocks/HeroLeft01';
+import defualtTheme from './theme';
+
+import '@fontsource/inter';
+import { Navigation } from '@mui/icons-material';
+import React from 'react';
+import Header from './components/Header';
+import Layout from './components/Layout';
+import HeroLeft01 from './blocks/HeroLeft01';
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <CssVarsProvider disableTransitionOnChange theme={defualtTheme}>
+      <CssBaseline />
+      {drawerOpen && (
+        <Layout.SideDrawer onClose={() => setDrawerOpen(false)}>
+          <Navigation />
+        </Layout.SideDrawer>
+      )}
+      <Layout.Root
+        sx={{
+          ...(drawerOpen && {
+            height: '100vh',
+            overflow: 'hidden',
+          }),
+        }}
+      >
+        <Layout.Header>
+          <Header />
+        </Layout.Header>
+        <Layout.Main>
+          <Box
+            sx={{
+              height: '100vh',
+            }}
+          >
+            <HeroLeft01 />
+          </Box>
+        </Layout.Main>
+      </Layout.Root>
+    </CssVarsProvider>
+  );
 }
 
 export default App
