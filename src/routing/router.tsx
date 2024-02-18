@@ -3,6 +3,7 @@ import Home from "../pages/Home";
 import ROUTE_CONSTANTS from "./routeConstants";
 import Calculator from "../pages/Calculator";
 import Docs from "../pages/Docs";
+import CalculatorIntake from "../pages/CalculatorIntake";
 
 const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     {
         "path": ROUTE_CONSTANTS.CALCULATOR,
         "element": <Calculator />,
+    },
+    {
+        "path": ROUTE_CONSTANTS.CALCULATOR_INTAKE,
+        "element": <CalculatorIntake />,
     }
 ])
 

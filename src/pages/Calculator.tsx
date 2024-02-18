@@ -100,7 +100,7 @@ const Calculator = () => {
                     </Button>
                     <Button
                         component="a"
-                        href={ROUTE_CONSTANTS.CALCULATOR}
+                        href={ROUTE_CONSTANTS.CALCULATOR_INTAKE}
                         size="lg"
                         endDecorator={<ArrowForward />}>
                         Start
