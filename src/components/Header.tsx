@@ -18,6 +18,7 @@ import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 import TeamNav from './Navigation';
+import ROUTE_CONSTANTS from '../routing/routeConstants';
 
 function ColorSchemeToggle() {
   const { mode, setMode } = useColorScheme();
@@ -121,7 +122,7 @@ export default function Header() {
             variant="plain"
             color="neutral"
             component="a"
-            href="/blog/first-look-at-joy/"
+            href={ROUTE_CONSTANTS.CALCULATOR}
             sx={{ alignSelf: 'center' }}
           >
             <GitHubIcon />
@@ -133,7 +134,7 @@ export default function Header() {
             variant="plain"
             color="neutral"
             component="a"
-            href="/blog/first-look-at-joy/"
+            href={ROUTE_CONSTANTS.DOCS}
             sx={{ alignSelf: 'center' }}
           >
             <BookRoundedIcon />
