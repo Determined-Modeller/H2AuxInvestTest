@@ -1,7 +1,6 @@
 import './App.css'
-import { Box, CssVarsProvider } from '@mui/joy';
+import { CssVarsProvider } from '@mui/joy';
 import { CssBaseline } from '@mui/material';
-// import HeroLeft01 from './blocks/HeroLeft01';
 import defualtTheme from './theme';
 
 import '@fontsource/inter';
@@ -9,7 +8,8 @@ import { Navigation } from '@mui/icons-material';
 import React from 'react';
 import Header from './components/Header';
 import Layout from './components/Layout';
-import HeroLeft01 from './blocks/HeroLeft01';
+import { RouterProvider } from 'react-router-dom';
+import router from './routing/router';
 
 
 function App() {
@@ -35,13 +35,8 @@ function App() {
           <Header />
         </Layout.Header>
         <Layout.Main>
-          <Box
-            sx={{
-              height: '100vh',
-            }}
-          >
-            <HeroLeft01 />
-          </Box>
+
+          <RouterProvider router={router} />
         </Layout.Main>
       </Layout.Root>
     </CssVarsProvider>
