@@ -1,5 +1,0 @@
-{
-  "AppSyncApiName": "H2AuxInvest",
-  "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
-}
