@@ -12,7 +12,6 @@ import DialogTitle from '@mui/joy/DialogTitle';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import BookRoundedIcon from '@mui/icons-material/BookRounded';
-import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
 
