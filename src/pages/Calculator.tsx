@@ -15,16 +15,6 @@ import ROUTE_CONSTANTS from "../routing/routeConstants";
 
 const Calculator = () => {
     const { mode } = useColorScheme();
-    // const {
-    //     register,
-    //     handleSubmit,
-    //     watch,
-    //     formState: { errors },
-    // } = useForm<Inputs>()
-    // const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
-
-    // console.log(watch("example")) // watch input value by passing the name of it
-
     return (
         <Box
             sx={{

@@ -16,7 +16,7 @@ interface CalculationStep {
 const steps: CalculationStep[] = [
     {
         "id": 1,
-        "name": "Ingestion"
+        "name": "Inlet"
     },
     {
         "id": 2,
@@ -29,6 +29,10 @@ const steps: CalculationStep[] = [
     {
         "id": 4,
         "name": "Sales"
+    },
+    {
+        "id": 5,
+        "name": "Final Step"
     }
 ]
 
