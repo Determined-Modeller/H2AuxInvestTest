@@ -3,7 +3,10 @@ const ROUTE_CONSTANTS = {
     DOCS: "/documentation",
     CALCULATOR: "/calculator",
     CALCULATOR_INTAKE: "/calculator/intake",
-    CALCULATOR_PLANT_TYPE: "/calculator/plant-type"
+    CALCULATOR_PLANT_TYPE: "/calculator/plant-type",
+    CALCULATOR_CONSUMER: "/calculator/consumer",
+    CALCULATOR_SALES: "/calculator/sales-estimates",
+    CALCULATOR_CONFIG: "/calculator/config"
 }
 
 export default ROUTE_CONSTANTS;

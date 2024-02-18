@@ -16,7 +16,7 @@ function App() {
 
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   return (
-    <CssVarsProvider disableTransitionOnChange theme={defualtTheme}>
+    <CssVarsProvider defaultColorScheme={'dark'} disableTransitionOnChange theme={defualtTheme}>
       <CssBaseline />
       {drawerOpen && (
         <Layout.SideDrawer onClose={() => setDrawerOpen(false)}>

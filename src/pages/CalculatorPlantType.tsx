@@ -154,7 +154,7 @@ const CalculatorPlantType = () => {
                         </Button>
                         <Button
                             component="a"
-                            href={ROUTE_CONSTANTS.CALCULATOR_INTAKE}
+                            href={ROUTE_CONSTANTS.CALCULATOR_CONSUMER}
                             size="lg"
                         >
                             Next
