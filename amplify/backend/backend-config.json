@@ -1,1 +1,44 @@
-{}
+{
+  "api": {
+    "calculator": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "h2auxCalculatorLambda"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "function": {
+    "h2auxCalculatorLambda": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_h2auxCalculatorLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "h2auxCalculatorLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_h2auxCalculatorLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "h2auxCalculatorLambda"
+        }
+      ]
+    }
+  }
+}
