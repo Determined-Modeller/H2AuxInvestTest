@@ -20,7 +20,7 @@ class CalculatorForm(BaseModel):
 @app.post("/calculator/calculate")
 @tracer.capture_method
 def create_todo(formData: CalculatorForm) -> str:  
-    return json.dumps(formData) 
+    return json.dumps(vars(formData)) 
 
 
 @app.get("/calculator")
