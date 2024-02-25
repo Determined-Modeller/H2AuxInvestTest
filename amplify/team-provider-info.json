@@ -10,6 +10,18 @@
       "StackName": "amplify-amplify81115166fe744-staging-122235",
       "StackId": "arn:aws:cloudformation:eu-north-1:047729610787:stack/amplify-amplify81115166fe744-staging-122235/8ef79150-d3d8-11ee-b8b2-0604be0c577a",
       "AmplifyAppId": "d1hw4lola2871i"
+    },
+    "categories": {
+      "function": {
+        "h2auxcalculator": {
+          "test": "test",
+          "deploymentBucketName": "amplify-amplify81115166fe744-staging-122235-deployment",
+          "s3Key": "amplify-builds/h2auxcalculator-306c2f676e7645456446-build.zip"
+        }
+      },
+      "api": {
+        "h2AuxCalculatorApi": {}
+      }
     }
   }
 }
