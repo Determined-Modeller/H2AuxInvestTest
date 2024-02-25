@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "paths": {
+    "/calculator": {
+      "name": "/calculator",
+      "lambdaFunction": "h2auxcalculator",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/calculator/calculate": {
+      "name": "/calculator/calculate",
+      "lambdaFunction": "h2auxcalculator",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/calculator/result/{id}": {
+      "name": "/calculator/result/{id}",
+      "lambdaFunction": "h2auxcalculator",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
