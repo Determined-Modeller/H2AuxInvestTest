@@ -7,6 +7,9 @@ verify_ssl = true
 
 [packages]
 src = {editable = true, path = "./src"}
+"aws-lambda-powertools[parser, validation, tracer]" = "*"
+pydantic = "*"
+pydantic-core = "*"
 
 [requires]
 python_version = "3.8"

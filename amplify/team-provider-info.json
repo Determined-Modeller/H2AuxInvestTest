@@ -16,7 +16,7 @@
         "h2auxcalculator": {
           "test": "test",
           "deploymentBucketName": "amplify-amplify81115166fe744-staging-122235-deployment",
-          "s3Key": "amplify-builds/h2auxcalculator-306c2f676e7645456446-build.zip"
+          "s3Key": "amplify-builds/h2auxcalculator-4e794c703551586d3476-build.zip"
         }
       },
       "api": {
