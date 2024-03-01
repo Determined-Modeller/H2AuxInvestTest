@@ -21,6 +21,9 @@
       },
       "api": {
         "h2AuxCalculatorApi": {}
+      },
+      "storage": {
+        "h2auxcalculations": {}
       }
     }
   }
