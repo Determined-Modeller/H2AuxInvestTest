@@ -8,6 +8,7 @@ import CalculatorPlantType from "../pages/CalculatorPlantType";
 import CalculatorConfig from "../pages/CalculatorConfig";
 import CalculatorSales from "../pages/CalculatorSales";
 import CalculatorConsumer from "../pages/CalculatorConsumer";
+import Results from "../pages/Results";
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
     {
         "path": ROUTE_CONSTANTS.CALCULATOR_CONSUMER,
         "element": <CalculatorConsumer />,
+    },
+    {
+        "path": ROUTE_CONSTANTS.CALCULATOR_RESULTS,
+        "element": <Results />,
     }
 
 ])
