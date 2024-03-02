@@ -3,10 +3,14 @@
 const fs = require('fs');
 const path = require("path")
 
-const testFolder = path.dirname(path.basename(__dirname)) + "/amplify/backend/api/h2AuxCalculatorApi";
+const oasFile = path.dirname(path.basename(__dirname)) + "/amplify/backend/api/h2AuxCalculatorApi/openapi.json";
+const oasTsFile = path.dirname(path.basename(__dirname)) + "/amplify/backend/api/h2AuxCalculatorApi/openapi.ts";
 
-fs.readdir(testFolder, (err, files) => {
-    files.forEach(file => {
-        console.log(file);
-    });
-});
+
+const oasObject = JSON.parse(fs.readFileSync(oasFile, 'utf8'));
+
+const jsonString = JSON.stringify(oasObject);
+const constDeclaration = `const oas = ${jsonString};\nexport default oas;`;
+
+fs.writeFileSync(oasTsFile, constDeclaration, 'utf8')
+
