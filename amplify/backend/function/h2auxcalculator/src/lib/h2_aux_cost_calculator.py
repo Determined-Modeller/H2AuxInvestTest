@@ -34,6 +34,8 @@ class H2AuxCostCalculator:
             avg_flowrate = convert_mass_flowrate_to_kg_per_hour(mass_kg=response['avg_hydrogen_dispensing_rate'],
                                                                 time_unit=response['avg_hydrogen_dispensing_rate_unit'])
 
+        else:
+            print('avg_hydrogen_dispensing_rate_quant wrong unit specified')
 
         # Peak flow rate conversion
         if response['peak_hydrogen_dispensing_rate_quant'] == 'vehicles':
@@ -45,6 +47,9 @@ class H2AuxCostCalculator:
             peak_flowrate = convert_mass_flowrate_to_kg_per_hour(mass_kg=response['peak_hydrogen_dispensing_rate'],
                                                                 time_unit=response['peak_hydrogen_dispensing_rate_unit'])
 
+        else:
+            print('peak_hydrogen_dispensing_rate_quant wrong unit specified')
+        
         print(avg_flowrate)
         print(peak_flowrate)
 

@@ -47,11 +47,11 @@ class Storage():
         '''
         Convert storage capacity value from user-defined units to kg.
         '''
-        if self.storage_capacity_unit == 'kg':
+        if self.storage_capacity_unit == 'KG':
             pass
-        elif self.storage_capacity_unit == 'nm3':
+        elif self.storage_capacity_unit == 'NM3':
             self.storage_capacity = self.storage_capacity * 0.08899
-        elif self.storage_capacity_unit == 'days':
+        elif self.storage_capacity_unit == 'DAYS':
             self.storage_capacity = self.average_hydrogen_flow * self.storage_capacity
         else:
             print('Wrong storage unit specified. Assuming units in kg and continuing calculation.')
@@ -61,65 +61,56 @@ class Storage():
         
             
     def calculate_storage_equipment_cost(self):
-        '''
-        Overridden in some child classes.
         
-        The code duplication in these methods can be removed as follows:
-        #######################################################################
-        base = (0.003125 * (self.storage_pressure)**2 - 0.308375 * (self.storage_pressure) + 622.3375) * self.storage_capacity
-        
-        self.results['equipment_RG'] = {'min': base * 0.9,
-                                        'max': base * 1.1}
-        
-        self.results['equipment_lcoh_RG'] = {k: calculate_lcoh(self.lifetime, 'capex', self.results['equipment'][k], self.wacc, self.average_hydrogen_flow)
-                                             for k in ['min', 'max']}
-        
-        # Check results match
-        for k in self.results['equipment']:
-            assert(math.isclose(self.results['equipment'][k], self.results['equipment_RG'][k]))
-            assert(math.isclose(self.results['equipment_lcoh'][k], self.results['equipment_lcoh_RG'][k]))
-        #######################################################################
-        
-        
-        '''
         base = (0.003125 * (self.storage_pressure)**2 - 0.308375 * (self.storage_pressure) + 622.3375) * self.storage_capacity
         
         self.results['equipment'] = {'min':  (base * 0.9),
+                                     'avg':  (base),
                                      'max':  (base * 1.1)}
         
-        self.results['equipment_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['min'], self.wacc, self.average_hydrogen_flow ),
-                                          'max': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.average_hydrogen_flow )}
+        self.results['equipment_lcoh'] = {'min':  calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['min'], self.wacc, self.average_hydrogen_flow ),
+                                          'avg':  calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['avg'], self.wacc, self.average_hydrogen_flow ),
+                                          'max':  calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.average_hydrogen_flow )}
         
         
     def calculate_storage_installation_cost(self):
         self.results['installation'] = {'min':  (self.results['equipment']['min'] * 0.25),
+                                        'avg':  (self.results['equipment']['avg'] * 0.25),
                                         'max':  (self.results['equipment']['max'] * 0.25)}
         
-        self.results['installation_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'capex', self.results['installation']['min'], self.wacc, self.average_hydrogen_flow ),
-                                             'max': calculate_lcoh(self.lifetime, 'capex', self.results['installation']['max'], self.wacc, self.average_hydrogen_flow )}
+        self.results['installation_lcoh'] = {'min':  calculate_lcoh(self.lifetime, 'capex', self.results['installation']['min'], self.wacc, self.average_hydrogen_flow ),
+                                             'avg':  calculate_lcoh(self.lifetime, 'capex', self.results['installation']['avg'], self.wacc, self.average_hydrogen_flow ),
+                                             'max':  calculate_lcoh(self.lifetime, 'capex', self.results['installation']['max'], self.wacc, self.average_hydrogen_flow )}
         
     def calculate_storage_maintenance(self):
         self.results['maintenance'] = {'min':  (self.results['equipment']['min'] * 0.02),
+                                       'avg':  (self.results['equipment']['avg'] * 0.02),
                                        'max':  (self.results['equipment']['max'] * 0.02)}
         
-        self.results['maintenance_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'opex', self.results['maintenance']['min'], self.wacc, self.average_hydrogen_flow ),
-                                            'max': calculate_lcoh(self.lifetime, 'opex', self.results['maintenance']['max'], self.wacc, self.average_hydrogen_flow )}
+        self.results['maintenance_lcoh'] = {'min':  calculate_lcoh(self.lifetime, 'opex', self.results['maintenance']['min'], self.wacc, self.average_hydrogen_flow ),
+                                            'avg':  calculate_lcoh(self.lifetime, 'opex', self.results['maintenance']['avg'], self.wacc, self.average_hydrogen_flow ),
+                                            'max':  calculate_lcoh(self.lifetime, 'opex', self.results['maintenance']['max'], self.wacc, self.average_hydrogen_flow )}
         
     def calculate_storage_energy(self): 
         self.results['energy'] = {'min':  0,
+                                  'avg':  0,
                                   'max':  0}
         
-        self.results['energy_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'opex', self.results['energy']['min'], self.wacc, self.average_hydrogen_flow ),
-                                     'max': calculate_lcoh(self.lifetime, 'opex', self.results['energy']['max'], self.wacc, self.average_hydrogen_flow )}
+        self.results['energy_lcoh'] = {'min':  calculate_lcoh(self.lifetime, 'opex', self.results['energy']['min'], self.wacc, self.average_hydrogen_flow ),
+                                       'avg':  calculate_lcoh(self.lifetime, 'opex', self.results['energy']['avg'], self.wacc, self.average_hydrogen_flow ),
+                                       'max':  calculate_lcoh(self.lifetime, 'opex', self.results['energy']['max'], self.wacc, self.average_hydrogen_flow )}
         
     def calculate_cost_summary(self): 
         self.results['sum_capex'] = {'min': self.results['equipment']['min'] + self.results['installation']['min'],
+                                     'avg': self.results['equipment']['min'] + self.results['installation']['avg'],
                                      'max': self.results['equipment']['max'] + self.results['installation']['max']}
          
         self.results['sum_opex'] = {'min': self.results['energy']['min'] + self.results['maintenance']['min'],
+                                    'avg': self.results['energy']['avg'] + self.results['maintenance']['avg'],
                                     'max': self.results['energy']['max'] + self.results['maintenance']['max']}
       
         self.results['sum_lcoh'] = {'min': sum([self.results[i]['min'] for i in self.results if 'lcoh' in i]),
+                                    'avg': sum([self.results[i]['avg'] for i in self.results if 'lcoh' in i]),
                                     'max': sum([self.results[i]['max'] for i in self.results if 'lcoh' in i])}
       
         
@@ -133,10 +124,12 @@ class Storage_I_II(Storage):
     # overridden method
     def calculate_storage_equipment_cost(self):
         self.results['equipment'] = {'min': ((0.00275 * (self.storage_pressure)**2 - 0.27137 * (self.storage_pressure) + 547.657) * 0.9 * self.storage_capacity),
-                                   'max': ((0.00275 * (self.storage_pressure)**2 - 0.27137 * (self.storage_pressure) + 547.657) * 1.1 * self.storage_capacity)}
+                                     'avg': ((0.00275 * (self.storage_pressure)**2 - 0.27137 * (self.storage_pressure) + 547.657) * 1.0 * self.storage_capacity),
+                                     'max': ((0.00275 * (self.storage_pressure)**2 - 0.27137 * (self.storage_pressure) + 547.657) * 1.1 * self.storage_capacity)}
         
         self.results['equipment_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['min'], self.wacc, self.average_hydrogen_flow ),
-                                        'max': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.average_hydrogen_flow )}
+                                          'avg': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['avg'], self.wacc, self.average_hydrogen_flow ),
+                                          'max': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.average_hydrogen_flow )}
     
 class Storage_III_IV(Storage):
     
@@ -154,7 +147,9 @@ class Storage_III_IV(Storage):
         
         '''
         self.results['equipment'] = {'min': ((0.003125 * (self.storage_pressure)**2 - 0.308375 * (self.storage_pressure) + 622.3375) * 0.9 * self.storage_capacity),
+                                     'avg': ((0.003125 * (self.storage_pressure)**2 - 0.308375 * (self.storage_pressure) + 622.3375) * 1.0 * self.storage_capacity),
                                      'max': ((0.003125 * (self.storage_pressure)**2 - 0.308375 * (self.storage_pressure) + 622.3375) * 1.1 * self.storage_capacity)}
         
         self.results['equipment_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['min'], self.wacc, self.average_hydrogen_flow ),
+                                          'avg': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['avg'], self.wacc, self.average_hydrogen_flow ),
                                           'max': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.average_hydrogen_flow )}
