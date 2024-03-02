@@ -18,20 +18,20 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
-from pydantic import BaseModel, StrictStr
-from openapi_client.models.response_schema_compressors import ResponseSchemaCompressors
-from openapi_client.models.response_schema_dispensers import ResponseSchemaDispensers
-from openapi_client.models.response_schema_storage import ResponseSchemaStorage
+from typing import List, Optional
+from pydantic import BaseModel, StrictStr, conlist
+from openapi_client.models.response_schema_compressors_inner import ResponseSchemaCompressorsInner
+from openapi_client.models.response_schema_dispensers_inner import ResponseSchemaDispensersInner
+from openapi_client.models.response_schema_storage_inner import ResponseSchemaStorageInner
 
 class ResponseSchema(BaseModel):
     """
     ResponseSchema
     """
     calculation_id: Optional[StrictStr] = None
-    dispensers: Optional[ResponseSchemaDispensers] = None
-    compressors: Optional[ResponseSchemaCompressors] = None
-    storage: Optional[ResponseSchemaStorage] = None
+    dispensers: Optional[conlist(ResponseSchemaDispensersInner)] = None
+    compressors: Optional[conlist(ResponseSchemaCompressorsInner)] = None
+    storage: Optional[conlist(ResponseSchemaStorageInner)] = None
     __properties = ["calculation_id", "dispensers", "compressors", "storage"]
 
     class Config:
@@ -58,15 +58,27 @@ class ResponseSchema(BaseModel):
                           exclude={
                           },
                           exclude_none=True)
-        # override the default output from pydantic by calling `to_dict()` of dispensers
+        # override the default output from pydantic by calling `to_dict()` of each item in dispensers (list)
+        _items = []
         if self.dispensers:
-            _dict['dispensers'] = self.dispensers.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of compressors
+            for _item in self.dispensers:
+                if _item:
+                    _items.append(_item.to_dict())
+            _dict['dispensers'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in compressors (list)
+        _items = []
         if self.compressors:
-            _dict['compressors'] = self.compressors.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of storage
+            for _item in self.compressors:
+                if _item:
+                    _items.append(_item.to_dict())
+            _dict['compressors'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in storage (list)
+        _items = []
         if self.storage:
-            _dict['storage'] = self.storage.to_dict()
+            for _item in self.storage:
+                if _item:
+                    _items.append(_item.to_dict())
+            _dict['storage'] = _items
         return _dict
 
     @classmethod
@@ -80,9 +92,9 @@ class ResponseSchema(BaseModel):
 
         _obj = ResponseSchema.parse_obj({
             "calculation_id": obj.get("calculation_id"),
-            "dispensers": ResponseSchemaDispensers.from_dict(obj.get("dispensers")) if obj.get("dispensers") is not None else None,
-            "compressors": ResponseSchemaCompressors.from_dict(obj.get("compressors")) if obj.get("compressors") is not None else None,
-            "storage": ResponseSchemaStorage.from_dict(obj.get("storage")) if obj.get("storage") is not None else None
+            "dispensers": [ResponseSchemaDispensersInner.from_dict(_item) for _item in obj.get("dispensers")] if obj.get("dispensers") is not None else None,
+            "compressors": [ResponseSchemaCompressorsInner.from_dict(_item) for _item in obj.get("compressors")] if obj.get("compressors") is not None else None,
+            "storage": [ResponseSchemaStorageInner.from_dict(_item) for _item in obj.get("storage")] if obj.get("storage") is not None else None
         })
         return _obj
 

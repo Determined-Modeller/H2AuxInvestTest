@@ -374,155 +374,158 @@
                     "type": "string"
                 },
                 "dispensers": {
-                    "type": "object",
-                    "properties": {
-                        "id": {
-                            "type": "string"
-                        },
-                        "meta": {
-                            "type": "object",
-                            "properties": {
-                                "title": {
-                                    "type": "string"
-                                },
-                                "description": {
-                                    "type": "string"
-                                },
-                                "positives": {
-                                    "type": "array",
-                                    "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "meta": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
                                         "type": "string"
-                                    }
-                                },
-                                "negatives": {
-                                    "type": "array",
-                                    "items": {
+                                    },
+                                    "description": {
                                         "type": "string"
+                                    },
+                                    "positives": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "negatives": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
                                     }
                                 }
-                            }
-                        },
-                        "results": {
-                            "type": "object",
-                            "properties": {
-                                "equipment": {
-                                    "type": "object",
-                                    "properties": {
-                                        "min": {
-                                            "type": "number"
-                                        },
-                                        "max": {
-                                            "type": "number"
+                            },
+                            "results": {
+                                "type": "object",
+                                "properties": {
+                                    "equipment": {
+                                        "type": "object",
+                                        "properties": {
+                                            "min": {
+                                                "type": "number"
+                                            },
+                                            "max": {
+                                                "type": "number"
+                                            }
                                         }
-                                    }
-                                },
-                                "equipment_lcoh": {
-                                    "type": "object",
-                                    "properties": {
-                                        "min": {
-                                            "type": "number"
-                                        },
-                                        "max": {
-                                            "type": "number"
+                                    },
+                                    "equipment_lcoh": {
+                                        "type": "object",
+                                        "properties": {
+                                            "min": {
+                                                "type": "number"
+                                            },
+                                            "max": {
+                                                "type": "number"
+                                            }
                                         }
-                                    }
-                                },
-                                "maintenance": {
-                                    "type": "object",
-                                    "properties": {
-                                        "min": {
-                                            "type": "number"
-                                        },
-                                        "max": {
-                                            "type": "number"
+                                    },
+                                    "maintenance": {
+                                        "type": "object",
+                                        "properties": {
+                                            "min": {
+                                                "type": "number"
+                                            },
+                                            "max": {
+                                                "type": "number"
+                                            }
                                         }
-                                    }
-                                },
-                                "maintenance_lcoh": {
-                                    "type": "object",
-                                    "properties": {
-                                        "min": {
-                                            "type": "number"
-                                        },
-                                        "max": {
-                                            "type": "number"
+                                    },
+                                    "maintenance_lcoh": {
+                                        "type": "object",
+                                        "properties": {
+                                            "min": {
+                                                "type": "number"
+                                            },
+                                            "max": {
+                                                "type": "number"
+                                            }
                                         }
-                                    }
-                                },
-                                "installation": {
-                                    "type": "object",
-                                    "properties": {
-                                        "min": {
-                                            "type": "number"
-                                        },
-                                        "max": {
-                                            "type": "number"
+                                    },
+                                    "installation": {
+                                        "type": "object",
+                                        "properties": {
+                                            "min": {
+                                                "type": "number"
+                                            },
+                                            "max": {
+                                                "type": "number"
+                                            }
                                         }
-                                    }
-                                },
-                                "installation_lcoh": {
-                                    "type": "object",
-                                    "properties": {
-                                        "min": {
-                                            "type": "number"
-                                        },
-                                        "max": {
-                                            "type": "number"
+                                    },
+                                    "installation_lcoh": {
+                                        "type": "object",
+                                        "properties": {
+                                            "min": {
+                                                "type": "number"
+                                            },
+                                            "max": {
+                                                "type": "number"
+                                            }
                                         }
-                                    }
-                                },
-                                "energy": {
-                                    "type": "object",
-                                    "properties": {
-                                        "min": {
-                                            "type": "number"
-                                        },
-                                        "max": {
-                                            "type": "number"
+                                    },
+                                    "energy": {
+                                        "type": "object",
+                                        "properties": {
+                                            "min": {
+                                                "type": "number"
+                                            },
+                                            "max": {
+                                                "type": "number"
+                                            }
                                         }
-                                    }
-                                },
-                                "energy_lcoh": {
-                                    "type": "object",
-                                    "properties": {
-                                        "min": {
-                                            "type": "number"
-                                        },
-                                        "max": {
-                                            "type": "number"
+                                    },
+                                    "energy_lcoh": {
+                                        "type": "object",
+                                        "properties": {
+                                            "min": {
+                                                "type": "number"
+                                            },
+                                            "max": {
+                                                "type": "number"
+                                            }
                                         }
-                                    }
-                                },
-                                "sum_capex": {
-                                    "type": "object",
-                                    "properties": {
-                                        "min": {
-                                            "type": "number"
-                                        },
-                                        "max": {
-                                            "type": "number"
+                                    },
+                                    "sum_capex": {
+                                        "type": "object",
+                                        "properties": {
+                                            "min": {
+                                                "type": "number"
+                                            },
+                                            "max": {
+                                                "type": "number"
+                                            }
                                         }
-                                    }
-                                },
-                                "sum_opex": {
-                                    "type": "object",
-                                    "properties": {
-                                        "min": {
-                                            "type": "number"
-                                        },
-                                        "max": {
-                                            "type": "number"
+                                    },
+                                    "sum_opex": {
+                                        "type": "object",
+                                        "properties": {
+                                            "min": {
+                                                "type": "number"
+                                            },
+                                            "max": {
+                                                "type": "number"
+                                            }
                                         }
-                                    }
-                                },
-                                "sum_lcoh": {
-                                    "type": "object",
-                                    "properties": {
-                                        "min": {
-                                            "type": "number"
-                                        },
-                                        "max": {
-                                            "type": "number"
+                                    },
+                                    "sum_lcoh": {
+                                        "type": "object",
+                                        "properties": {
+                                            "min": {
+                                                "type": "number"
+                                            },
+                                            "max": {
+                                                "type": "number"
+                                            }
                                         }
                                     }
                                 }
@@ -531,324 +534,330 @@
                     }
                 },
                 "compressors": {
-                    "type": "object",
-                    "properties": {
-                        "id": {
-                            "type": "string"
-                        },
-                        "meta": {
-                            "type": "object",
-                            "properties": {
-                                "title": {
-                                    "type": "string"
-                                },
-                                "description": {
-                                    "type": "string"
-                                },
-                                "positives": {
-                                    "type": "array",
-                                    "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "meta": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
                                         "type": "string"
-                                    }
-                                },
-                                "negatives": {
-                                    "type": "array",
-                                    "items": {
+                                    },
+                                    "description": {
                                         "type": "string"
+                                    },
+                                    "positives": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "negatives": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
                                     }
                                 }
-                            }
-                        },
-                        "power": {
-                            "type": "number"
-                        },
-                        "cooling_energy": {
-                            "type": "number"
-                        },
-                        "compression_energy": {
-                            "type": "number"
-                        },
-                        "equipment": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "power": {
+                                "type": "number"
+                            },
+                            "cooling_energy": {
+                                "type": "number"
+                            },
+                            "compression_energy": {
+                                "type": "number"
+                            },
+                            "equipment": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "equipment_lcoh": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "equipment_lcoh": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "installation": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "installation": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "installation_lcoh": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "installation_lcoh": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "maintenance": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "maintenance": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "maintenance_lcoh": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "maintenance_lcoh": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "energy": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "energy": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "energy_lcoh": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "energy_lcoh": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "sum_capex": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "sum_capex": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "sum_opex": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "sum_opex": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "sum_lcoh": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "sum_lcoh": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
                             }
                         }
                     }
                 },
                 "storage": {
-                    "type": "object",
-                    "properties": {
-                        "id": {
-                            "type": "string"
-                        },
-                        "meta": {
-                            "type": "object",
-                            "properties": {
-                                "title": {
-                                    "type": "string"
-                                },
-                                "description": {
-                                    "type": "string"
-                                },
-                                "positives": {
-                                    "type": "array",
-                                    "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "meta": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "positives": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "negatives": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            },
+                            "capacity": {
+                                "type": "object",
+                                "properties": {
+                                    "amount": {
+                                        "type": "number"
+                                    },
+                                    "unit": {
                                         "type": "string"
                                     }
-                                },
-                                "negatives": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
+                                }
+                            },
+                            "equipment": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
                                     }
                                 }
-                            }
-                        },
-                        "capacity": {
-                            "type": "object",
-                            "properties": {
-                                "amount": {
-                                    "type": "number"
-                                },
-                                "unit": {
-                                    "type": "string"
+                            },
+                            "equipment_lcoh": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "equipment": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "installation": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "equipment_lcoh": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "installation_lcoh": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "installation": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "maintenance": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "installation_lcoh": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "maintenance_lcoh": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "maintenance": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "energy": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "maintenance_lcoh": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "energy_lcoh": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "energy": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "sum_capex": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "energy_lcoh": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "sum_opex": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
-                            }
-                        },
-                        "sum_capex": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
-                                }
-                            }
-                        },
-                        "sum_opex": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
-                                }
-                            }
-                        },
-                        "sum_lcoh": {
-                            "type": "object",
-                            "properties": {
-                                "min": {
-                                    "type": "number"
-                                },
-                                "max": {
-                                    "type": "number"
+                            },
+                            "sum_lcoh": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
                                 }
                             }
                         }
