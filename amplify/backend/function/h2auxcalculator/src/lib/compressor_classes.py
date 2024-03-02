@@ -1,5 +1,5 @@
 import constants as const
-import pandas as pd
+import pandas as pdy
 from lcoh_calculator import calculate_lcoh
 
 
