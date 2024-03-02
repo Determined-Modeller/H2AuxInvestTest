@@ -1,3 +1,7 @@
-from setuptools import setup
+from setuptools import find_packages, setup
 
-setup(name='src', version='1.0')
+setup(name='src', version='1.0',
+    packages=find_packages(
+        include=['*'],  # alternatively: `exclude=['additional*']`
+    ),
+      )
