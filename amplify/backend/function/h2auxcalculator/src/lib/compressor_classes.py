@@ -1,3 +1,5 @@
+#Compressor Classes
+
 import constants as const
 import pandas as pd
 from lcoh_calculator import calculate_lcoh
@@ -30,7 +32,7 @@ class Compressor:
         self.compressor_leak = 0.03     # TODO is this constant for all compressor types?
         
         # Data sheet containing values for constants for different types of compressor
-        self.comp_data = pd.read_excel(io="C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\compressor_specs_example.xlsx", index_col=0)
+        self.comp_data = pd.read_excel(io="./compressor_specs_example.xlsx", index_col=0)
         
         # Extract relevant data from user inputs
         self.pressure_in = self.inputs['hydrogen_inlet_pressure']
@@ -40,7 +42,7 @@ class Compressor:
         self.num_stages = self.calculate_number_of_stages()
         self.pressure_ratio = (self.pressure_out / self.pressure_in) ** (1 / self.num_stages)
         self.energy_price = inputs['energy_price_per_mwh']
-        # Build a DataFrame to store computed P, T, work_done at each stage.
+        # Build a DataFrame to store computed P, T, work_done, etc. at each stage.
         # Specify initial row names.
         self.conditions = pd.DataFrame(data=0.0,
                                        index=['inlet_p', 'outlet_p', 'inlet_t', 'outlet_t', 'isentropic_eff', 'work_done', 'power', 'compression_energy', 'cooling_energy'],
@@ -234,25 +236,31 @@ class Compressor:
         base = cepci_24/cepci_88 * 4614 *  self.results['power'] ** 0.82
         
         
-        self.results['equipment'] = {'min':  (base * 0.9),
-                                     'max':  (base * 1.1)}
+        self.results['equipment'] = {'min':  base * 0.9,
+                                     'avg':  base,
+                                     'max':  base * 1.1}
         
         self.results['equipment_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['min'], self.wacc, self.avg_flow ),
+                                          'avg': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['avg'], self.wacc, self.avg_flow ),
                                           'max': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.avg_flow )}
         
         
     def calculate_compressor_installation_cost(self):
         self.results['installation'] = {'min':  (9.1981 * (self.results['equipment']['min'] ** 0.655)),
+                                        'avg':  (9.1981 * (self.results['equipment']['avg'] ** 0.655)),
                                         'max':  (9.1981 * (self.results['equipment']['max'] ** 0.655))}
         
         self.results['installation_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'capex', self.results['installation']['min'], self.wacc, self.avg_flow ),
+                                             'avg': calculate_lcoh(self.lifetime, 'capex', self.results['installation']['avg'], self.wacc, self.avg_flow ),
                                              'max': calculate_lcoh(self.lifetime, 'capex', self.results['installation']['max'], self.wacc, self.avg_flow )}
         
     def calculate_compressor_maintenance(self):
         self.results['maintenance'] = {'min':  (self.results['equipment']['min'] * 0.03),
+                                       'avg':  (self.results['equipment']['avg'] * 0.03),
                                        'max':  (self.results['equipment']['max'] * 0.03)}
         
         self.results['maintenance_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'opex', self.results['maintenance']['min'], self.wacc, self.avg_flow ),
+                                            'avg': calculate_lcoh(self.lifetime, 'opex', self.results['maintenance']['avg'], self.wacc, self.avg_flow ),
                                             'max': calculate_lcoh(self.lifetime, 'opex', self.results['maintenance']['max'], self.wacc, self.avg_flow )}
         
     def calculate_compressor_energy(self): 
@@ -263,19 +271,24 @@ class Compressor:
         base = self.results['cooling_energy'] + self.results['compression_energy'] * 8.760 * self.energy_price
         
         self.results['energy'] = {'min':  base * 0.9,
+                                  'avg':  base,
                                   'max':  base * 1.1}
         
         self.results['energy_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'opex', self.results['energy']['min'], self.wacc, self.avg_flow ),
-                                     'max': calculate_lcoh(self.lifetime, 'opex', self.results['energy']['max'], self.wacc, self.avg_flow )}
+                                       'avg': calculate_lcoh(self.lifetime, 'opex', self.results['energy']['avg'], self.wacc, self.avg_flow ),
+                                       'max': calculate_lcoh(self.lifetime, 'opex', self.results['energy']['max'], self.wacc, self.avg_flow )}
         
     def calculate_cost_summary(self): 
         self.results['sum_capex'] = {'min': self.results['equipment']['min'] + self.results['installation']['min'],
+                                     'avg': self.results['equipment']['avg'] + self.results['installation']['avg'],
                                      'max': self.results['equipment']['max'] + self.results['installation']['max']}
          
         self.results['sum_opex'] = {'min': self.results['energy']['min'] + self.results['maintenance']['min'],
+                                    'avg': self.results['energy']['avg'] + self.results['maintenance']['avg'],
                                     'max': self.results['energy']['max'] + self.results['maintenance']['max']}
       
         self.results['sum_lcoh'] = {'min': sum([self.results[i]['min'] for i in self.results if 'lcoh' in i]),
+                                    'avg': sum([self.results[i]['avg'] for i in self.results if 'lcoh' in i]),
                                     'max': sum([self.results[i]['max'] for i in self.results if 'lcoh' in i])}
       
         
