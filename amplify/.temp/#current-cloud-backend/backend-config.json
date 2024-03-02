@@ -1,0 +1,68 @@
+{
+  "api": {
+    "h2AuxCalculatorApi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "h2auxcalculator"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "function": {
+    "h2auxcalculator": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "h2auxcalculations"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_h2auxcalculator_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "h2auxcalculator"
+        }
+      ]
+    },
+    "AMPLIFY_function_h2auxcalculator_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "h2auxcalculator"
+        }
+      ]
+    },
+    "AMPLIFY_function_h2auxcalculator_test": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "h2auxcalculator"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "h2auxcalculations": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    }
+  }
+}

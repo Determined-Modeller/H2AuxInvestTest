@@ -1,0 +1,101 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplify81115166fe744-staging-122235-authRole",
+      "UnauthRoleArn": "arn:aws:iam::047729610787:role/amplify-amplify81115166fe744-staging-122235-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::047729610787:role/amplify-amplify81115166fe744-staging-122235-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-amplify81115166fe744-staging-122235-deployment",
+      "UnauthRoleName": "amplify-amplify81115166fe744-staging-122235-unauthRole",
+      "StackName": "amplify-amplify81115166fe744-staging-122235",
+      "StackId": "arn:aws:cloudformation:eu-north-1:047729610787:stack/amplify-amplify81115166fe744-staging-122235/8ef79150-d3d8-11ee-b8b2-0604be0c577a",
+      "AmplifyAppId": "d1hw4lola2871i"
+    }
+  },
+  "function": {
+    "h2auxcalculator": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "h2auxcalculations",
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ]
+        }
+      ],
+      "lastBuildTimeStamp": "2024-03-02T18:07:51.028Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2024-03-02T18:08:02.412Z",
+      "distZipFilename": "h2auxcalculator-676f3956777546495830-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-amplify81115166fe744-staging-122235-deployment",
+        "s3Key": "amplify-builds/h2auxcalculator-676f3956777546495830-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify81115166fe744-staging-122235-deployment/amplify-cfn-templates/function/h2auxcalculator-cloudformation-template.json",
+        "logicalId": "functionh2auxcalculator"
+      },
+      "lastPushTimeStamp": "2024-03-02T18:09:26.553Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::047729610787:role/h2auxinvesttestLambdaRole9da696f7-staging",
+        "Region": "eu-north-1",
+        "Arn": "arn:aws:lambda:eu-north-1:047729610787:function:h2auxcalculator-staging",
+        "Name": "h2auxcalculator-staging",
+        "LambdaExecutionRole": "h2auxinvesttestLambdaRole9da696f7-staging"
+      },
+      "lastPushDirHash": "ZUjOqKv30pHovdskeRogfqT3Mqw="
+    }
+  },
+  "api": {
+    "h2AuxCalculatorApi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "h2auxcalculator",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify81115166fe744-staging-122235-deployment/amplify-cfn-templates/api/h2AuxCalculatorApi-cloudformation-template.json",
+        "logicalId": "apih2AuxCalculatorApi"
+      },
+      "lastPushTimeStamp": "2024-03-02T18:09:26.225Z",
+      "output": {
+        "ApiName": "h2AuxCalculatorApi",
+        "RootUrl": "https://5fc9qklfb6.execute-api.eu-north-1.amazonaws.com/staging",
+        "ApiId": "5fc9qklfb6"
+      },
+      "lastPushDirHash": "zse4HjmJwoRGbVYZzVZVU9ixWPk="
+    }
+  },
+  "storage": {
+    "h2auxcalculations": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify81115166fe744-staging-122235-deployment/amplify-cfn-templates/storage/h2auxcalculations-cloudformation-template.json",
+        "logicalId": "storageh2auxcalculations"
+      },
+      "lastPushTimeStamp": "2024-03-02T18:09:26.232Z",
+      "output": {
+        "PartitionKeyName": "PK",
+        "Region": "eu-north-1",
+        "Arn": "arn:aws:dynamodb:eu-north-1:047729610787:table/h2auxcalculations-staging",
+        "StreamArn": "arn:aws:dynamodb:eu-north-1:047729610787:table/h2auxcalculations-staging/stream/2024-03-01T20:37:35.277",
+        "PartitionKeyType": "S",
+        "Name": "h2auxcalculations-staging"
+      },
+      "lastPushDirHash": "AC1krgGnKF77qVw8bL0Bd96iKok="
+    }
+  }
+}
