@@ -1,0 +1,302 @@
+{
+    "piston compressor": {
+        "equipment": {
+            "min": 0,
+            "max": 10
+        },
+        "installation": {
+            "min": 0,
+            "max": 10
+        },
+        "maintenance": {
+            "min": 0,
+            "max": 10
+        },
+        "energy": {
+            "min": 0,
+            "max": 10
+        },
+        "equipment_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "installation_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "maintenance_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "energy_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "capacity": {
+            "amount": 1000,
+            "unit": "KG"
+        },
+        "sum_capex": {
+            "min": 0,
+            "max": 10
+        },
+        "sum_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "sum_opex": {
+            "min": 0,
+            "max": 10
+        }
+    },
+    "diaphragm compressor": {
+        "equipment": {
+            "min": 0,
+            "max": 10
+        },
+        "installation": {
+            "min": 0,
+            "max": 10
+        },
+        "maintenance": {
+            "min": 0,
+            "max": 10
+        },
+        "energy": {
+            "min": 0,
+            "max": 10
+        },
+        "equipment_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "installation_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "maintenance_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "energy_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "capacity": {
+            "amount": 1000,
+            "unit": "KG"
+        },
+        "sum_capex": {
+            "min": 0,
+            "max": 10
+        },
+        "sum_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "sum_opex": {
+            "min": 0,
+            "max": 10
+        }
+    },
+    "centrifugal compressor": {
+        "equipment": {
+            "min": 0,
+            "max": 10
+        },
+        "installation": {
+            "min": 0,
+            "max": 10
+        },
+        "maintenance": {
+            "min": 0,
+            "max": 10
+        },
+        "energy": {
+            "min": 0,
+            "max": 10
+        },
+        "equipment_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "installation_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "maintenance_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "energy_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "capacity": {
+            "amount": 1000,
+            "unit": "KG"
+        },
+        "sum_capex": {
+            "min": 0,
+            "max": 10
+        },
+        "sum_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "sum_opex": {
+            "min": 0,
+            "max": 10
+        }
+    },
+    "type I/II storage": {
+        "equipment": {
+            "min": 0,
+            "max": 10
+        },
+        "installation": {
+            "min": 0,
+            "max": 10
+        },
+        "maintenance": {
+            "min": 0,
+            "max": 10
+        },
+        "energy": {
+            "min": 0,
+            "max": 10
+        },
+        "equipment_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "installation_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "maintenance_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "energy_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "capacity": {
+            "amount": 1000,
+            "unit": "KG"
+        },
+        "sum_capex": {
+            "min": 0,
+            "max": 10
+        },
+        "sum_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "sum_opex": {
+            "min": 0,
+            "max": 10
+        }
+    },
+    "type III/IV storage": {
+        "equipment": {
+            "min": 0,
+            "max": 10
+        },
+        "installation": {
+            "min": 0,
+            "max": 10
+        },
+        "maintenance": {
+            "min": 0,
+            "max": 10
+        },
+        "energy": {
+            "min": 0,
+            "max": 10
+        },
+        "equipment_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "installation_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "maintenance_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "energy_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "capacity": {
+            "amount": 1000,
+            "unit": "KG"
+        },
+        "sum_capex": {
+            "min": 0,
+            "max": 10
+        },
+        "sum_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "sum_opex": {
+            "min": 0,
+            "max": 10
+        }
+    },
+    "dispenser": {
+        "equipment": {
+            "min": 0,
+            "max": 10
+        },
+        "installation": {
+            "min": 0,
+            "max": 10
+        },
+        "maintenance": {
+            "min": 0,
+            "max": 10
+        },
+        "energy": {
+            "min": 0,
+            "max": 10
+        },
+        "equipment_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "installation_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "maintenance_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "energy_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "capacity": {
+            "amount": 1000,
+            "unit": "KG"
+        },
+        "sum_capex": {
+            "min": 0,
+            "max": 10
+        },
+        "sum_lcoh": {
+            "min": 0,
+            "max": 10
+        },
+        "sum_opex": {
+            "min": 0,
+            "max": 10
+        }
+    }
+}

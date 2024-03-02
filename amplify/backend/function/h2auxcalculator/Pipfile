@@ -11,6 +11,10 @@ src = {editable = true, path = "./src"}
 pydantic = "*"
 pydantic-core = "*"
 boto3 = "*"
+pandas = "*"
+numpy = "*"
+pytest = "*"
+coolprop = "*"
 
 [requires]
 python_version = "3.8"

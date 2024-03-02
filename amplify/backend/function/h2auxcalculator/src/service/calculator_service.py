@@ -27,7 +27,6 @@ class CalculatorService():
             response_json = self.mock_str,
             created_at = str(datetime.datetime.now()),
         )
-        
         self.repository.save(calc_dict)
         
         
