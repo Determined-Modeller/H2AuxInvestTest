@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
 const fs = require('fs');
-const testFolder = __dirname;
+const path = require("path")
+
+const testFolder = path.dirname(path.basename(__dirname));
 
 fs.readdir(testFolder, (err, files) => {
     files.forEach(file => {
