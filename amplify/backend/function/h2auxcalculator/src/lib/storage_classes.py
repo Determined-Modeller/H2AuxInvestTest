@@ -5,7 +5,7 @@ Created on Mon Feb 19 16:28:55 2024
 @authors: Pavel Culik and Richard Gilchrist
 """
 
-from lib.lcoh_calculator import calculate_lcoh
+from lcoh_calculator import calculate_lcoh
 
     
 class Storage():

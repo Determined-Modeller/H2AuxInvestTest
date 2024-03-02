@@ -15,6 +15,7 @@ pandas = "*"
 numpy = "*"
 pytest = "*"
 coolprop = "*"
+openpyxl = "*"
 
 [requires]
 python_version = "3.8"

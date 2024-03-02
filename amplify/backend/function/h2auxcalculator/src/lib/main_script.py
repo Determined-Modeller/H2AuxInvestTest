@@ -3,15 +3,15 @@
 import pickle
 import json
 
-from lib.flowrate_conversion import convert_mass_flowrate_to_kg_per_hour, convert_vehicles_per_time_to_kg_per_hour
-from lib.storage_classes import Storage_I_II, Storage_III_IV
-from lib.dispenser_classes import Dispenser
-from lib.compressor_classes import CentrifugalCompressor, DiaphragmCompressor, PistonCompressor
-import lib.helper_functions as helper
+from flowrate_conversion import convert_mass_flowrate_to_kg_per_hour, convert_vehicles_per_time_to_kg_per_hour
+from storage_classes import Storage_I_II, Storage_III_IV
+from dispenser_classes import Dispenser
+from compressor_classes import CentrifugalCompressor, DiaphragmCompressor, PistonCompressor
+import helper_functions as helper
 
 
 # Load the example response data from the pickle file
-with open("example_user_response_data.pkl", "rb") as a_file:
+with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\example_user_response_data.pkl", "rb") as a_file:
     response = pickle.load(a_file)
 del a_file
 
@@ -110,9 +110,9 @@ costs_dict_all_hardware = {hw.name: hw.results for hw in hardware}
 
 
 # Export to JSON as a test
-with open("costs_dict_all_hardware.json", "w") as f:
+with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\costs_dict_all_hardware.json", "w") as f:
     json.dump(costs_dict_all_hardware, f, indent=4, sort_keys=False)
     
 # Read the data from the JSON file
-with open("costs_dict_all_hardware.json", "r") as f:
+with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\costs_dict_all_hardware.json", "r") as f:
     loaded_costs_dict = json.load(f)

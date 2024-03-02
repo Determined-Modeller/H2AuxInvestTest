@@ -8,7 +8,7 @@ import pytest
 import numpy as np
 import math
 
-from lib.flowrate_conversion import convert_mass_flowrate_to_kg_per_hour, convert_vehicles_per_time_to_kg_per_hour
+from flowrate_conversion import convert_mass_flowrate_to_kg_per_hour, convert_vehicles_per_time_to_kg_per_hour
 
 
 # Test the function for converting vehicles per time to kg per hour
