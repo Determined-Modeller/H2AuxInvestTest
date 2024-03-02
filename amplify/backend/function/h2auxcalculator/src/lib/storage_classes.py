@@ -113,7 +113,7 @@ class Storage():
                                   'max':  0}
         
         self.results['energy_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'opex', self.results['energy']['min'], self.wacc, self.average_hydrogen_flow ),
-                                     'max': calculate_lcoh(self.lifetime, 'opex', self.results['energy']['max'], self.wacc, self.average_hydrogen_flow )}
+                                       'max': calculate_lcoh(self.lifetime, 'opex', self.results['energy']['max'], self.wacc, self.average_hydrogen_flow )}
         
     def calculate_cost_summary(self): 
         self.results['sum_capex'] = {'min': self.results['equipment']['min'] + self.results['installation']['min'],
@@ -136,10 +136,10 @@ class Storage_I_II(Storage):
     # overridden method
     def calculate_storage_equipment_cost(self):
         self.results['equipment'] = {'min': ((0.00275 * (self.storage_pressure)**2 - 0.27137 * (self.storage_pressure) + 547.657) * 0.9 * self.storage_capacity),
-                                   'max': ((0.00275 * (self.storage_pressure)**2 - 0.27137 * (self.storage_pressure) + 547.657) * 1.1 * self.storage_capacity)}
+                                     'max': ((0.00275 * (self.storage_pressure)**2 - 0.27137 * (self.storage_pressure) + 547.657) * 1.1 * self.storage_capacity)}
         
         self.results['equipment_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['min'], self.wacc, self.average_hydrogen_flow ),
-                                        'max': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.average_hydrogen_flow )}
+                                          'max': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.average_hydrogen_flow )}
     
 class Storage_III_IV(Storage):
     
