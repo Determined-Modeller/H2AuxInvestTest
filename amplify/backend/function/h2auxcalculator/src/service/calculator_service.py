@@ -11,18 +11,20 @@ from repository.calculation_dict import CalculationDict
 
 from repository.calculation_repository import CalculationRepository
 
-
+from mapper.api_algorithm_mapper import ApiAlgorithmMapper
 
 class CalculatorService():
     def __init__(self):
         self.repository = CalculationRepository()
         self.algorithm = H2AuxCostCalculator()
+        self.mapper = ApiAlgorithmMapper()
     
     def calculate(self, request: RequestSchema) -> ResponseSchema:
 
         request_id = str(uuid.uuid4())
         
-        calculation_result = self.algorithm.calculate_costs(request.to_dict())
+        alg_inputs = self.mapper.requestToAlgInput(request)
+        calculation_result = self.algorithm.calculate_costs(alg_inputs)
         
         calc_dict = CalculationDict(
             request_id = request_id,
@@ -32,6 +34,6 @@ class CalculatorService():
         )
         self.repository.save(calc_dict)
         
+        response = self.mapper.algOutToResponse(calculation_result)
         
-        
-        return calculation_result
+        return response
