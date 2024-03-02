@@ -8,9 +8,10 @@ from aws_lambda_powertools.event_handler import APIGatewayRestResolver, Response
 from aws_lambda_powertools.logging import correlation_paths
 from aws_lambda_powertools.utilities.typing import LambdaContext
 from aws_lambda_powertools.event_handler.openapi.exceptions import RequestValidationError
+from repository.calculation_repository import CalculationRepository
 
 from service.calculator_service import CalculatorService
-
+import os
 
 tracer = Tracer()
 logger = Logger()
@@ -34,6 +35,7 @@ def handle_validation_error(ex: RequestValidationError):
 @app.post("/calculator/calculate")
 def calculate(request: RequestSchema) -> str:
     logger.info("processing POST")
+    logger.info(os.environ)
     return json.dumps(calculatorService.calculate(request))
 
 

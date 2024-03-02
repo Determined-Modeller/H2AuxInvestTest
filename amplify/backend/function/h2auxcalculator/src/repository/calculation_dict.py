@@ -3,7 +3,7 @@ class CalculationDict:
                  request_id: str,
                  request_json: str,
                  response_json: str,
-                 personal_details: str,
+                 personal_details: str = "",
                  email: str = "",
                  created_at: str = ""
                  ):
@@ -17,5 +17,5 @@ class CalculationDict:
             "created_at": created_at
         }
 
-    def getDit(self):
+    def get_dict(self):
         return self.dict

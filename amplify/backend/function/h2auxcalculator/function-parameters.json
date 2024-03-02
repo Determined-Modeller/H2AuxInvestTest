@@ -1,5 +1,13 @@
 {
-  "permissions": {},
+  "permissions": {
+    "storage": {
+      "h2auxcalculations": [
+        "create",
+        "read",
+        "update"
+      ]
+    }
+  },
   "lambdaLayers": [],
   "environmentVariableList": [
     {

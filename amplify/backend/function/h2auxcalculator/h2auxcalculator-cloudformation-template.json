@@ -16,6 +16,18 @@
     "s3Key": {
       "Type": "String"
     },
+    "storageh2auxcalculationsName": {
+      "Type": "String",
+      "Default": "storageh2auxcalculationsName"
+    },
+    "storageh2auxcalculationsArn": {
+      "Type": "String",
+      "Default": "storageh2auxcalculationsArn"
+    },
+    "storageh2auxcalculationsStreamArn": {
+      "Type": "String",
+      "Default": "storageh2auxcalculationsStreamArn"
+    },
     "test": {
       "Type": "String"
     }
@@ -72,6 +84,15 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
+            },
+            "STORAGE_H2AUXCALCULATIONS_NAME": {
+              "Ref": "storageh2auxcalculationsName"
+            },
+            "STORAGE_H2AUXCALCULATIONS_ARN": {
+              "Ref": "storageh2auxcalculationsArn"
+            },
+            "STORAGE_H2AUXCALCULATIONS_STREAMARN": {
+              "Ref": "storageh2auxcalculationsStreamArn"
             },
             "test": {
               "Ref": "test"
@@ -166,6 +187,60 @@
                   }
                 ]
               }
+            }
+          ]
+        }
+      }
+    },
+    "AmplifyResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "amplify-lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Put*",
+                "dynamodb:Create*",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PartiQLInsert",
+                "dynamodb:Get*",
+                "dynamodb:BatchGetItem",
+                "dynamodb:List*",
+                "dynamodb:Describe*",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:PartiQLSelect",
+                "dynamodb:Update*",
+                "dynamodb:RestoreTable*",
+                "dynamodb:PartiQLUpdate"
+              ],
+              "Resource": [
+                {
+                  "Ref": "storageh2auxcalculationsArn"
+                },
+                {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      {
+                        "Ref": "storageh2auxcalculationsArn"
+                      },
+                      "index/*"
+                    ]
+                  ]
+                }
+              ]
             }
           ]
         }
