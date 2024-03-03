@@ -48,7 +48,7 @@ const CalculatorPlantType = () => {
                 }}
             >
                 <Typography level="h3" pb="20px">
-                    Hydrogen User
+                    H2 User
                 </Typography>
                 <Typography>
                     Please select the hydrogen use you wish to build for below.
