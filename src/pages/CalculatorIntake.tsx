@@ -52,12 +52,11 @@ const CalculatorIntake = () => {
                 }}
             >
                 <Typography level="h3" pb="20px">
-                    Supply
+                    H2 Supply
                 </Typography>
                 <Typography>
-                    In order to calcuate the size and cost of your hydrogen infrastructure, we need to start with an estimate of the supply pressure and units of hydrogen delivered to the site,
-                    if you are unsure of this please see the 'Choosing Your Inputs' portion of the documentation
-
+                    In order to calcuate the size and cost of your hydrogen infrastructure, we need to start with an estimate of the supply pressure and units of hydrogen delivered to the site.
+                    If you are unsure of this please see the 'Choosing Your Inputs' portion of the documentation, or use a standard assumption provided to explore the tool.
                 </Typography>
             </Box>
             <form onSubmit={handleSubmit(onSubmit)}>

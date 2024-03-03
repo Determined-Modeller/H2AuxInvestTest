@@ -46,7 +46,7 @@ const CalculatorSales = () => {
                 }}
             >
                 <Typography level="h3" pb="20px">
-                    Demand
+                    H2 Demand
                 </Typography>
                 <Typography>
                     To output reliable results, the end user demand for hydrogen needs to be approximated.

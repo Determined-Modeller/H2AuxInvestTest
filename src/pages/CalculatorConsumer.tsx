@@ -45,7 +45,7 @@ const CalculatorConsumer = () => {
                 }}
             >
                 <Typography level="h3" pb="20px">
-                    Equipment
+                    H2 Equipment
                 </Typography>
                 <Typography>
                     Enter details of the hydrogen equipment you are looking to supply on site,
