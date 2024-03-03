@@ -1,12 +1,13 @@
 
-import { Box, Card, CardContent, FormControl, FormHelperText, FormLabel, List, ListItem, ListItemDecorator, Select, Sheet, Stack, Table, Typography, Option } from '@mui/joy';
+import { Box, Card, CardContent, FormControl, FormHelperText, FormLabel, Select, Stack, Typography, Option } from '@mui/joy';
 import Grid from '@mui/joy/Grid';
 import { BarChart, PieChart } from '@mui/x-charts';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import FlashOnIcon from '@mui/icons-material/FlashOn';
 import { AcUnit, Compress, Scale, SettingsInputComponent } from '@mui/icons-material';
-import { RequestSchema } from '../api/calculator';
+import { RequestSchema, ResponseSchema, ResponseSchemaCompressorsInner, ResponseSchemaStorageInner } from '../api/calculator';
 import { postCalculate } from '../api/calculator/service/api';
+import ComparisonTable from '../components/ComparisonTable';
 
 
 
@@ -48,9 +49,7 @@ const postBody = {
     "vehicle_type": "TUBETRAILER"
 }
 
-async function postCalc() {
-    console.log(await postCalculate(postBody as RequestSchema));
-}
+
 
 const data = [
     { selected: false, tech: 'Piston', advantages: ['High efficiency', 'Suited for large capacities'], disadvantages: ['High maintenance requirements', 'Not optimal for high quality or high compression ratio operation'] },
@@ -69,9 +68,15 @@ const storage = [
 ];
 
 const Results = () => {
+    const [response, setResponse] = useState<ResponseSchema | undefined>(undefined);
     useEffect(() => {
-        postCalc();
-    }, [])
+        const fetchData = async () => {
+            const res = await postCalculate(postBody as RequestSchema);
+            setResponse(res);
+            console.log(response);
+        };
+        fetchData();
+    }, []);
     return (
         <Grid container spacing={2} sx={{ flexGrow: 1 }}>
             <Grid xs={12}>
@@ -340,96 +345,20 @@ const Results = () => {
                 </Typography>
             </Grid>
             <Grid xs={12}>
-                <Sheet variant="outlined"
-                    sx={{ width: '100%', boxShadow: 'sm', borderRadius: 'sm' }}
-                >
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table" variant="soft" borderAxis="bothBetween">
-                        <thead>
-                            <tr>
-                                <th style={{ width: '20%' }}>Compressor Tech</th>
-                                <th>Advantages</th>
-                                <th>Disadvantages</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.map((row) => (
-                                <tr key={row.tech}
-                                    style={row.selected ? {
-                                        outline: '3px solid var(--joy-palette-primary-500)',
-
-                                    } : {}}
-                                >
-                                    <th scope="row"><Typography>{row.tech}</Typography></th>
-                                    <td>
-                                        <List>
-                                            {row.advantages.map((advantage, index) => (
-                                                <ListItem key={index} sx={(theme) => ({ color: theme.palette.success[400] })}>
-                                                    <ListItemDecorator>+</ListItemDecorator>
-                                                    {advantage}
-                                                </ListItem>
-                                            ))}
-                                        </List>
-                                    </td>
-                                    <td>
-                                        <List>
-                                            {row.disadvantages.map((disadvantage, index) => (
-                                                <ListItem key={index} sx={(theme) => ({ color: theme.palette.danger[400] })}>
-                                                    <ListItemDecorator>-</ListItemDecorator>
-                                                    {disadvantage}</ListItem>
-                                            ))}
-                                        </List>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </Table>
-                </Sheet>
+                {response != undefined &&
+                    <ComparisonTable
+                        type="Compressor"
+                        data={response.compressors as Array<ResponseSchemaCompressorsInner>}
+                    />
+                }
             </Grid>
             <Grid xs={12}>
-                <Sheet variant="outlined"
-                    sx={{ width: '100%', boxShadow: 'sm', borderRadius: 'sm' }}
-                >
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table" variant="soft" borderAxis="bothBetween">
-                        <thead>
-                            <tr>
-                                <th style={{ width: '20%' }}>Compressor Tech</th>
-                                <th>Advantages</th>
-                                <th>Disadvantages</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {storage.map((row) => (
-                                <tr key={row.tech}
-                                    style={row.selected ? {
-                                        outline: '3px solid var(--joy-palette-primary-500)',
-
-                                    } : {}}
-                                >
-                                    <th scope="row"><Typography>{row.tech}</Typography></th>
-                                    <td>
-                                        <List>
-                                            {row.advantages.map((advantage, index) => (
-                                                <ListItem key={index} sx={(theme) => ({ color: theme.palette.success[400] })}>
-                                                    <ListItemDecorator>+</ListItemDecorator>
-                                                    {advantage}
-                                                </ListItem>
-                                            ))}
-                                        </List>
-                                    </td>
-                                    <td>
-                                        <List>
-                                            {row.disadvantages.map((disadvantage, index) => (
-                                                <ListItem key={index} sx={(theme) => ({ color: theme.palette.danger[400] })}>
-                                                    <ListItemDecorator>-</ListItemDecorator>
-                                                    {disadvantage}</ListItem>
-                                            ))}
-                                        </List>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </Table>
-                </Sheet>
+                {response != undefined &&
+                    <ComparisonTable
+                        type="Compressor"
+                        data={response.storage as Array<ResponseSchemaStorageInner>}
+                    />
+                }
             </Grid>
         </Grid>
     )
