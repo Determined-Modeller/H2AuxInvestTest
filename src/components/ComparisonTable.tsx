@@ -4,10 +4,11 @@ import { ResponseSchemaCompressorsInner, ResponseSchemaDispensersInner } from '.
 
 interface ComparisonTableProps {
     type: string;
+    activeId: string;
     data: Array<ResponseSchemaDispensersInner | ResponseSchemaCompressorsInner | ResponseSchemaDispensersInner>; // Replace with the appropriate type for your data
 }
 
-const ComparisonTable: React.FC<ComparisonTableProps> = ({ data, type }) => (
+const ComparisonTable: React.FC<ComparisonTableProps> = ({ data, type, activeId }) => (
     <Sheet variant="outlined" sx={{ width: '100%', boxShadow: 'sm', borderRadius: 'sm' }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table" variant="soft" borderAxis="bothBetween">
             <thead>
@@ -19,7 +20,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ data, type }) => (
             </thead>
             <tbody>
                 {data.map((row) => (
-                    <tr key={row.id} style={row.id == "1" ? { outline: '3px solid var(--joy-palette-primary-500)' } : {}}>
+                    <tr key={row.id} style={row.id === activeId ? { outline: '3px solid var(--joy-palette-primary-500)' } : {}}>
                         <th scope="row"><Typography>{row.meta?.title}</Typography></th>
                         <td>
                             <List>
