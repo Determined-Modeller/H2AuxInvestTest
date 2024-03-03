@@ -1,0 +1,460 @@
+{
+    "calculation_id": "random_id",
+    "dispensers": [
+        {
+            "id": "dispenser",
+            "meta": {
+                "title": "Dispenser",
+                "description": "This is a dispenser",
+                "positives": [
+                    "Something possitve",
+                    "Something else that is positivev"
+                ],
+                "negatives": [
+                    "Something negative",
+                    "Something else negative"
+                ]
+            },
+            "results": {
+                "num_dispensers": 9,
+                "response": "9 x 200 Bar",
+                "equipment": {
+                    "min": 122274.69400594455,
+                    "avg": 135860.77111771615,
+                    "max": 149446.84822948778
+                },
+                "equipment_lcoh": {
+                    "min": 0.09153752306637868,
+                    "avg": 0.10170835896264298,
+                    "max": 0.11187919485890727
+                },
+                "maintenance": {
+                    "min": 3668.2408201783364,
+                    "avg": 4075.8231335314845,
+                    "max": 4483.405446884633
+                },
+                "maintenance_lcoh": {
+                    "min": 0.020937447603757625,
+                    "avg": 0.02326383067084181,
+                    "max": 0.025590213737926002
+                },
+                "installation": {
+                    "min": 19765.308159590062,
+                    "avg": 21177.502715701838,
+                    "max": 22541.71501480876
+                },
+                "installation_lcoh": {
+                    "min": 0.014796744054698661,
+                    "avg": 0.01585394393407854,
+                    "max": 0.01687522324139675
+                },
+                "energy": {
+                    "min": 0.0,
+                    "avg": 0,
+                    "max": 0.0
+                },
+                "energy_lcoh": {
+                    "min": 0.0,
+                    "avg": 0.0,
+                    "max": 0.0
+                },
+                "sum_capex": {
+                    "min": 142040.00216553462,
+                    "avg": 157038.273833418,
+                    "max": 171988.56324429653
+                },
+                "sum_opex": {
+                    "min": 3668.2408201783364,
+                    "avg": 4075.8231335314845,
+                    "max": 4483.405446884633
+                },
+                "sum_lcoh": {
+                    "min": 0.12727171472483495,
+                    "avg": 0.14082613356756332,
+                    "max": 0.15434463183823002
+                }
+            }
+        }
+    ],
+    "compressors": [
+        {
+            "id": "centrifugal compressor",
+            "meta": {
+                "title": "Centrifugal Compressor",
+                "description": "This is a centrifugal compressor",
+                "positives": [
+                    "Something possitve",
+                    "Something else that is positivev"
+                ],
+                "negatives": [
+                    "Something negative",
+                    "Something else negative"
+                ]
+            },
+            "results": {
+                "power": 14.253766043200583,
+                "equipment": {
+                    "min": 85698.22054292583,
+                    "avg": 95220.24504769537,
+                    "max": 104742.26955246492
+                },
+                "equipment_lcoh": {
+                    "min": 0.06415557121994764,
+                    "avg": 0.07128396802216405,
+                    "max": 0.07841236482438046
+                },
+                "installation": {
+                    "min": 15660.104601641062,
+                    "avg": 16778.9899885025,
+                    "max": 17859.858909460563
+                },
+                "installation_lcoh": {
+                    "min": 0.01172349845443024,
+                    "avg": 0.012561120643887395,
+                    "max": 0.013370282871511704
+                },
+                "maintenance": {
+                    "min": 2570.9466162877748,
+                    "avg": 2856.607351430861,
+                    "max": 3142.2680865739476
+                },
+                "maintenance_lcoh": {
+                    "min": 0.014674352832692781,
+                    "avg": 0.016304836480769754,
+                    "max": 0.01793532012884673
+                },
+                "cooling_energy": 0.19005021390934113,
+                "compression_energy": 0.4751255347733528,
+                "energy": {
+                    "min": 37.62994235404953,
+                    "avg": 41.81104706005504,
+                    "max": 45.992151766060545
+                },
+                "energy_lcoh": {
+                    "min": 0.00021478277599343344,
+                    "avg": 0.00023864752888159264,
+                    "max": 0.00026251228176975196
+                },
+                "sum_capex": {
+                    "min": 101358.32514456689,
+                    "avg": 111999.23503619788,
+                    "max": 122602.12846192549
+                },
+                "sum_opex": {
+                    "min": 2608.5765586418242,
+                    "avg": 2898.418398490916,
+                    "max": 3188.260238340008
+                },
+                "sum_lcoh": {
+                    "min": 0.18153641056612818,
+                    "avg": 0.20077714535140556,
+                    "max": 0.2199609602130173
+                }
+            }
+        },
+        {
+            "id": "diaphragm compressor",
+            "meta": {
+                "title": "Diaphragm Compressor",
+                "description": "This is a diaphragm compressor",
+                "positives": [
+                    "Something possitve",
+                    "Something else that is positivev"
+                ],
+                "negatives": [
+                    "Something negative",
+                    "Something else negative"
+                ]
+            },
+            "results": {
+                "power": 12.912235121487589,
+                "equipment": {
+                    "min": 79026.12367167712,
+                    "avg": 87806.80407964125,
+                    "max": 96587.48448760538
+                },
+                "equipment_lcoh": {
+                    "min": 0.05916069287477387,
+                    "avg": 0.06573410319419319,
+                    "max": 0.07230751351361252
+                },
+                "installation": {
+                    "min": 14850.392149887419,
+                    "avg": 15911.425086023088,
+                    "max": 16936.407213995004
+                },
+                "installation_lcoh": {
+                    "min": 0.011117329918642045,
+                    "avg": 0.011911642492108673,
+                    "max": 0.012678966638324029
+                },
+                "maintenance": {
+                    "min": 2370.7837101503137,
+                    "avg": 2634.2041223892375,
+                    "max": 2897.624534628161
+                },
+                "maintenance_lcoh": {
+                    "min": 0.013531870491725537,
+                    "avg": 0.015035411657472814,
+                    "max": 0.0165389528232201
+                },
+                "cooling_energy": 0.17216313495316785,
+                "compression_energy": 0.4304078373829196,
+                "energy": {
+                    "min": 34.08830072072723,
+                    "avg": 37.875889689696926,
+                    "max": 41.66347865866662
+                },
+                "energy_lcoh": {
+                    "min": 0.0001945679264881691,
+                    "avg": 0.00021618658498685458,
+                    "max": 0.00023780524348554006
+                },
+                "sum_capex": {
+                    "min": 93876.51582156454,
+                    "avg": 103718.22916566434,
+                    "max": 113523.89170160038
+                },
+                "sum_opex": {
+                    "min": 2404.872010871041,
+                    "avg": 2672.0800120789345,
+                    "max": 2939.2880132868277
+                },
+                "sum_lcoh": {
+                    "min": 0.16800892242325924,
+                    "avg": 0.18579468785752307,
+                    "max": 0.2035264764372844
+                }
+            }
+        },
+        {
+            "id": "piston compressor",
+            "meta": {
+                "title": "Piston Compressor",
+                "description": "This is a piston compressor",
+                "positives": [
+                    "Something possitve",
+                    "Something else that is positivev"
+                ],
+                "negatives": [
+                    "Something negative",
+                    "Something else negative"
+                ]
+            },
+            "results": {
+                "power": 15.051247601164631,
+                "equipment": {
+                    "min": 89610.51245751955,
+                    "avg": 99567.2360639106,
+                    "max": 109523.95967030167
+                },
+                "equipment_lcoh": {
+                    "min": 0.06708439892453481,
+                    "avg": 0.0745382210272609,
+                    "max": 0.081992043129987
+                },
+                "installation": {
+                    "min": 16124.759513810508,
+                    "avg": 17276.843631100946,
+                    "max": 18389.783286342725
+                },
+                "installation_lcoh": {
+                    "min": 0.012071349333031082,
+                    "avg": 0.012933824821669436,
+                    "max": 0.013766995905771507
+                },
+                "maintenance": {
+                    "min": 2688.3153737255866,
+                    "avg": 2987.017081917318,
+                    "max": 3285.71879010905
+                },
+                "maintenance_lcoh": {
+                    "min": 0.015344265831767049,
+                    "avg": 0.01704918425751894,
+                    "max": 0.018754102683270837
+                },
+                "cooling_energy": 0.20068330134886178,
+                "compression_energy": 0.5017082533721544,
+                "energy": {
+                    "min": 39.73529366707463,
+                    "avg": 44.15032629674958,
+                    "max": 48.565358926424544
+                },
+                "energy_lcoh": {
+                    "min": 0.00022679962138741228,
+                    "avg": 0.0002519995793193469,
+                    "max": 0.0002771995372512817
+                },
+                "sum_capex": {
+                    "min": 105735.27197133006,
+                    "avg": 116844.07969501155,
+                    "max": 127913.74295664439
+                },
+                "sum_opex": {
+                    "min": 2728.050667392661,
+                    "avg": 3031.1674082140676,
+                    "max": 3334.2841490354745
+                },
+                "sum_lcoh": {
+                    "min": 0.18945362742144073,
+                    "avg": 0.20954645937153726,
+                    "max": 0.22958068251256122
+                }
+            }
+        }
+    ],
+    "storage": [
+        {
+            "id": "type I/II storage",
+            "meta": {
+                "title": "Type I/II Storage",
+                "description": "This is a type I/II storage",
+                "positives": [
+                    "Something possitve",
+                    "Something else that is positivev"
+                ],
+                "negatives": [
+                    "Something negative",
+                    "Something else negative"
+                ]
+            },
+            "results": {
+                "capacity": {
+                    "amount": 10,
+                    "unit": "kg"
+                },
+                "equipment": {
+                    "min": 4889.9664,
+                    "avg": 5433.296,
+                    "max": 5976.625600000001
+                },
+                "equipment_lcoh": {
+                    "min": 0.003660736309935524,
+                    "avg": 0.004067484788817249,
+                    "max": 0.004474233267698974
+                },
+                "installation": {
+                    "min": 1222.4916,
+                    "avg": 1358.324,
+                    "max": 1494.1564000000003
+                },
+                "installation_lcoh": {
+                    "min": 0.000915184077483881,
+                    "avg": 0.0010168711972043123,
+                    "max": 0.0011185583169247436
+                },
+                "maintenance": {
+                    "min": 97.799328,
+                    "avg": 108.66592000000001,
+                    "max": 119.53251200000003
+                },
+                "maintenance_lcoh": {
+                    "min": 0.0005582153424657534,
+                    "avg": 0.0006202392694063928,
+                    "max": 0.0006822631963470321
+                },
+                "energy": {
+                    "min": 0,
+                    "avg": 0,
+                    "max": 0
+                },
+                "energy_lcoh": {
+                    "min": 0.0,
+                    "avg": 0.0,
+                    "max": 0.0
+                },
+                "sum_capex": {
+                    "min": 6112.4580000000005,
+                    "avg": 6248.2904,
+                    "max": 7470.782000000001
+                },
+                "sum_opex": {
+                    "min": 97.799328,
+                    "avg": 108.66592000000001,
+                    "max": 119.53251200000003
+                },
+                "sum_lcoh": {
+                    "min": 0.005134135729885158,
+                    "avg": 0.005704595255427955,
+                    "max": 0.00627505478097075
+                }
+            }
+        },
+        {
+            "id": "type III/IV storage",
+            "meta": {
+                "title": "Type III/IV Storage",
+                "description": "This is a type III/IV storage",
+                "positives": [
+                    "Something possitve",
+                    "Something else that is positivev"
+                ],
+                "negatives": [
+                    "Something negative",
+                    "Something else negative"
+                ]
+            },
+            "results": {
+                "capacity": {
+                    "amount": 10,
+                    "unit": "kg"
+                },
+                "equipment": {
+                    "min": 5556.78,
+                    "avg": 6174.2,
+                    "max": 6791.620000000001
+                },
+                "equipment_lcoh": {
+                    "min": 0.004159927624926731,
+                    "avg": 0.0046221418054741455,
+                    "max": 0.005084355986021561
+                },
+                "installation": {
+                    "min": 1389.195,
+                    "avg": 1543.55,
+                    "max": 1697.9050000000002
+                },
+                "installation_lcoh": {
+                    "min": 0.0010399819062316827,
+                    "avg": 0.0011555354513685364,
+                    "max": 0.0012710889965053902
+                },
+                "maintenance": {
+                    "min": 111.1356,
+                    "avg": 123.484,
+                    "max": 135.8324
+                },
+                "maintenance_lcoh": {
+                    "min": 0.0006343356164383562,
+                    "avg": 0.0007048173515981735,
+                    "max": 0.0007752990867579909
+                },
+                "energy": {
+                    "min": 0,
+                    "avg": 0,
+                    "max": 0
+                },
+                "energy_lcoh": {
+                    "min": 0.0,
+                    "avg": 0.0,
+                    "max": 0.0
+                },
+                "sum_capex": {
+                    "min": 6945.974999999999,
+                    "avg": 7100.33,
+                    "max": 8489.525000000001
+                },
+                "sum_opex": {
+                    "min": 111.1356,
+                    "avg": 123.484,
+                    "max": 135.8324
+                },
+                "sum_lcoh": {
+                    "min": 0.005834245147596769,
+                    "avg": 0.006482494608440855,
+                    "max": 0.007130744069284942
+                }
+            }
+        }
+    ]
+}

@@ -289,7 +289,7 @@
                 }
             }
         },
-        "DispenssingRate": {
+        "DispensingRate": {
             "type": "object",
             "properties": {
                 "value": {
@@ -338,13 +338,13 @@
                     "$ref": "#/definitions/Pressure"
                 },
                 "dispensing_mass": {
-                    "$ref": "#/definitions/DispenssingRate"
+                    "$ref": "#/definitions/DispensingRate"
                 },
                 "avg_hydrogen_dispensing_rate": {
-                    "$ref": "#/definitions/DispenssingRate"
+                    "$ref": "#/definitions/DispensingRate"
                 },
                 "peak_hydrogen_dispensing_rate": {
-                    "$ref": "#/definitions/DispenssingRate"
+                    "$ref": "#/definitions/DispensingRate"
                 },
                 "lifetime_years": {
                     "type": "number"
@@ -404,129 +404,163 @@
                                     }
                                 }
                             },
-                            "results": {
+                            "num_dispensers": {
+                                "type": "number"
+                            },
+                            "Pressure": {
+                                "type": "number"
+                            },
+                            "equipment": {
                                 "type": "object",
                                 "properties": {
-                                    "equipment": {
-                                        "type": "object",
-                                        "properties": {
-                                            "min": {
-                                                "type": "number"
-                                            },
-                                            "max": {
-                                                "type": "number"
-                                            }
-                                        }
+                                    "min": {
+                                        "type": "number"
                                     },
-                                    "equipment_lcoh": {
-                                        "type": "object",
-                                        "properties": {
-                                            "min": {
-                                                "type": "number"
-                                            },
-                                            "max": {
-                                                "type": "number"
-                                            }
-                                        }
+                                    "avg": {
+                                        "type": "number"
                                     },
-                                    "maintenance": {
-                                        "type": "object",
-                                        "properties": {
-                                            "min": {
-                                                "type": "number"
-                                            },
-                                            "max": {
-                                                "type": "number"
-                                            }
-                                        }
+                                    "max": {
+                                        "type": "number"
+                                    }
+                                }
+                            },
+                            "equipment_lcoh": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
                                     },
-                                    "maintenance_lcoh": {
-                                        "type": "object",
-                                        "properties": {
-                                            "min": {
-                                                "type": "number"
-                                            },
-                                            "max": {
-                                                "type": "number"
-                                            }
-                                        }
+                                    "avg": {
+                                        "type": "number"
                                     },
-                                    "installation": {
-                                        "type": "object",
-                                        "properties": {
-                                            "min": {
-                                                "type": "number"
-                                            },
-                                            "max": {
-                                                "type": "number"
-                                            }
-                                        }
+                                    "max": {
+                                        "type": "number"
+                                    }
+                                }
+                            },
+                            "maintenance": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
                                     },
-                                    "installation_lcoh": {
-                                        "type": "object",
-                                        "properties": {
-                                            "min": {
-                                                "type": "number"
-                                            },
-                                            "max": {
-                                                "type": "number"
-                                            }
-                                        }
+                                    "avg": {
+                                        "type": "number"
                                     },
-                                    "energy": {
-                                        "type": "object",
-                                        "properties": {
-                                            "min": {
-                                                "type": "number"
-                                            },
-                                            "max": {
-                                                "type": "number"
-                                            }
-                                        }
+                                    "max": {
+                                        "type": "number"
+                                    }
+                                }
+                            },
+                            "maintenance_lcoh": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
                                     },
-                                    "energy_lcoh": {
-                                        "type": "object",
-                                        "properties": {
-                                            "min": {
-                                                "type": "number"
-                                            },
-                                            "max": {
-                                                "type": "number"
-                                            }
-                                        }
+                                    "avg": {
+                                        "type": "number"
                                     },
-                                    "sum_capex": {
-                                        "type": "object",
-                                        "properties": {
-                                            "min": {
-                                                "type": "number"
-                                            },
-                                            "max": {
-                                                "type": "number"
-                                            }
-                                        }
+                                    "max": {
+                                        "type": "number"
+                                    }
+                                }
+                            },
+                            "installation": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
                                     },
-                                    "sum_opex": {
-                                        "type": "object",
-                                        "properties": {
-                                            "min": {
-                                                "type": "number"
-                                            },
-                                            "max": {
-                                                "type": "number"
-                                            }
-                                        }
+                                    "avg": {
+                                        "type": "number"
                                     },
-                                    "sum_lcoh": {
-                                        "type": "object",
-                                        "properties": {
-                                            "min": {
-                                                "type": "number"
-                                            },
-                                            "max": {
-                                                "type": "number"
-                                            }
-                                        }
+                                    "max": {
+                                        "type": "number"
+                                    }
+                                }
+                            },
+                            "installation_lcoh": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
+                                }
+                            },
+                            "energy": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
+                                }
+                            },
+                            "energy_lcoh": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
+                                }
+                            },
+                            "sum_capex": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
+                                }
+                            },
+                            "sum_opex": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
+                                    }
+                                }
+                            },
+                            "sum_lcoh": {
+                                "type": "object",
+                                "properties": {
+                                    "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
+                                        "type": "number"
+                                    },
+                                    "max": {
+                                        "type": "number"
                                     }
                                 }
                             }
@@ -579,6 +613,9 @@
                                     "min": {
                                         "type": "number"
                                     },
+                                    "avg": {
+                                        "type": "number"
+                                    },
                                     "max": {
                                         "type": "number"
                                     }
@@ -588,6 +625,9 @@
                                 "type": "object",
                                 "properties": {
                                     "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
                                         "type": "number"
                                     },
                                     "max": {
@@ -601,6 +641,9 @@
                                     "min": {
                                         "type": "number"
                                     },
+                                    "avg": {
+                                        "type": "number"
+                                    },
                                     "max": {
                                         "type": "number"
                                     }
@@ -610,6 +653,9 @@
                                 "type": "object",
                                 "properties": {
                                     "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
                                         "type": "number"
                                     },
                                     "max": {
@@ -623,6 +669,9 @@
                                     "min": {
                                         "type": "number"
                                     },
+                                    "avg": {
+                                        "type": "number"
+                                    },
                                     "max": {
                                         "type": "number"
                                     }
@@ -632,6 +681,9 @@
                                 "type": "object",
                                 "properties": {
                                     "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
                                         "type": "number"
                                     },
                                     "max": {
@@ -645,6 +697,9 @@
                                     "min": {
                                         "type": "number"
                                     },
+                                    "avg": {
+                                        "type": "number"
+                                    },
                                     "max": {
                                         "type": "number"
                                     }
@@ -654,6 +709,9 @@
                                 "type": "object",
                                 "properties": {
                                     "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
                                         "type": "number"
                                     },
                                     "max": {
@@ -667,6 +725,9 @@
                                     "min": {
                                         "type": "number"
                                     },
+                                    "avg": {
+                                        "type": "number"
+                                    },
                                     "max": {
                                         "type": "number"
                                     }
@@ -678,6 +739,9 @@
                                     "min": {
                                         "type": "number"
                                     },
+                                    "avg": {
+                                        "type": "number"
+                                    },
                                     "max": {
                                         "type": "number"
                                     }
@@ -687,6 +751,9 @@
                                 "type": "object",
                                 "properties": {
                                     "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
                                         "type": "number"
                                     },
                                     "max": {
@@ -739,10 +806,24 @@
                                     }
                                 }
                             },
+                            "pressure": {
+                                "type": "object",
+                                "properties": {
+                                    "amount":{
+                                        "type": "number"
+                                    },
+                                    "unit": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
                             "equipment": {
                                 "type": "object",
                                 "properties": {
                                     "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
                                         "type": "number"
                                     },
                                     "max": {
@@ -756,6 +837,9 @@
                                     "min": {
                                         "type": "number"
                                     },
+                                    "avg": {
+                                        "type": "number"
+                                    },
                                     "max": {
                                         "type": "number"
                                     }
@@ -765,6 +849,9 @@
                                 "type": "object",
                                 "properties": {
                                     "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
                                         "type": "number"
                                     },
                                     "max": {
@@ -778,6 +865,9 @@
                                     "min": {
                                         "type": "number"
                                     },
+                                    "avg": {
+                                        "type": "number"
+                                    },
                                     "max": {
                                         "type": "number"
                                     }
@@ -787,6 +877,9 @@
                                 "type": "object",
                                 "properties": {
                                     "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
                                         "type": "number"
                                     },
                                     "max": {
@@ -800,6 +893,9 @@
                                     "min": {
                                         "type": "number"
                                     },
+                                    "avg": {
+                                        "type": "number"
+                                    },
                                     "max": {
                                         "type": "number"
                                     }
@@ -809,6 +905,9 @@
                                 "type": "object",
                                 "properties": {
                                     "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
                                         "type": "number"
                                     },
                                     "max": {
@@ -822,6 +921,9 @@
                                     "min": {
                                         "type": "number"
                                     },
+                                    "avg": {
+                                        "type": "number"
+                                    },
                                     "max": {
                                         "type": "number"
                                     }
@@ -831,6 +933,9 @@
                                 "type": "object",
                                 "properties": {
                                     "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
                                         "type": "number"
                                     },
                                     "max": {
@@ -844,6 +949,9 @@
                                     "min": {
                                         "type": "number"
                                     },
+                                    "avg": {
+                                        "type": "number"
+                                    },
                                     "max": {
                                         "type": "number"
                                     }
@@ -853,6 +961,9 @@
                                 "type": "object",
                                 "properties": {
                                     "min": {
+                                        "type": "number"
+                                    },
+                                    "avg": {
                                         "type": "number"
                                     },
                                     "max": {

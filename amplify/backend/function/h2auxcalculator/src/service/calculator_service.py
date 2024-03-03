@@ -20,7 +20,7 @@ class CalculatorService():
         self.mapper = ApiAlgorithmMapper()
     
     def calculate(self, request: RequestSchema) -> ResponseSchema:
-
+        request = request.to_dict()
         request_id = str(uuid.uuid4())
         
         alg_inputs = self.mapper.requestToAlgInput(request)
@@ -28,7 +28,7 @@ class CalculatorService():
         
         calc_dict = CalculationDict(
             request_id = request_id,
-            request_json = json.dumps(request.to_dict()),
+            request_json = json.dumps(request),
             response_json = json.dumps(calculation_result),
             created_at = str(datetime.datetime.now()),
         )

@@ -43,3 +43,17 @@ def get_dispensing_rate_unit_from_string(rate_str):
     rate_unit = words[-1]
     
     return quant_unit, rate_unit
+
+def convert_pressure_to_bar(amount, unit):
+    
+    psi_to_bar = 0.0689476
+    
+    if unit == 'psi':
+        amount = amount * psi_to_bar
+        unit = 'bar'
+    elif unit == 'bar':
+        pass
+    else:
+        print('unknown storage pressure units')
+        
+    return amount, unit

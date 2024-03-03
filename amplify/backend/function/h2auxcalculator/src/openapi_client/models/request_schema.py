@@ -20,7 +20,7 @@ import json
 
 from typing import Optional, Union
 from pydantic import BaseModel, Field, StrictBool, StrictFloat, StrictInt, StrictStr, validator
-from openapi_client.models.dispenssing_rate import DispenssingRate
+from openapi_client.models.dispensing_rate import DispensingRate
 from openapi_client.models.mass import Mass
 from openapi_client.models.pressure import Pressure
 
@@ -35,9 +35,9 @@ class RequestSchema(BaseModel):
     storage_mass: Optional[Mass] = None
     storage_pressure: Optional[Pressure] = None
     dispensing_pressure: Optional[Pressure] = None
-    dispensing_mass: Optional[DispenssingRate] = None
-    avg_hydrogen_dispensing_rate: Optional[DispenssingRate] = None
-    peak_hydrogen_dispensing_rate: Optional[DispenssingRate] = None
+    dispensing_mass: Optional[DispensingRate] = None
+    avg_hydrogen_dispensing_rate: Optional[DispensingRate] = None
+    peak_hydrogen_dispensing_rate: Optional[DispensingRate] = None
     lifetime_years: Optional[Union[StrictFloat, StrictInt]] = None
     wacc: Optional[Union[StrictFloat, StrictInt]] = None
     is_precooling_used: Optional[StrictBool] = None
@@ -128,9 +128,9 @@ class RequestSchema(BaseModel):
             "storage_mass": Mass.from_dict(obj.get("storage_mass")) if obj.get("storage_mass") is not None else None,
             "storage_pressure": Pressure.from_dict(obj.get("storage_pressure")) if obj.get("storage_pressure") is not None else None,
             "dispensing_pressure": Pressure.from_dict(obj.get("dispensing_pressure")) if obj.get("dispensing_pressure") is not None else None,
-            "dispensing_mass": DispenssingRate.from_dict(obj.get("dispensing_mass")) if obj.get("dispensing_mass") is not None else None,
-            "avg_hydrogen_dispensing_rate": DispenssingRate.from_dict(obj.get("avg_hydrogen_dispensing_rate")) if obj.get("avg_hydrogen_dispensing_rate") is not None else None,
-            "peak_hydrogen_dispensing_rate": DispenssingRate.from_dict(obj.get("peak_hydrogen_dispensing_rate")) if obj.get("peak_hydrogen_dispensing_rate") is not None else None,
+            "dispensing_mass": DispensingRate.from_dict(obj.get("dispensing_mass")) if obj.get("dispensing_mass") is not None else None,
+            "avg_hydrogen_dispensing_rate": DispensingRate.from_dict(obj.get("avg_hydrogen_dispensing_rate")) if obj.get("avg_hydrogen_dispensing_rate") is not None else None,
+            "peak_hydrogen_dispensing_rate": DispensingRate.from_dict(obj.get("peak_hydrogen_dispensing_rate")) if obj.get("peak_hydrogen_dispensing_rate") is not None else None,
             "lifetime_years": obj.get("lifetime_years"),
             "wacc": obj.get("wacc"),
             "is_precooling_used": obj.get("is_precooling_used"),
