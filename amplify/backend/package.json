@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "generate-python-models": "openapi-generator-cli generate -i api/h2AuxCalculatorApi/openapi.json -g python-pydantic-v1 -o function/h2auxcalculator/src/ --global-property models,modelDocs=false,modelTests=false --additional-properties=generateSourceCodeOnly=true --skip-validate-spec"
+    "generate-python-models": "openapi-generator-cli generate -i api/h2AuxCalculatorApi/openapi.json -g python-pydantic-v1 -o function/h2auxcalculator/src/ --global-property models,modelDocs=false,modelTests=false --additional-properties=generateSourceCodeOnly=true --skip-validate-spec",
+    "generate-ts-model": "openapi-generator-cli generate -i api/h2AuxCalculatorApi/openapi.json -g typescript-rxjs -o ../../src/api/calculator --global-property models --skip-validate-spec"
   },
   "dependencies": {
     "@aws-amplify/cli-extensibility-helper": "^3.0.20",
