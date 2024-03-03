@@ -1,14 +1,16 @@
 
-import { Box, Card, CardContent, FormControl, FormHelperText, FormLabel, Select, Stack, Typography, Option, LinearProgress } from '@mui/joy';
+import { Box, Card, FormControl, FormHelperText, FormLabel, Select, Stack, Typography, Option, LinearProgress } from '@mui/joy';
 import Grid from '@mui/joy/Grid';
-import { BarChart, PieChart } from '@mui/x-charts';
+import { BarChart } from '@mui/x-charts';
 import { useEffect, useState } from 'react';
-import FlashOnIcon from '@mui/icons-material/FlashOn';
-import { AcUnit, Compress, Scale, SettingsInputComponent } from '@mui/icons-material';
 import { RequestSchema, ResponseSchema, ResponseSchemaCompressorsInner, ResponseSchemaDispensersInner, ResponseSchemaStorageInner } from '../api/calculator';
 import { postCalculate } from '../api/calculator/service/api';
 import ComparisonTable from '../components/ComparisonTable';
-import { set } from 'react-hook-form';
+import CostsPieChart from '../components/CostsPieChart';
+import DispenserCard from '../components/DispenserCard';
+import StorageCard from '../components/StorageCard';
+import CompressorCard from '../components/CompressorCard';
+import CostsCard from '../components/CostsCard';
 
 
 
@@ -51,11 +53,6 @@ const postBody = {
 }
 
 const Results = () => {
-    const GBPound = new Intl.NumberFormat('en-GB', {
-        style: 'currency',
-        currency: 'GBP',
-        maximumFractionDigits: 0
-    });
     const [response, setResponse] = useState<ResponseSchema | undefined>(undefined);
     const [compressor, setCompressor] = useState<ResponseSchemaCompressorsInner | undefined>(undefined);
     const [storage, setStorage] = useState<ResponseSchemaStorageInner | undefined>(undefined);
@@ -171,96 +168,14 @@ const Results = () => {
                 </Typography>
             </Grid>
             <Grid xs={5}>
-                <Card>
-                    <Typography level="h4" fontWeight={3}>
-                        {compressor?.meta?.title}
-                    </Typography>
-                    <Stack direction="row" justifyContent={'space-evenly'}>
-                        <Card variant="plain" >
-                            <CardContent>
-                                <Stack spacing={0.5} justifyContent={'center'} alignContent={'center'} alignItems={'center'}>
-                                    <FlashOnIcon />
-                                    <Typography level="title-sm">Power</Typography>
-                                    <Typography>{compressor?.power?.toFixed(2)} kW</Typography>
-                                </Stack>
-                            </CardContent>
-                        </Card>
-                        <Card variant="plain">
-                            <CardContent>
-                                <Stack spacing={0.5} justifyContent={'center'} alignContent={'center'} alignItems={'center'}>
-                                    <AcUnit />
-                                    <Typography level="title-sm">Cooling Energy</Typography>
-                                    <Typography>{compressor?.cooling_energy?.toFixed(2)} kWh/kg</Typography>
-                                </Stack>
-                            </CardContent>
-                        </Card>
-                        <Card variant="plain">
-                            <CardContent>
-                                <Stack spacing={0.5} justifyContent={'center'} alignContent={'center'} alignItems={'center'}>
-                                    <Compress />
-                                    <Typography level="title-sm">Compression Energy</Typography>
-                                    <Typography>{compressor?.compression_energy?.toFixed(2)} kWh/kg</Typography>
-                                </Stack>
-                            </CardContent>
-                        </Card>
-                    </Stack>
-                </Card>
+                <CompressorCard compressor={compressor} />
             </Grid>
             <Grid xs={6} container spacing={2} sx={{ flexGrow: 1 }}>
                 <Grid xs={6}>
-                    <Card>
-                        <Typography level="h4" fontWeight={3}>
-                            {storage?.meta?.title}
-                        </Typography>
-                        <Stack direction="row" justifyContent={'space-evenly'}>
-                            <Card variant="plain" >
-                                <CardContent>
-                                    <Stack spacing={0.5} justifyContent={'center'} alignContent={'center'} alignItems={'center'}>
-                                        <Scale />
-                                        <Typography level="title-sm">Capacity</Typography>
-                                        <Typography>{storage?.capacity?.amount} {storage?.capacity?.unit}</Typography>
-                                    </Stack>
-                                </CardContent>
-                            </Card>
-                            <Card variant="plain">
-                                <CardContent>
-                                    <Stack spacing={0.5} justifyContent={'center'} alignContent={'center'} alignItems={'center'}>
-                                        <Compress />
-                                        <Typography level="title-sm">Pressure</Typography>
-                                        <Typography>{storage?.pressure?.amount} {storage?.pressure?.unit}</Typography>
-                                    </Stack>
-                                </CardContent>
-                            </Card>
-
-                        </Stack>
-                    </Card>
+                    <StorageCard storage={storage} />
                 </Grid>
                 <Grid xs={6}>
-                    <Card>
-                        <Typography level="h4" fontWeight={3}>
-                            {dispensor?.meta?.title}
-                        </Typography>
-                        <Stack direction="row" justifyContent={'space-evenly'}>
-                            <Card variant="plain" >
-                                <CardContent>
-                                    <Stack spacing={0.5} justifyContent={'center'} alignContent={'center'} alignItems={'center'}>
-                                        <SettingsInputComponent />
-                                        <Typography level="title-sm"># Dispensers</Typography>
-                                        <Typography>{dispensor?.num_dispensers}</Typography>
-                                    </Stack>
-                                </CardContent>
-                            </Card>
-                            <Card variant="plain">
-                                <CardContent>
-                                    <Stack spacing={0.5} justifyContent={'center'} alignContent={'center'} alignItems={'center'}>
-                                        <Compress />
-                                        <Typography level="title-sm">Pressure</Typography>
-                                        <Typography>{dispensor?.Pressure} psi</Typography>
-                                    </Stack>
-                                </CardContent>
-                            </Card>
-                        </Stack>
-                    </Card>
+                    <DispenserCard dispensor={dispensor} />
                 </Grid>
             </Grid>
             <Grid xs={12}>
@@ -288,84 +203,27 @@ const Results = () => {
                 </Card>
             </Grid>
             <Grid xs={7} rowSpacing={2}>
-                <Card variant="solid" color="primary" invertedColors sx={(theme) => ({ marginBottom: theme.spacing(2) })}>
-                    <Grid container paddingY={2} sx={{ flexGrow: 1 }}>
-                        <Box marginX={10}>
-                            <Typography level="h3" fontWeight={3}>
-                                Fixed Costs
-                            </Typography>
-                            <Typography level="h4">
-                                {GBPound.format((compressor?.sum_capex?.min ?? 0) + (storage?.sum_capex?.min ?? 0) + (storage?.sum_capex?.min ?? 0))} -
-                                {GBPound.format((compressor?.sum_capex?.max ?? 0) + (storage?.sum_capex?.max ?? 0) + (storage?.sum_capex?.max ?? 0))}
-                            </Typography>
-                        </Box>
-                        <Box>
-                            <Typography level="h3" fontWeight={3}>
-                                Operating Costs
-                            </Typography>
-                            <Typography level="h4">
-                                {GBPound.format((compressor?.sum_opex?.min ?? 0) + (storage?.sum_opex?.min ?? 0) + (storage?.sum_opex?.min ?? 0))} -
-                                {GBPound.format((compressor?.sum_opex?.max ?? 0) + (storage?.sum_opex?.max ?? 0) + (storage?.sum_opex?.max ?? 0))}
-                            </Typography>
-                        </Box>
-                    </Grid>
-
-                </Card>
+                <CostsCard compressor={compressor} storage={storage} dispenser={dispensor} />
                 <Card variant="soft">
                     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
                         <Grid xs={6} >
-                            <Typography level="h4" fontWeight={3}>
-                                Expected Fixed Costs (&pound;)
-                            </Typography>
-                            <PieChart
-                                series={[
-                                    {
-                                        data: [
-                                            { id: 0, value: compressor?.sum_capex?.avg ?? 0, label: 'Compressor' },
-                                            { id: 1, value: storage?.sum_capex?.avg ?? 0, label: 'Storage' },
-                                            { id: 2, value: dispensor?.sum_capex?.avg ?? 0, label: 'Dispensor' },
-                                        ],
-                                        innerRadius: 30,
-                                        outerRadius: 100,
-                                        paddingAngle: 5,
-                                        cornerRadius: 5,
-                                        startAngle: 0,
-                                        endAngle: 360,
-                                        cx: 150,
-                                        cy: 150,
-                                    },
-
+                            <CostsPieChart
+                                title='Expected Fixed Costs (&pound;)'
+                                data={[
+                                    { id: 0, value: compressor?.sum_capex?.avg ?? 0, label: 'Compressor' },
+                                    { id: 1, value: storage?.sum_capex?.avg ?? 0, label: 'Storage' },
+                                    { id: 2, value: dispensor?.sum_capex?.avg ?? 0, label: 'Dispensor' },
                                 ]}
-                                width={400}
-                                height={280}
                             />
                         </Grid>
                         <Grid xs={6}>
-                            <Typography level="h4" fontWeight={3}>
-                                Expected Operating Costs (&pound;/year)
-                            </Typography>
-                            <PieChart
-                                series={[
-                                    {
-                                        data: [
-                                            { id: 0, value: compressor?.sum_opex?.avg ?? 0, label: 'Compressor' },
-                                            { id: 1, value: storage?.sum_opex?.avg ?? 0, label: 'Storage' },
-                                            { id: 2, value: dispensor?.sum_opex?.avg ?? 0, label: 'Dispensor' },
-                                        ],
-                                        innerRadius: 30,
-                                        outerRadius: 100,
-                                        paddingAngle: 5,
-                                        cornerRadius: 5,
-                                        startAngle: 0,
-                                        endAngle: 360,
-                                        cx: 150,
-                                        cy: 150,
-                                    },
-
+                            <CostsPieChart
+                                title='Expected Operating Costs (&pound;/year)'
+                                data={[
+                                    { id: 0, value: compressor?.sum_opex?.avg ?? 0, label: 'Compressor' },
+                                    { id: 1, value: storage?.sum_opex?.avg ?? 0, label: 'Storage' },
+                                    { id: 2, value: dispensor?.sum_opex?.avg ?? 0, label: 'Dispensor' },
                                 ]}
-                                width={400}
-                                height={280}
-                                title='Pie chart'
                             />
                         </Grid>
                     </Grid>
