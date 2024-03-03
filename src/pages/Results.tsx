@@ -2,66 +2,54 @@
 import { Box, Card, CardContent, FormControl, FormHelperText, FormLabel, List, ListItem, ListItemDecorator, Select, Sheet, Stack, Table, Typography, Option } from '@mui/joy';
 import Grid from '@mui/joy/Grid';
 import { BarChart, PieChart } from '@mui/x-charts';
-// import { post } from 'aws-amplify/api';
 import { useEffect } from 'react';
 import FlashOnIcon from '@mui/icons-material/FlashOn';
 import { AcUnit, Compress, Scale, SettingsInputComponent } from '@mui/icons-material';
+import { RequestSchema } from '../api/calculator';
+import { postCalculate } from '../api/calculator/service/api';
 
 
 
-// const postBody = {
-//     "hydrogen_inlet_pressure": {
-//         "value": 0,
-//         "unit": "BAR"
-//     },
-//     "dispensing_type": "TUBETRAILER",
-//     "energy_price_per_mwh": 0,
-//     "is_storage_required": true,
-//     "storage_mass": {
-//         "value": 0,
-//         "unit": "KG"
-//     },
-//     "storage_pressure": {
-//         "value": 0,
-//         "unit": "BAR"
-//     },
-//     "dispensing_pressure": {
-//         "value": 0,
-//         "unit": "BAR"
-//     },
-//     "dispensing_mass": {
-//         "value": 0,
-//         "unit": "KG_PER_HOUR"
-//     },
-//     "avg_hydrogen_dispensing_rate": {
-//         "value": 0,
-//         "unit": "KG_PER_HOUR"
-//     },
-//     "peak_hydrogen_dispensing_rate": {
-//         "value": 0,
-//         "unit": "KG_PER_HOUR"
-//     },
-//     "lifetime_years": 0,
-//     "wacc": 0,
-//     "is_precooling_used": true,
-//     "vehicle_type": "TUBETRAILER"
-// }
+const postBody = {
+    "hydrogen_inlet_pressure": {
+        "value": 10,
+        "unit": "BAR"
+    },
+    "dispensing_type": "TUBETRAILER",
+    "energy_price_per_mwh": 10,
+    "is_storage_required": true,
+    "storage_mass": {
+        "value": 10,
+        "unit": "KG"
+    },
+    "storage_pressure": {
+        "value": 500,
+        "unit": "PSI"
+    },
+    "dispensing_pressure": {
+        "value": 500,
+        "unit": "PSI"
+    },
+    "dispensing_mass": {
+        "value": 20,
+        "unit": "KG_PER_HOUR"
+    },
+    "avg_hydrogen_dispensing_rate": {
+        "value": 20,
+        "unit": "KG_PER_HOUR"
+    },
+    "peak_hydrogen_dispensing_rate": {
+        "value": 30,
+        "unit": "KG_PER_HOUR"
+    },
+    "lifetime_years": 20,
+    "wacc": 0.1,
+    "is_precooling_used": true,
+    "vehicle_type": "TUBETRAILER"
+}
 
-async function postCalculate() {
-    // try {
-    //     const restOperation = post({
-    //         apiName: 'h2AuxCalculatorApi',
-    //         path: '/calculator/calculate',
-    //         options: {
-    //             body: postBody
-    //         }
-    //     });
-    //     const response = await restOperation.response;
-    //     console.log('PUT call succeeded: ', response);
-    //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    // } catch (e: any) {
-    //     console.log('PUT call failed: ', JSON.parse(e.response.body));
-    // }
+async function postCalc() {
+    console.log(await postCalculate(postBody as RequestSchema));
 }
 
 const data = [
@@ -82,7 +70,7 @@ const storage = [
 
 const Results = () => {
     useEffect(() => {
-        postCalculate();
+        postCalc();
     }, [])
     return (
         <Grid container spacing={2} sx={{ flexGrow: 1 }}>
