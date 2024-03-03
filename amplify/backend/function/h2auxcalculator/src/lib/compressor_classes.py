@@ -1,5 +1,6 @@
 #Compressor Classes
 
+import os
 import lib.constants as const
 import pandas as pd
 from lib.lcoh_calculator import calculate_lcoh
@@ -32,7 +33,8 @@ class Compressor:
         self.compressor_leak = 0.03     # TODO is this constant for all compressor types?
         
         # Data sheet containing values for constants for different types of compressor
-        self.comp_data = pd.read_excel(io="C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\compressor_specs_example.xlsx", index_col=0)
+        base_path = os.path.dirname(os.path.abspath(__file__))
+        self.comp_data = pd.read_excel(io=base_path + "/lib/compressor_specs_example.xlsx", index_col=0)
         
         # Extract relevant data from user inputs
         self.pressure_in = self.inputs['hydrogen_inlet_pressure']
