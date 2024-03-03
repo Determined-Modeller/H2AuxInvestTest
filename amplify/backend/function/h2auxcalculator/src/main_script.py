@@ -65,8 +65,7 @@ request = RequestSchema.from_json(json_string)
 calculator = CalculatorService()
 response = calculator.calculate(request.to_dict())
 
-print(1)
-print(2)
+
 # request = RequestSchema.from_json(json_string)
 # print(request.to_dict)
 
