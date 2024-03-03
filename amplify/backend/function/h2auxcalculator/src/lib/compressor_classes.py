@@ -34,7 +34,7 @@ class Compressor:
         
         # Data sheet containing values for constants for different types of compressor
         base_path = os.path.dirname(os.path.abspath(__file__))
-        self.comp_data = pd.read_excel(io=base_path + "/lib/compressor_specs_example.xlsx", index_col=0)
+        self.comp_data = pd.read_excel(io=base_path + "/compressor_specs_example.xlsx", index_col=0)
         
         # Extract relevant data from user inputs
         self.pressure_in = self.inputs['hydrogen_inlet_pressure']
