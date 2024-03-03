@@ -100,9 +100,9 @@ const Results = () => {
             <LinearProgress sx={{ maxWidth: "300px" }} />
         </Box>
         :
-        <Grid container spacing={2} sx={{ flexGrow: 1 }}>
-            <Grid xs={12}>
-                <Grid xs={12} sx={(theme) => ({ marginY: theme.spacing(4) })}>
+        <Grid container spacing={2} sx={theme => ({ flexGrow: 1, padding: theme.spacing(1), maxWidth: "1500px", margin: "auto" })}>
+            <Grid xs={12} xl={12}>
+                <Grid xs={12} xl={12} sx={(theme) => ({ marginY: theme.spacing(4) })}>
                     <Typography level="h2" fontWeight={6} sx={(theme) => ({ marginBottom: theme.spacing(2) })}>
                         Change your configuration
                     </Typography>
@@ -162,29 +162,29 @@ const Results = () => {
 
                 </Grid>
             </Grid>
-            <Grid xs={12}>
+            <Grid xs={12} xl={12}>
                 <Typography level="h2" fontWeight={6} sx={(theme) => ({ marginY: theme.spacing(4) })}>
                     System Overview
                 </Typography>
             </Grid>
-            <Grid xs={5}>
+            <Grid xs={12} xl={5}>
                 <CompressorCard compressor={compressor} />
             </Grid>
-            <Grid xs={6} container spacing={2} sx={{ flexGrow: 1 }}>
-                <Grid xs={6}>
+            <Grid xs={12} xl={7} container spacing={2} sx={{ flexGrow: 1 }}>
+                <Grid xs={12} xl={6}>
                     <StorageCard storage={storage} />
                 </Grid>
-                <Grid xs={6}>
+                <Grid xs={12} xl={6}>
                     <DispenserCard dispensor={dispensor} />
                 </Grid>
             </Grid>
-            <Grid xs={12}>
-                <Typography level="h2" fontWeight={6}>
-                    Cost Analysis
+            <Grid xs={12} xl={12}>
+                <Typography level="h2" fontWeight={6} sx={(theme) => ({ marginY: theme.spacing(4) })}>
+                    Cost analysis
                 </Typography>
             </Grid>
 
-            <Grid xs={5}>
+            <Grid xs={12} xl={5}>
 
                 <Card variant='soft' sx={{ minHeight: '100%' }}>
                     <Typography level="h3" fontWeight={3}>
@@ -202,11 +202,11 @@ const Results = () => {
                     />
                 </Card>
             </Grid>
-            <Grid xs={7} rowSpacing={2}>
+            <Grid xs={12} xl={7} rowSpacing={2}>
                 <CostsCard compressor={compressor} storage={storage} dispenser={dispensor} />
                 <Card variant="soft">
                     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
-                        <Grid xs={6} >
+                        <Grid xs={12} xl={6} >
                             <CostsPieChart
                                 title='Expected Fixed Costs (&pound;)'
                                 data={[
@@ -216,7 +216,7 @@ const Results = () => {
                                 ]}
                             />
                         </Grid>
-                        <Grid xs={6}>
+                        <Grid xs={12} xl={6}>
                             <CostsPieChart
                                 title='Expected Operating Costs (&pound;/year)'
                                 data={[
@@ -229,12 +229,12 @@ const Results = () => {
                     </Grid>
                 </Card>
             </Grid>
-            <Grid xs={12}>
+            <Grid xs={12} xl={12}>
                 <Typography level="h2" fontWeight={6} sx={(theme) => ({ marginY: theme.spacing(7) })}>
                     Comperative analysis
                 </Typography>
             </Grid>
-            <Grid xs={12}>
+            <Grid xs={12} xl={12}>
                 {response != undefined &&
                     <ComparisonTable
                         type="Compressor"
@@ -243,7 +243,7 @@ const Results = () => {
                     />
                 }
             </Grid>
-            <Grid xs={12}>
+            <Grid xs={12} xl={12}>
                 {response != undefined &&
                     <ComparisonTable
                         type="Storage"
