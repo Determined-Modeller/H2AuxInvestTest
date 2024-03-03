@@ -1,6 +1,6 @@
 
 
-import { Box, Typography, Button } from "@mui/joy";
+import { Box, Typography, Button, FormControl, FormLabel, Input, Switch, FormHelperText, Slider, Divider } from "@mui/joy";
 
 
 import ProgressTracker from "../components/ProgressTracker";
@@ -76,9 +76,51 @@ const CalculatorConfig = () => {
                             '& > *': { flex: 'auto' },
                         }}
                     >
-                        <Typography>
-                            [ADD INPUT FIELDS FOR ENERGY COST, WACC, LIFETIME, IS PRECOOLING USED - THE FINAL THREE OF WHICH WILL HAVE PRE SET VALUE DEFAULTS AND WILL BE IN AN ADVANCED SECTION]
-                        </Typography>
+                        <FormControl>
+                            <FormLabel>Energy Cost (&pound;/kWh)</FormLabel>
+                            <Input placeholder="Placeholder" />
+                            <FormHelperText>
+                                This is a helper text.
+                            </FormHelperText>
+                        </FormControl>
+
+                        <Box width={400} marginTop={4} marginBottom={3}>
+                            <Divider sx={{ '--Divider-childPosition': `50%` }}>
+                                Advanced (optional)
+                            </Divider>
+                        </Box>
+
+                        <Box width={300}>
+                            <FormControl>
+                                <FormLabel>LIFETIME (years)</FormLabel>
+                                <Slider valueLabelDisplay="on" min={10} defaultValue={20} max={30} />
+                            </FormControl>
+                        </Box>
+
+                        <FormControl>
+                            <FormLabel>WACC</FormLabel>
+                            <Input type="number" defaultValue={1.0} />
+                            <FormHelperText>
+                                Explain what this is.
+                            </FormHelperText>
+                        </FormControl>
+                        <Box width={300} marginTop={3}>
+                            <FormControl>
+
+                                <Typography component="label" endDecorator={<Switch
+                                    disabled={false}
+                                    size="lg"
+                                    variant="solid"
+                                />}>
+                                    Use precooling?
+                                </Typography>
+                                <FormHelperText>
+                                    Explain what this is.
+                                </FormHelperText>
+                            </FormControl>
+                        </Box>
+
+
 
 
                         {errors.exampleRequired && <span>This field is required</span>}
