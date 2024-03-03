@@ -63,7 +63,7 @@ json_string = '''
 request = RequestSchema.from_json(json_string)
 
 calculator = CalculatorService()
-response = calculator.calculate(request.to_dict())
+response = calculator.calculate(request)
 
 
 # request = RequestSchema.from_json(json_string)
