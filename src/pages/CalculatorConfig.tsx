@@ -103,7 +103,7 @@ const CalculatorConfig = () => {
                         </Button>
                         <Button
                             component="a"
-                            href={ROUTE_CONSTANTS.HOME}
+                            href={ROUTE_CONSTANTS.CALCULATOR_RESULTS}
                             size="lg"
                         >
                             Next

@@ -25,9 +25,17 @@ const CostsPieChart: React.FC<CostsPieChartProps> = ({ title, data }) => (
                     cx: 150,
                     cy: 150,
                 },
+
             ]}
+            slotProps={{
+                legend: {
+                    direction: 'row',
+                    position: { vertical: 'bottom', horizontal: 'middle' },
+                    padding: 0,
+                },
+            }}
             width={400}
-            height={280}
+            height={320}
             title='Pie chart'
         />
     </>
