@@ -1,8 +1,8 @@
 
-
 from openapi_client.models.request_schema import RequestSchema
 from openapi_client.models.response_schema import ResponseSchema
 from mapper.objects_meta import meta
+from mapper.enrich_data_lib import enrich_lib
 
 class ApiAlgorithmMapper:
     def __init__(self):
@@ -84,5 +84,22 @@ class ApiAlgorithmMapper:
         response['compressors'] = compressors
         response['storage'] = storage
         
-        return response
+        response = self.enrich_data(response)
         
+        return response
+    
+    def enrich_data(self, response):
+        
+        for category in response:
+            if category == 'calculation_id':
+                pass
+            else:
+                count = 0
+                for type in response[category]:
+                    
+                    id = type['id']
+                    response[category][count]['meta']['positives'] = enrich_lib[id]['positives']
+                    response[category][count]['meta']['negatives'] = enrich_lib[id]['negatives']
+                    count += 1
+                    
+        return response
