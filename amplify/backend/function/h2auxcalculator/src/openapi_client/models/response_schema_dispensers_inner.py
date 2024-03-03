@@ -18,10 +18,10 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
-from pydantic import BaseModel, StrictStr
+from typing import Optional, Union
+from pydantic import BaseModel, Field, StrictFloat, StrictInt, StrictStr
+from openapi_client.models.response_schema_dispensers_inner_equipment import ResponseSchemaDispensersInnerEquipment
 from openapi_client.models.response_schema_dispensers_inner_meta import ResponseSchemaDispensersInnerMeta
-from openapi_client.models.response_schema_dispensers_inner_results import ResponseSchemaDispensersInnerResults
 
 class ResponseSchemaDispensersInner(BaseModel):
     """
@@ -29,8 +29,20 @@ class ResponseSchemaDispensersInner(BaseModel):
     """
     id: Optional[StrictStr] = None
     meta: Optional[ResponseSchemaDispensersInnerMeta] = None
-    results: Optional[ResponseSchemaDispensersInnerResults] = None
-    __properties = ["id", "meta", "results"]
+    num_dispensers: Optional[Union[StrictFloat, StrictInt]] = None
+    pressure: Optional[Union[StrictFloat, StrictInt]] = Field(None, alias="Pressure")
+    equipment: Optional[ResponseSchemaDispensersInnerEquipment] = None
+    equipment_lcoh: Optional[ResponseSchemaDispensersInnerEquipment] = None
+    maintenance: Optional[ResponseSchemaDispensersInnerEquipment] = None
+    maintenance_lcoh: Optional[ResponseSchemaDispensersInnerEquipment] = None
+    installation: Optional[ResponseSchemaDispensersInnerEquipment] = None
+    installation_lcoh: Optional[ResponseSchemaDispensersInnerEquipment] = None
+    energy: Optional[ResponseSchemaDispensersInnerEquipment] = None
+    energy_lcoh: Optional[ResponseSchemaDispensersInnerEquipment] = None
+    sum_capex: Optional[ResponseSchemaDispensersInnerEquipment] = None
+    sum_opex: Optional[ResponseSchemaDispensersInnerEquipment] = None
+    sum_lcoh: Optional[ResponseSchemaDispensersInnerEquipment] = None
+    __properties = ["id", "meta", "num_dispensers", "Pressure", "equipment", "equipment_lcoh", "maintenance", "maintenance_lcoh", "installation", "installation_lcoh", "energy", "energy_lcoh", "sum_capex", "sum_opex", "sum_lcoh"]
 
     class Config:
         """Pydantic configuration"""
@@ -59,9 +71,39 @@ class ResponseSchemaDispensersInner(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of meta
         if self.meta:
             _dict['meta'] = self.meta.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of results
-        if self.results:
-            _dict['results'] = self.results.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of equipment
+        if self.equipment:
+            _dict['equipment'] = self.equipment.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of equipment_lcoh
+        if self.equipment_lcoh:
+            _dict['equipment_lcoh'] = self.equipment_lcoh.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of maintenance
+        if self.maintenance:
+            _dict['maintenance'] = self.maintenance.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of maintenance_lcoh
+        if self.maintenance_lcoh:
+            _dict['maintenance_lcoh'] = self.maintenance_lcoh.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of installation
+        if self.installation:
+            _dict['installation'] = self.installation.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of installation_lcoh
+        if self.installation_lcoh:
+            _dict['installation_lcoh'] = self.installation_lcoh.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of energy
+        if self.energy:
+            _dict['energy'] = self.energy.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of energy_lcoh
+        if self.energy_lcoh:
+            _dict['energy_lcoh'] = self.energy_lcoh.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of sum_capex
+        if self.sum_capex:
+            _dict['sum_capex'] = self.sum_capex.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of sum_opex
+        if self.sum_opex:
+            _dict['sum_opex'] = self.sum_opex.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of sum_lcoh
+        if self.sum_lcoh:
+            _dict['sum_lcoh'] = self.sum_lcoh.to_dict()
         return _dict
 
     @classmethod
@@ -76,7 +118,19 @@ class ResponseSchemaDispensersInner(BaseModel):
         _obj = ResponseSchemaDispensersInner.parse_obj({
             "id": obj.get("id"),
             "meta": ResponseSchemaDispensersInnerMeta.from_dict(obj.get("meta")) if obj.get("meta") is not None else None,
-            "results": ResponseSchemaDispensersInnerResults.from_dict(obj.get("results")) if obj.get("results") is not None else None
+            "num_dispensers": obj.get("num_dispensers"),
+            "pressure": obj.get("Pressure"),
+            "equipment": ResponseSchemaDispensersInnerEquipment.from_dict(obj.get("equipment")) if obj.get("equipment") is not None else None,
+            "equipment_lcoh": ResponseSchemaDispensersInnerEquipment.from_dict(obj.get("equipment_lcoh")) if obj.get("equipment_lcoh") is not None else None,
+            "maintenance": ResponseSchemaDispensersInnerEquipment.from_dict(obj.get("maintenance")) if obj.get("maintenance") is not None else None,
+            "maintenance_lcoh": ResponseSchemaDispensersInnerEquipment.from_dict(obj.get("maintenance_lcoh")) if obj.get("maintenance_lcoh") is not None else None,
+            "installation": ResponseSchemaDispensersInnerEquipment.from_dict(obj.get("installation")) if obj.get("installation") is not None else None,
+            "installation_lcoh": ResponseSchemaDispensersInnerEquipment.from_dict(obj.get("installation_lcoh")) if obj.get("installation_lcoh") is not None else None,
+            "energy": ResponseSchemaDispensersInnerEquipment.from_dict(obj.get("energy")) if obj.get("energy") is not None else None,
+            "energy_lcoh": ResponseSchemaDispensersInnerEquipment.from_dict(obj.get("energy_lcoh")) if obj.get("energy_lcoh") is not None else None,
+            "sum_capex": ResponseSchemaDispensersInnerEquipment.from_dict(obj.get("sum_capex")) if obj.get("sum_capex") is not None else None,
+            "sum_opex": ResponseSchemaDispensersInnerEquipment.from_dict(obj.get("sum_opex")) if obj.get("sum_opex") is not None else None,
+            "sum_lcoh": ResponseSchemaDispensersInnerEquipment.from_dict(obj.get("sum_lcoh")) if obj.get("sum_lcoh") is not None else None
         })
         return _obj
 
