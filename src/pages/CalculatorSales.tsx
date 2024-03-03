@@ -46,12 +46,13 @@ const CalculatorSales = () => {
                 }}
             >
                 <Typography level="h3" pb="20px">
-                    Sales estimates
+                    Demand
                 </Typography>
                 <Typography>
-                    [ this has the estimate to how much the plant is going to sell a day/year - average and best case ]
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore.
+                    To output reliable results, the end user demand for hydrogen needs to be approximated.
+                    Please enter expected peak and average demand levels for the hydrogen demand.
+                    If you are unsure of this please see the 'Choosing Your Inputs' portion of the documentation
+                    - or use the standard inputs provided to explore the tool.
                 </Typography>
             </Box>
             <form onSubmit={handleSubmit(onSubmit)}>

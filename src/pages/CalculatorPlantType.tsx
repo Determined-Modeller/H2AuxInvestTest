@@ -48,12 +48,10 @@ const CalculatorPlantType = () => {
                 }}
             >
                 <Typography level="h3" pb="20px">
-                    Plant Type
+                    Hydrogen User
                 </Typography>
                 <Typography>
-                    [Explains the difference between a plant that services tubetrailers and normal vehicles... ]
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore.
+                    Please select the hydrogen use you wish to build for below.
                 </Typography>
             </Box>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -78,7 +76,7 @@ const CalculatorPlantType = () => {
                         }}
                     >
                         <Typography>
-                            [this will have propper icons]
+
                         </Typography>
                         <RadioGroup
                             aria-label="platform"

@@ -45,12 +45,12 @@ const CalculatorConsumer = () => {
                 }}
             >
                 <Typography level="h3" pb="20px">
-                    Consumer
+                    Equipment
                 </Typography>
                 <Typography>
-                    [Consumer is probably not the right word but we want to specify the consuming vehicle parameters here ]
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore.
+                    Enter details of the hydrogen equipment you are looking to supply on site,
+                    if you are unsure of this please see the 'Choosing Your Inputs' portion of the documentation,
+                    or use default values provided for commonly available industry equipment.
                 </Typography>
             </Box>
             <form onSubmit={handleSubmit(onSubmit)}>

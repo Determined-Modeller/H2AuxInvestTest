@@ -52,12 +52,12 @@ const CalculatorIntake = () => {
                 }}
             >
                 <Typography level="h3" pb="20px">
-                    Inlet
+                    Supply
                 </Typography>
                 <Typography>
-                    [Explain what this step does ... ]
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore.
+                    In order to calcuate the size and cost of your hydrogen infrastructure, we need to start with an estimate of the supply pressure and units of hydrogen delivered to the site,
+                    if you are unsure of this please see the 'Choosing Your Inputs' portion of the documentation
+
                 </Typography>
             </Box>
             <form onSubmit={handleSubmit(onSubmit)}>

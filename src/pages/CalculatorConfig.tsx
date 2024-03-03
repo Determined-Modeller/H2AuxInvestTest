@@ -46,12 +46,13 @@ const CalculatorConfig = () => {
                 }}
             >
                 <Typography level="h3" pb="20px">
-                    [NEEDS A STEP NAME]
+                    Detailed Configuration
                 </Typography>
                 <Typography>
-                    [THIS WILL HAVE THE ENERGY COST AND OTHER "ADVANCED" SETTINGS]
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore.
+                    The calculation tool uses some standard financial, as well as engineering assumptions.
+
+                    Please review and customise to your use to these to ensure the results are as accurate as possible.
+                    If you have any questions about these assumptions, please see the 'Choosing Your Inputs' portion of the documentation.
                 </Typography>
             </Box>
             <form onSubmit={handleSubmit(onSubmit)}>

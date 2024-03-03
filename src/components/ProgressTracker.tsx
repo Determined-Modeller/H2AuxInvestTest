@@ -16,23 +16,23 @@ interface CalculationStep {
 const steps: CalculationStep[] = [
     {
         "id": 1,
-        "name": "Inlet"
+        "name": "H2 Supply"
     },
     {
         "id": 2,
-        "name": "Fuel station"
+        "name": "H2 user"
     },
     {
         "id": 3,
-        "name": "Consumer"
+        "name": "Equipment"
     },
     {
         "id": 4,
-        "name": "Sales"
+        "name": "H2 Demand"
     },
     {
         "id": 5,
-        "name": "Final Step"
+        "name": "Expert Mode"
     }
 ]
 
