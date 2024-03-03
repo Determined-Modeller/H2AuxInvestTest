@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useColorScheme } from '@mui/joy/styles';
+import { useColorScheme as useJoyColorScheme } from '@mui/joy/styles';
+import { useColorScheme as useMaterialColorScheme } from '@mui/material/styles';
 import Box from '@mui/joy/Box';
 import IconButton from '@mui/joy/IconButton';
 import Stack from '@mui/joy/Stack';
@@ -21,7 +22,8 @@ import TeamNav from './Navigation';
 import ROUTE_CONSTANTS from '../routing/routeConstants';
 
 function ColorSchemeToggle() {
-  const { mode, setMode } = useColorScheme();
+  const { mode, setMode: setMaterialMode } = useMaterialColorScheme();
+  const { setMode: setJoyMode } = useJoyColorScheme();
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => {
     setMounted(true);
@@ -39,9 +41,11 @@ function ColorSchemeToggle() {
         sx={{ alignSelf: 'center' }}
         onClick={() => {
           if (mode === 'light') {
-            setMode('dark');
+            setMaterialMode('dark');
+            setJoyMode('dark');
           } else {
-            setMode('light');
+            setMaterialMode('light');
+            setJoyMode('light');
           }
         }}
       >
