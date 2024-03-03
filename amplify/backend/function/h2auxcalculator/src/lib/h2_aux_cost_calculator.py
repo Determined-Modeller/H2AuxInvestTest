@@ -7,13 +7,12 @@ import lib.helper_functions as helper
 class H2AuxCostCalculator:
     def __init__(self):
         pass
-
+        
     def calculate_costs(self, response: dict) -> dict:
-
+        
         # Extract pressure and mass values from string obtained from drop-down list
         # if response['dispensing_pressure_and_mass'] != 'user_specified':
         #     response['dispensing_pressure'], response['dispensing_mass'] = helper.extract_pressure_and_mass_from_string(response['dispensing_pressure_and_mass'])
-
 
 
         # Get the strings from the average and peak dispensing questions e.g. 'kg_per_hour'
@@ -24,6 +23,10 @@ class H2AuxCostCalculator:
         response['avg_hydrogen_dispensing_rate_quant'], response['avg_hydrogen_dispensing_rate_unit'] = helper.get_dispensing_rate_unit_from_string(avg_str)
         response['peak_hydrogen_dispensing_rate_quant'], response['peak_hydrogen_dispensing_rate_unit'] = helper.get_dispensing_rate_unit_from_string(peak_str)
 
+        # Convert storage_pressure units
+        response['storage_pressure'], response['storage_pressure_unit'] = helper.convert_pressure_to_bar(response['storage_pressure'], response['storage_pressure_unit'])
+        response['dispensing_pressure'], response['dispensing_pressure_unit'] = helper.convert_pressure_to_bar(response['dispensing_pressure'], response['dispensing_pressure_unit'])
+        response['hydrogen_inlet_pressure'], response['hydrogen_inlet_pressure_unit'] = helper.convert_pressure_to_bar(response['hydrogen_inlet_pressure'], response['hydrogen_inlet_pressure_unit'])
 
         # Handle peak/avg flowrate conversion between vehicles/time to kg/time
         # Average flow rate conversion

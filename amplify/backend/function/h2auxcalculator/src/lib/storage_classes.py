@@ -20,6 +20,10 @@ class Storage():
         self.lifetime = inputs['lifetime']
         
         self.results = {}
+        self.results['pressure'] = {
+            'amount': inputs['storage_pressure'],
+            'unit': inputs['storage_pressure_unit']
+        }
         
         
     def set_peak_flowrate(self, new_peak_flowrate):

@@ -15,7 +15,7 @@ from mapper.api_algorithm_mapper import ApiAlgorithmMapper
 
 class CalculatorService():
     def __init__(self):
-        self.repository = CalculationRepository()
+        #self.repository = CalculationRepository()
         self.algorithm = H2AuxCostCalculator()
         self.mapper = ApiAlgorithmMapper()
     
@@ -28,11 +28,11 @@ class CalculatorService():
         
         calc_dict = CalculationDict(
             request_id = request_id,
-            request_json = json.dumps(request.to_dict()),
+            request_json = json.dumps(request),#.to_dict()),
             response_json = json.dumps(calculation_result),
             created_at = str(datetime.datetime.now()),
         )
-        self.repository.save(calc_dict)
+        #self.repository.save(calc_dict)
         
         response = self.mapper.algOutToResponse(calculation_result)
         

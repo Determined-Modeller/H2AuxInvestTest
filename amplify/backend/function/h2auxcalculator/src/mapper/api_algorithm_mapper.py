@@ -13,7 +13,7 @@ class ApiAlgorithmMapper:
         # setup new dictionary 
         response = {}
         response['hydrogen_inlet_pressure'] = request['hydrogen_inlet_pressure']['value']
-        response['hydrogen_inlet_pressure_units'] = request['hydrogen_inlet_pressure']['unit'].lower() # 'bar' or 'psi'
+        response['hydrogen_inlet_pressure_unit'] = request['hydrogen_inlet_pressure']['unit'].lower() # 'bar' or 'psi'
         response['dispensing_type'] = request['dispensing_type'].lower() # 'tubetrailer' or 'vehicle'
         response['vehicle_type'] = request['vehicle_type'].lower() # 'car' or 'hdv'
         response['energy_price_per_mwh'] = request['energy_price_per_mwh']
@@ -21,7 +21,7 @@ class ApiAlgorithmMapper:
         response['storage_requirement'] = request['storage_mass']['value']
         response['storage_requirement_unit'] = request['storage_mass']['unit'].lower()
         response['storage_pressure'] = request['storage_pressure']['value']
-        response['storage_pressure_units'] = request['storage_pressure']['unit'].lower()
+        response['storage_pressure_unit'] = request['storage_pressure']['unit'].lower()
         # If the user specifies their own pressure and mass
         response['dispensing_pressure'] = request['dispensing_pressure']['value']
         response['dispensing_pressure_unit'] = request['dispensing_pressure']['unit'].lower()     

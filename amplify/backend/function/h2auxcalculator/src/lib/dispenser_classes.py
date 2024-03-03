@@ -103,30 +103,19 @@ class Dispenser():
         self.num_dispensers_needed = math.ceil(self.peak_flowrate / self.refuel_rate)
        
         self.results['num_dispensers'] = self.num_dispensers_needed
-        self.results['response'] = str(self.num_dispensers_needed)
-        
-        '''
-        if we are passing peak and average hydrogen flow rates (in kg/hour) to the class
-        constructor, we should use those attributes in place of self.inputs['peak_hydrogen_dispensing_rate']
-        e.g.
-        self.num_dispensers_needed = math.ceil(self.peak_flowrate * self.dispensing_time)
-        
-        TODO - Pavel please take a look at this calculation and make sure it is correct.
-        
-        '''
         
         
     def calculate_dispenser_equipment_cost(self):
         
         if self.dispensing_vehicle_vol['pressure'] <= 200:
             base = 19350 * self.num_dispensers_needed ** (1-0.113)
-            self.results['response'] = self.results['response'] + ' x ' + str(200) + ' Bar'
+            self.results['Pressure'] = 200
         elif self.dispensing_vehicle_vol['pressure'] <= 350:
             base = 50673 * self.num_dispensers_needed ** (1-0.117)
-            self.results['response'] = self.results['response'] + ' x ' + str(350) + ' Bar'
+            self.results['Pressure'] = 350
         elif self.dispensing_vehicle_vol['pressure'] > 350:
             base = 66572 * self.num_dispensers_needed ** (1-0.122)
-            self.results['response'] = self.results['response'] + ' x ' + str(700) + ' Bar'
+            self.results['Pressure'] = 700
         
         self.results['equipment'] = {'min': (base * 0.9),
                                      'avg':  base,

@@ -6,6 +6,7 @@ from openapi_client.models.request_schema import RequestSchema
 from openapi_client.models.response_schema import ResponseSchema
 from lib.h2_aux_cost_calculator import H2AuxCostCalculator
 from mapper.api_algorithm_mapper import ApiAlgorithmMapper
+from service.calculator_service import CalculatorService
 
 # Load the example response data from the pickle file
 # with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\example_user_response_data.pkl", "rb") as a_file:
@@ -33,12 +34,12 @@ json_string = '''
     "unit": "KG"
   },
   "storage_pressure": {
-    "value": 20,
-    "unit": "BAR"
+    "value": 500,
+    "unit": "PSI"
   },
   "dispensing_pressure": {
-    "value": 20,
-    "unit": "BAR"
+    "value": 500,
+    "unit": "PSI"
   },
   "dispensing_mass": {
     "value": 20,
@@ -60,36 +61,44 @@ json_string = '''
 '''
 
 request = RequestSchema.from_json(json_string)
-print(request.to_dict)
 
-mapper = ApiAlgorithmMapper()
-algorithm_input = mapper.requestToAlgInput(request.to_dict())
-print('-----------------------')
-print(algorithm_input)
+calculator = CalculatorService()
+response = calculator.calculate(request.to_dict())
 
-# create a class from the mapper 
-# call the function from the object variable -> pass in the request 
+print(1)
+print(2)
+# request = RequestSchema.from_json(json_string)
+# print(request.to_dict)
 
-algorithm = H2AuxCostCalculator()
-costs_dict_all_hardware = algorithm.calculate_costs(algorithm_input)
+# mapper = ApiAlgorithmMapper()
+# algorithm_input = mapper.requestToAlgInput(request.to_dict())
+# print('-----------------------')
+# print(algorithm_input)
 
-algorithm_output = mapper.algOutToResponse(costs_dict_all_hardware)
-response = ResponseSchema.from_dict(algorithm_output)
-print('-----------------------')
-print(response)
+# # create a class from the mapper 
+# # call the function from the object variable -> pass in the request 
+
+# algorithm = H2AuxCostCalculator()
+# costs_dict_all_hardware = algorithm.calculate_costs(algorithm_input)
+
+# algorithm_output = mapper.algOutToResponse(costs_dict_all_hardware)
+# response = ResponseSchema.from_dict(algorithm_output)
+# print('-----------------------')
+# print(response)
 
 
-# Export to JSON as a test
-with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\costs_dict_all_hardware.json", "w") as f:
-    json.dump(costs_dict_all_hardware, f, indent=4, sort_keys=False)
-    
-# Read the data from the JSON file
-with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\costs_dict_all_hardware.json", "r") as f:
-    loaded_costs_dict = json.load(f)
-    
-with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\response.json", "w") as f:
-    json.dump(algorithm_output, f, indent=4, sort_keys=False)
-    
-# Read the data from the JSON file
-with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\response.json", "r") as f:
-    loaded_costs_dict = json.load(f)
+# # Export to JSON as a test
+# with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\costs_dict_all_hardware.json", "w") as f:
+#     json.dump(costs_dict_all_hardware, f, indent=4, sort_keys=False)
+
+# # Read the data from the JSON file
+# with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\costs_dict_all_hardware.json", "r") as f:
+#     loaded_costs_dict = json.load(f)
+
+# # Export to JSON as a test 
+# with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\response.json", "w") as f:
+#     json.dump(algorithm_output, f, indent=4, sort_keys=False)
+
+# # Read the data from the JSON file
+# with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\response.json", "r") as f:
+#     loaded_costs_dict = json.load(f)
