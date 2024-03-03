@@ -47,7 +47,7 @@ class H2AuxCostCalculator:
 
         elif response['peak_hydrogen_dispensing_rate_quant'] == 'kg':
             peak_flowrate = convert_mass_flowrate_to_kg_per_hour(mass_kg=response['peak_hydrogen_dispensing_rate'],
-                                                                time_unit=response['peak_hydrogen_dispensing_rate_unit'])
+                                                                 time_unit=response['peak_hydrogen_dispensing_rate_unit'])
 
         else:
             print('peak_hydrogen_dispensing_rate_quant wrong unit specified')

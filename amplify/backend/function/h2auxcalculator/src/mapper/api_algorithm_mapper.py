@@ -51,29 +51,32 @@ class ApiAlgorithmMapper:
         storage = []
         for x in out:
             if 'dispenser' in x:
-                dispensers.append(
-                    {
+                dictionary = {
                     'id': x,
-                    'meta': meta[x],
-                    'results': out[x]
+                    'meta': meta[x]
                     }
+                dictionary.update(out[x])
+                dispensers.append(
+                    dictionary
                 )
             elif 'compressor' in x:
-                    compressors.append(
-                    {
+                    dictionary = {
                     'id': x,
-                    'meta': meta[x],
-                    'results': out[x]
+                    'meta': meta[x]
                     }
+                    dictionary.update(out[x])
+                    compressors.append(
+                    dictionary
                 )
             elif 'storage' in x:
-                    storage.append(
-                    {
+                    dictionary = {
                     'id': x,
-                    'meta': meta[x],
-                    'results': out[x]
+                    'meta': meta[x]
                     }
-                )  
+                    dictionary.update(out[x])
+                    storage.append(
+                    dictionary
+                    )
             else:
                 print('undknown equipment type in algorithm output mapper')
                 

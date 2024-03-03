@@ -18,8 +18,8 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
-from pydantic import BaseModel
+from typing import Optional, Union
+from pydantic import BaseModel, StrictFloat, StrictInt
 from openapi_client.models.response_schema_dispensers_inner_results_equipment import ResponseSchemaDispensersInnerResultsEquipment
 
 class ResponseSchemaDispensersInnerResults(BaseModel):
@@ -27,6 +27,7 @@ class ResponseSchemaDispensersInnerResults(BaseModel):
     ResponseSchemaDispensersInnerResults
     """
     equipment: Optional[ResponseSchemaDispensersInnerResultsEquipment] = None
+    my_new_field: Optional[Union[StrictFloat, StrictInt]] = None
     equipment_lcoh: Optional[ResponseSchemaDispensersInnerResultsEquipment] = None
     maintenance: Optional[ResponseSchemaDispensersInnerResultsEquipment] = None
     maintenance_lcoh: Optional[ResponseSchemaDispensersInnerResultsEquipment] = None
@@ -37,7 +38,7 @@ class ResponseSchemaDispensersInnerResults(BaseModel):
     sum_capex: Optional[ResponseSchemaDispensersInnerResultsEquipment] = None
     sum_opex: Optional[ResponseSchemaDispensersInnerResultsEquipment] = None
     sum_lcoh: Optional[ResponseSchemaDispensersInnerResultsEquipment] = None
-    __properties = ["equipment", "equipment_lcoh", "maintenance", "maintenance_lcoh", "installation", "installation_lcoh", "energy", "energy_lcoh", "sum_capex", "sum_opex", "sum_lcoh"]
+    __properties = ["equipment", "my_new_field", "equipment_lcoh", "maintenance", "maintenance_lcoh", "installation", "installation_lcoh", "energy", "energy_lcoh", "sum_capex", "sum_opex", "sum_lcoh"]
 
     class Config:
         """Pydantic configuration"""
@@ -109,6 +110,7 @@ class ResponseSchemaDispensersInnerResults(BaseModel):
 
         _obj = ResponseSchemaDispensersInnerResults.parse_obj({
             "equipment": ResponseSchemaDispensersInnerResultsEquipment.from_dict(obj.get("equipment")) if obj.get("equipment") is not None else None,
+            "my_new_field": obj.get("my_new_field"),
             "equipment_lcoh": ResponseSchemaDispensersInnerResultsEquipment.from_dict(obj.get("equipment_lcoh")) if obj.get("equipment_lcoh") is not None else None,
             "maintenance": ResponseSchemaDispensersInnerResultsEquipment.from_dict(obj.get("maintenance")) if obj.get("maintenance") is not None else None,
             "maintenance_lcoh": ResponseSchemaDispensersInnerResultsEquipment.from_dict(obj.get("maintenance_lcoh")) if obj.get("maintenance_lcoh") is not None else None,

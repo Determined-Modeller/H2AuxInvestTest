@@ -76,7 +76,7 @@ costs_dict_all_hardware = algorithm.calculate_costs(algorithm_input)
 algorithm_output = mapper.algOutToResponse(costs_dict_all_hardware)
 response = ResponseSchema.from_dict(algorithm_output)
 print('-----------------------')
-print(algorithm_output)
+print(response)
 
 
 # Export to JSON as a test
@@ -87,8 +87,8 @@ with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backen
 with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\costs_dict_all_hardware.json", "r") as f:
     loaded_costs_dict = json.load(f)
     
-# with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\response.json", "w") as f:
-#     json.dump(response, f, indent=4, sort_keys=False)
+with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\response.json", "w") as f:
+    json.dump(algorithm_output, f, indent=4, sort_keys=False)
     
 # Read the data from the JSON file
 with open("C:\\Users\\Culik\\Documents\\GitHub\\H2AuxInvestTest\\amplify\\backend\\function\\h2auxcalculator\\src\\lib\\response.json", "r") as f:
