@@ -1,8 +1,8 @@
-from flowrate_conversion import convert_mass_flowrate_to_kg_per_hour, convert_vehicles_per_time_to_kg_per_hour
-from storage_classes import Storage_I_II, Storage_III_IV
-from dispenser_classes import Dispenser
-from compressor_classes import CentrifugalCompressor, DiaphragmCompressor, PistonCompressor
-import helper_functions as helper
+from lib.flowrate_conversion import convert_mass_flowrate_to_kg_per_hour, convert_vehicles_per_time_to_kg_per_hour
+from lib.storage_classes import Storage_I_II, Storage_III_IV
+from lib.dispenser_classes import Dispenser
+from lib.compressor_classes import CentrifugalCompressor, DiaphragmCompressor, PistonCompressor
+import lib.helper_functions as helper
 
 class H2AuxCostCalculator:
     def __init__(self):
@@ -11,8 +11,10 @@ class H2AuxCostCalculator:
     def calculate_costs(self, response: dict) -> dict:
 
         # Extract pressure and mass values from string obtained from drop-down list
-        if response['dispensing_pressure_and_mass'] != 'user_specified':
-            response['dispensing_pressure'], response['dispensing_mass'] = helper.extract_pressure_and_mass_from_string(response['dispensing_pressure_and_mass'])
+        # if response['dispensing_pressure_and_mass'] != 'user_specified':
+        #     response['dispensing_pressure'], response['dispensing_mass'] = helper.extract_pressure_and_mass_from_string(response['dispensing_pressure_and_mass'])
+
+
 
         # Get the strings from the average and peak dispensing questions e.g. 'kg_per_hour'
         avg_str = response['avg_hydrogen_dispensing_rate_unit']

@@ -1,8 +1,8 @@
 #Compressor Classes
 
-import constants as const
+import lib.constants as const
 import pandas as pd
-from lcoh_calculator import calculate_lcoh
+from lib.lcoh_calculator import calculate_lcoh
 
 
 class Compressor:

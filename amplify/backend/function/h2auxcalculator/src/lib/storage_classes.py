@@ -1,6 +1,6 @@
 #Storage Classes
 
-from lcoh_calculator import calculate_lcoh
+from lib.lcoh_calculator import calculate_lcoh
 
     
 class Storage():
@@ -47,11 +47,11 @@ class Storage():
         '''
         Convert storage capacity value from user-defined units to kg.
         '''
-        if self.storage_capacity_unit == 'KG':
+        if self.storage_capacity_unit == 'kg':
             pass
-        elif self.storage_capacity_unit == 'NM3':
+        elif self.storage_capacity_unit == 'nm3':
             self.storage_capacity = self.storage_capacity * 0.08899
-        elif self.storage_capacity_unit == 'DAYS':
+        elif self.storage_capacity_unit == 'days':
             self.storage_capacity = self.average_hydrogen_flow * self.storage_capacity
         else:
             print('Wrong storage unit specified. Assuming units in kg and continuing calculation.')
