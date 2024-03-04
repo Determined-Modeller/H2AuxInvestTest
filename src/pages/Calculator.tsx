@@ -67,9 +67,11 @@ const Calculator = () => {
                 }}
             >
                 <Typography>
-                The H2Auxinvest calculator asks you some questions on the hydrogen demand that you look to meet, 
+                This tool, created as part of the project, H2Auxinvest, an open-source, non-profit initiative, funded by the Scottish Government through the Emerging Energy Technologies Fund (EETF) is designed to support the hydrogen supply chain by enablng greater transparency on cost and requirements for end-users of hydrogen, encouraging manufacturer data sharing and hosting up-to-date cost estimations for hydrogen compression and storage
+                The tool ask some questions on the hydrogen demand that you look to meet, 
                 to allow calculations to size, specify and cost your hydrogen infrastructure.  
-                More detail on these calculations are in the documentation.  Should any issues arise please contact the team by raising a new issue on the project github page. 
+                More detail on these calculations is available in the documentation.  Should any issues arise please contact the team by raising a new issue on the project github page.
+                To take part or find out more as a manufacturer or a contributor, please email h2auxinvest@gchydrogen.co.uk
                 </Typography>
                 <Box
                     sx={{
@@ -108,7 +110,7 @@ const Calculator = () => {
 
                 <Input type="submit" />
             </form> */}
-            <Typography>
+            <Typography color="neutral" fontSize="sm" fontWeight="sm">
                 All calculations and data provided by H2AuxInvest's Hydrogen Infrastructure Costing Tool are for informational purposes only. While this tool aims to provide helpful and accurate information, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information produced.
 The information provided by the Hydrogen Infrastructure Costing Tool is not a substitute for professional advice. Engineering decisions should not be made solely on the basis of this tool. Always seek the guidance of qualified professionals before making any such decisions.
 H2AuxInvest's Hydrogen Infrastructure Costing Tool is an open-source project developed for educational and informational purposes under principles of fair use. The tool is designed to support and further the understanding and roll-out of hydrogen infrastructure.

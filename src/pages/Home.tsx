@@ -26,7 +26,7 @@ const Home = () => {
                     Estimate costs of your hydrogen infrastrucuture
                 </Typography>
                 <Typography fontSize="lg" textColor="text.secondary" lineHeight="lg">
-                Rapidly estimate capital, operating, installation and energy costs for your end-use of hydrogen, compare available technologies and explore different technologies
+                Rapidly estimate capital, operating, installation and energy costs for your end-use of hydrogen, compare available configurations and explore different technologies
                 </Typography>
                 <Box
                     sx={{
