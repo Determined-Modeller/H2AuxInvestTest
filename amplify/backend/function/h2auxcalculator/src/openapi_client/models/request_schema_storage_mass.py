@@ -19,14 +19,14 @@ import json
 
 
 from typing import Optional, Union
-from pydantic import BaseModel, StrictFloat, StrictInt
+from pydantic import BaseModel, confloat, conint
 from openapi_client.models.mass import Mass
 
 class RequestSchemaStorageMass(BaseModel):
     """
     RequestSchemaStorageMass
     """
-    value: Optional[Union[StrictFloat, StrictInt]] = None
+    value: Optional[Union[confloat(le=1.5E+2, ge=1E+1, strict=True), conint(le=150, ge=10, strict=True)]] = None
     unit: Optional[Mass] = None
     __properties = ["value", "unit"]
 

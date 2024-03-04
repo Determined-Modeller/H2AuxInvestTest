@@ -19,11 +19,12 @@ import json
 
 
 from typing import Optional, Union
-from pydantic import BaseModel, Field, StrictBool, StrictFloat, StrictInt, StrictStr, validator
+from pydantic import BaseModel, Field, StrictBool, StrictFloat, StrictInt, StrictStr, confloat, conint, validator
 from openapi_client.models.dispensing_rate import DispensingRate
 from openapi_client.models.request_schema_dispensing_pressure import RequestSchemaDispensingPressure
 from openapi_client.models.request_schema_hydrogen_inlet_pressure import RequestSchemaHydrogenInletPressure
 from openapi_client.models.request_schema_storage_mass import RequestSchemaStorageMass
+from openapi_client.models.request_schema_storage_pressure import RequestSchemaStoragePressure
 
 class RequestSchema(BaseModel):
     """
@@ -31,10 +32,10 @@ class RequestSchema(BaseModel):
     """
     hydrogen_inlet_pressure: RequestSchemaHydrogenInletPressure = Field(...)
     dispensing_type: StrictStr = Field(...)
-    energy_price_per_mwh: Optional[Union[StrictFloat, StrictInt]] = None
+    energy_price_per_mwh: Optional[Union[confloat(le=1.5E+2, ge=1E+1, strict=True), conint(le=150, ge=10, strict=True)]] = None
     is_storage_required: Optional[StrictBool] = None
     storage_mass: Optional[RequestSchemaStorageMass] = None
-    storage_pressure: Optional[RequestSchemaHydrogenInletPressure] = None
+    storage_pressure: Optional[RequestSchemaStoragePressure] = None
     dispensing_pressure: Optional[RequestSchemaDispensingPressure] = None
     dispensing_mass: Optional[DispensingRate] = None
     avg_hydrogen_dispensing_rate: Optional[DispensingRate] = None
@@ -124,7 +125,7 @@ class RequestSchema(BaseModel):
             "energy_price_per_mwh": obj.get("energy_price_per_mwh"),
             "is_storage_required": obj.get("is_storage_required"),
             "storage_mass": RequestSchemaStorageMass.from_dict(obj.get("storage_mass")) if obj.get("storage_mass") is not None else None,
-            "storage_pressure": RequestSchemaHydrogenInletPressure.from_dict(obj.get("storage_pressure")) if obj.get("storage_pressure") is not None else None,
+            "storage_pressure": RequestSchemaStoragePressure.from_dict(obj.get("storage_pressure")) if obj.get("storage_pressure") is not None else None,
             "dispensing_pressure": RequestSchemaDispensingPressure.from_dict(obj.get("dispensing_pressure")) if obj.get("dispensing_pressure") is not None else None,
             "dispensing_mass": DispensingRate.from_dict(obj.get("dispensing_mass")) if obj.get("dispensing_mass") is not None else None,
             "avg_hydrogen_dispensing_rate": DispensingRate.from_dict(obj.get("avg_hydrogen_dispensing_rate")) if obj.get("avg_hydrogen_dispensing_rate") is not None else None,

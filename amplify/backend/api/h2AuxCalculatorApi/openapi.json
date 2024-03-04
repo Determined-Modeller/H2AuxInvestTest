@@ -305,6 +305,8 @@
                     "type": "object",
                     "properties": {
                         "value": {
+                            "minimum": 10,
+                            "maximum": 150,
                             "type": "number"
                         },
                         "unit": {
@@ -320,8 +322,8 @@
                     ]
                 },
                 "energy_price_per_mwh": {
-                    "min": 10,
-                    "max": 150,
+                    "minimum": 10,
+                    "maximum": 150,
                     "type": "number"
                 },
                 "is_storage_required": {
@@ -331,8 +333,8 @@
                     "type": "object",
                     "properties": {
                         "value": {
-                            "min": 10,
-                            "max": 150,
+                            "minimum": 10,
+                            "maximum": 150,
                             "type": "number"
                         },
                         "unit": {
