@@ -21,20 +21,21 @@ import json
 from typing import Optional, Union
 from pydantic import BaseModel, Field, StrictBool, StrictFloat, StrictInt, StrictStr, validator
 from openapi_client.models.dispensing_rate import DispensingRate
-from openapi_client.models.mass import Mass
-from openapi_client.models.pressure import Pressure
+from openapi_client.models.request_schema_dispensing_pressure import RequestSchemaDispensingPressure
+from openapi_client.models.request_schema_hydrogen_inlet_pressure import RequestSchemaHydrogenInletPressure
+from openapi_client.models.request_schema_storage_mass import RequestSchemaStorageMass
 
 class RequestSchema(BaseModel):
     """
     RequestSchema
     """
-    hydrogen_inlet_pressure: Pressure = Field(...)
-    dispensing_type: Optional[StrictStr] = None
+    hydrogen_inlet_pressure: RequestSchemaHydrogenInletPressure = Field(...)
+    dispensing_type: StrictStr = Field(...)
     energy_price_per_mwh: Optional[Union[StrictFloat, StrictInt]] = None
     is_storage_required: Optional[StrictBool] = None
-    storage_mass: Optional[Mass] = None
-    storage_pressure: Optional[Pressure] = None
-    dispensing_pressure: Optional[Pressure] = None
+    storage_mass: Optional[RequestSchemaStorageMass] = None
+    storage_pressure: Optional[RequestSchemaHydrogenInletPressure] = None
+    dispensing_pressure: Optional[RequestSchemaDispensingPressure] = None
     dispensing_mass: Optional[DispensingRate] = None
     avg_hydrogen_dispensing_rate: Optional[DispensingRate] = None
     peak_hydrogen_dispensing_rate: Optional[DispensingRate] = None
@@ -47,9 +48,6 @@ class RequestSchema(BaseModel):
     @validator('dispensing_type')
     def dispensing_type_validate_enum(cls, value):
         """Validates the enum"""
-        if value is None:
-            return value
-
         if value not in ('TUBETRAILER', 'VEHICLE'):
             raise ValueError("must be one of enum values ('TUBETRAILER', 'VEHICLE')")
         return value
@@ -121,13 +119,13 @@ class RequestSchema(BaseModel):
             return RequestSchema.parse_obj(obj)
 
         _obj = RequestSchema.parse_obj({
-            "hydrogen_inlet_pressure": Pressure.from_dict(obj.get("hydrogen_inlet_pressure")) if obj.get("hydrogen_inlet_pressure") is not None else None,
+            "hydrogen_inlet_pressure": RequestSchemaHydrogenInletPressure.from_dict(obj.get("hydrogen_inlet_pressure")) if obj.get("hydrogen_inlet_pressure") is not None else None,
             "dispensing_type": obj.get("dispensing_type"),
             "energy_price_per_mwh": obj.get("energy_price_per_mwh"),
             "is_storage_required": obj.get("is_storage_required"),
-            "storage_mass": Mass.from_dict(obj.get("storage_mass")) if obj.get("storage_mass") is not None else None,
-            "storage_pressure": Pressure.from_dict(obj.get("storage_pressure")) if obj.get("storage_pressure") is not None else None,
-            "dispensing_pressure": Pressure.from_dict(obj.get("dispensing_pressure")) if obj.get("dispensing_pressure") is not None else None,
+            "storage_mass": RequestSchemaStorageMass.from_dict(obj.get("storage_mass")) if obj.get("storage_mass") is not None else None,
+            "storage_pressure": RequestSchemaHydrogenInletPressure.from_dict(obj.get("storage_pressure")) if obj.get("storage_pressure") is not None else None,
+            "dispensing_pressure": RequestSchemaDispensingPressure.from_dict(obj.get("dispensing_pressure")) if obj.get("dispensing_pressure") is not None else None,
             "dispensing_mass": DispensingRate.from_dict(obj.get("dispensing_mass")) if obj.get("dispensing_mass") is not None else None,
             "avg_hydrogen_dispensing_rate": DispensingRate.from_dict(obj.get("avg_hydrogen_dispensing_rate")) if obj.get("avg_hydrogen_dispensing_rate") is not None else None,
             "peak_hydrogen_dispensing_rate": DispensingRate.from_dict(obj.get("peak_hydrogen_dispensing_rate")) if obj.get("peak_hydrogen_dispensing_rate") is not None else None,

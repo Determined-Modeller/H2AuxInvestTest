@@ -261,33 +261,17 @@
     },
     "definitions": {
         "Pressure": {
-            "type": "object",
-            "properties": {
-                "value": {
-                    "type": "number"
-                },
-                "unit": {
-                    "type": "string",
-                    "enum": [
-                        "BAR",
-                        "PSI"
-                    ]
-                }
-            }
+            "type": "string",
+            "enum": [
+                "BAR",
+                "PSI"
+            ]
         },
         "Mass": {
-            "type": "object",
-            "properties": {
-                "value": {
-                    "type": "number"
-                },
-                "unit": {
-                    "type": "string",
-                    "enum": [
-                        "KG"
-                    ]
-                }
-            }
+            "type": "string",
+            "enum": [
+                "KG"
+            ]
         },
         "DispensingRate": {
             "type": "object",
@@ -309,11 +293,24 @@
         "RequestSchema": {
             "type": "object",
             "required": [
-                "hydrogen_inlet_pressure"
+                "hydrogen_inlet_pressure",
+                "dispensing_type"
             ],
             "properties": {
                 "hydrogen_inlet_pressure": {
-                    "$ref": "#/definitions/Pressure"
+                    "required": [
+                        "value",
+                        "unit"
+                    ],
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "type": "number"
+                        },
+                        "unit": {
+                            "$ref": "#/definitions/Pressure"
+                        }
+                    }
                 },
                 "dispensing_type": {
                     "type": "string",
@@ -323,19 +320,53 @@
                     ]
                 },
                 "energy_price_per_mwh": {
+                    "min": 10,
+                    "max": 150,
                     "type": "number"
                 },
                 "is_storage_required": {
                     "type": "boolean"
                 },
                 "storage_mass": {
-                    "$ref": "#/definitions/Mass"
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "min": 10,
+                            "max": 150,
+                            "type": "number"
+                        },
+                        "unit": {
+                            "$ref": "#/definitions/Mass"
+                        }
+                    }
                 },
                 "storage_pressure": {
-                    "$ref": "#/definitions/Pressure"
+                    "required": [
+                        "value",
+                        "unit"
+                    ],
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "min": 10,
+                            "max": 150,
+                            "type": "number"
+                        },
+                        "unit": {
+                            "$ref": "#/definitions/Pressure"
+                        }
+                    }
                 },
                 "dispensing_pressure": {
-                    "$ref": "#/definitions/Pressure"
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "type": "number"
+                        },
+                        "unit": {
+                            "$ref": "#/definitions/Pressure"
+                        }
+                    }
                 },
                 "dispensing_mass": {
                     "$ref": "#/definitions/DispensingRate"
@@ -809,7 +840,7 @@
                             "pressure": {
                                 "type": "object",
                                 "properties": {
-                                    "amount":{
+                                    "amount": {
                                         "type": "number"
                                     },
                                     "unit": {
