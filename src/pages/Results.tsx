@@ -104,10 +104,10 @@ const Results = () => {
             <Grid xs={12} xl={12}>
                 <Grid xs={12} xl={12} sx={(theme) => ({ marginY: theme.spacing(4) })}>
                     <Typography level="h2" fontWeight={6} sx={(theme) => ({ marginBottom: theme.spacing(2) })}>
-                        Change your configuration
+                        Your Bespoke Results - Change your selected equipment types below to compare and explore the outputs
                     </Typography>
                     <Typography sx={(theme) => ({ marginBottom: theme.spacing(3) })}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        Our calculation tool shows detailed technical and commercial outputs for hydrogen compression, storage and dispensing, using your inputs to specify and cost your infrastructure.  Please vary technologies to compare power requirements, levelised costs and much more.  If the infrastrucutre needs of your infrastructure change please restart the survey to update this. 
                     </Typography>
                     <Stack direction='row' spacing={3}>
                         <FormControl sx={{ width: 240 }}>
@@ -131,7 +131,7 @@ const Results = () => {
                                 }
                             </Select>
                             <FormHelperText id="select-field-demo-helper">
-                                This is a helper text.
+                                Pick your compression equipment here
                             </FormHelperText>
                         </FormControl>
                         <FormControl sx={{ width: 240 }}>
@@ -155,7 +155,7 @@ const Results = () => {
                                 }
                             </Select>
                             <FormHelperText id="select-field-demo-helper">
-                                This is a helper text.
+                                Pick your storage equipment here
                             </FormHelperText>
                         </FormControl>
                     </Stack>
@@ -180,7 +180,7 @@ const Results = () => {
             </Grid>
             <Grid xs={12} xl={12}>
                 <Typography level="h2" fontWeight={6} sx={(theme) => ({ marginY: theme.spacing(4) })}>
-                    Cost analysis
+                    Cost Analysis
                 </Typography>
             </Grid>
 
@@ -231,7 +231,7 @@ const Results = () => {
             </Grid>
             <Grid xs={12} xl={12}>
                 <Typography level="h2" fontWeight={6} sx={(theme) => ({ marginY: theme.spacing(7) })}>
-                    Comperative analysis
+                    Equipment Comparison
                 </Typography>
             </Grid>
             <Grid xs={12} xl={12}>

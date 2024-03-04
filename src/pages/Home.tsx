@@ -16,17 +16,17 @@ const Home = () => {
         >
             <TwoSidedLayout>
                 <Typography color="primary" fontSize="lg" fontWeight="lg">
-                    Hydrogen Planning Tool
+                    H2AuxInvest – Hydrogen Infrastructure Costing Tool
                 </Typography>
                 <Typography
                     level="h1"
                     fontWeight="xl"
                     fontSize="clamp(1.875rem, 1.3636rem + 2.1818vw, 3rem)"
                 >
-                    Estimate capital cost of operating a hydrogen dispensing station.
+                    Estimate costs of your hydrogen infrastrucuture
                 </Typography>
                 <Typography fontSize="lg" textColor="text.secondary" lineHeight="lg">
-                    Get a quick estimate of operating, capital, and installation cost of your H2 dispensing station plans.
+                Rapidly estimate capital, operating, installation and energy costs for your end-use of hydrogen, compare available technologies and explore different technologies
                 </Typography>
                 <Box
                     sx={{

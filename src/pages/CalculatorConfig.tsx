@@ -77,10 +77,10 @@ const CalculatorConfig = () => {
                         }}
                     >
                         <FormControl>
-                            <FormLabel>Energy Cost (&pound;/kWh)</FormLabel>
-                            <Input placeholder="Placeholder" />
+                            <FormLabel>Energy Cost (p/kWh)</FormLabel>
+                            <Input type="number" defaultValue={29.0} />
                             <FormHelperText>
-                                This is a helper text.
+                                Please provide your energy cost, to allow accurate estimation of the operating cost
                             </FormHelperText>
                         </FormControl>
 
@@ -98,10 +98,10 @@ const CalculatorConfig = () => {
                         </Box>
 
                         <FormControl>
-                            <FormLabel>WACC</FormLabel>
-                            <Input type="number" defaultValue={1.0} />
+                            <FormLabel>WACC (%)</FormLabel>
+                            <Input type="number" defaultValue={12} />
                             <FormHelperText>
-                                Explain what this is.
+                                WAAC - Standing for Weighted Average Cost of Capital, represents the average % interest expected on finance for the infrastructure
                             </FormHelperText>
                         </FormControl>
                         <Box width={300} marginTop={3}>
@@ -115,7 +115,7 @@ const CalculatorConfig = () => {
                                     Use precooling?
                                 </Typography>
                                 <FormHelperText>
-                                    Explain what this is.
+                                    This shows whether the hydrogen supply cooled before dispensing to allow for a higher fill level
                                 </FormHelperText>
                             </FormControl>
                         </Box>
