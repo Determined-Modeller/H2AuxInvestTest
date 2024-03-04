@@ -16,6 +16,7 @@ numpy = "*"
 pytest = "*"
 coolprop = "*"
 openpyxl = "*"
+aenum = "*"
 
 [requires]
 python_version = "3.8"
