@@ -294,7 +294,15 @@
             "type": "object",
             "required": [
                 "hydrogen_inlet_pressure",
-                "dispensing_type"
+                "energy_price_per_mwh",
+                "storage_mass",
+                "storage_pressure",
+                "dispensing_pressure",
+                "dispensing_mass",
+                "avg_hydrogen_dispensing_rate",
+                "peak_hydrogen_dispensing_rate",
+                "lifetime_years",
+                "wacc"
             ],
             "properties": {
                 "hydrogen_inlet_pressure": {
@@ -305,8 +313,8 @@
                     "type": "object",
                     "properties": {
                         "value": {
-                            "minimum": 10,
-                            "maximum": 150,
+                            "minimum": 1,
+                            "maximum": 15000,
                             "type": "number"
                         },
                         "unit": {
@@ -322,19 +330,23 @@
                     ]
                 },
                 "energy_price_per_mwh": {
-                    "minimum": 10,
-                    "maximum": 150,
+                    "minimum": 0,
+                    "maximum": 10000,
                     "type": "number"
                 },
                 "is_storage_required": {
                     "type": "boolean"
                 },
                 "storage_mass": {
+                    "required": [
+                        "value",
+                        "unit"
+                    ],
                     "type": "object",
                     "properties": {
                         "value": {
-                            "minimum": 10,
-                            "maximum": 150,
+                            "minimum": 0,
+                            "maximum": 1000000,
                             "type": "number"
                         },
                         "unit": {
@@ -350,8 +362,8 @@
                     "type": "object",
                     "properties": {
                         "value": {
-                            "min": 10,
-                            "max": 150,
+                            "minimum": 30,
+                            "maximum": 20000,
                             "type": "number"
                         },
                         "unit": {
@@ -360,9 +372,15 @@
                     }
                 },
                 "dispensing_pressure": {
+                    "required":[
+                        "value",
+                        "unit"
+                    ],
                     "type": "object",
                     "properties": {
                         "value": {
+                            "minimum": 30,
+                            "maximum": 15000,
                             "type": "number"
                         },
                         "unit": {
@@ -380,9 +398,13 @@
                     "$ref": "#/definitions/DispensingRate"
                 },
                 "lifetime_years": {
+                    "minimum": 1,
+                    "maximum": 100,
                     "type": "number"
                 },
                 "wacc": {
+                    "minimum": 0,
+                    "maximum": 100,
                     "type": "number"
                 },
                 "is_precooling_used": {
