@@ -86,7 +86,7 @@ const CalculatorIntake = () => {
                         </FormControl>
                         <FormControl>
                             <FormLabel>Units</FormLabel>
-                            <Select defaultValue="dog" onChange={handleChange}
+                            <Select defaultValue="BAR" onChange={handleChange}
                                 sx={{
                                     width: "120px",
                                 }}

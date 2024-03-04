@@ -1,6 +1,6 @@
 
 
-import { Box, Typography, Button } from "@mui/joy";
+import { Box, Typography, Button, FormControl, FormLabel, Input, Select, Option } from "@mui/joy";
 
 
 import ProgressTracker from "../components/ProgressTracker";
@@ -22,6 +22,12 @@ const CalculatorSales = () => {
 
     console.log(watch("example")) // watch input value by passing the name of it
 
+    const handleChange = (
+        event: React.SyntheticEvent | null,
+        newValue: string | null,
+    ) => {
+        console.log(event, newValue)
+    };
 
     return (
         <Box
@@ -76,13 +82,60 @@ const CalculatorSales = () => {
                             '& > *': { flex: 'auto' },
                         }}
                     >
-                        <Typography>
-                            [This will have the two fields for specifying average and best case of how much the station
-                            is going to dispense]
-                        </Typography>
+                        <FormControl>
+                            <FormLabel>Average sales estimate</FormLabel>
+                            <Input placeholder="Placeholder" />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel>Units</FormLabel>
+                            <Select defaultValue="BAR" onChange={handleChange}
+                                sx={{
+                                    width: "120px",
+                                }}
+                            >
+                                <Option value="BAR">Bar</Option>
+                                <Option value="PSI">PSI</Option>
+                            </Select>
+                        </FormControl>
+                        {/* <FormControl>
+                            <FormLabel>Energy Price (£/MWh)</FormLabel>
+                            <Input placeholder="Placeholder" />
+                        </FormControl> */}
 
                         {errors.exampleRequired && <span>This field is required</span>}
                     </Box>
+                    <Box
+                        sx={{
+                            maxWidth: "400px",
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            gap: 2,
+                            '& > *': { flex: 'auto' },
+                        }}
+                    >
+                        <FormControl>
+                            <FormLabel>Best case sales estimate</FormLabel>
+                            <Input placeholder="Placeholder" />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel>Units</FormLabel>
+                            <Select defaultValue="dog" onChange={handleChange}
+                                sx={{
+                                    width: "120px",
+                                }}
+                            >
+                                <Option value="BAR">Bar</Option>
+                                <Option value="PSI">PSI</Option>
+                            </Select>
+                        </FormControl>
+                        {/* <FormControl>
+                            <FormLabel>Energy Price (£/MWh)</FormLabel>
+                            <Input placeholder="Placeholder" />
+                        </FormControl> */}
+
+                        {errors.exampleRequired && <span>This field is required</span>}
+                    </Box>
+
 
 
                     <Box
