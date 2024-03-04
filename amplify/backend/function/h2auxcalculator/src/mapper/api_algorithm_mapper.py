@@ -16,7 +16,7 @@ class ApiAlgorithmMapper:
         response['hydrogen_inlet_pressure_unit'] = request['hydrogen_inlet_pressure']['unit'].lower() # 'bar' or 'psi'
         response['dispensing_type'] = request['dispensing_type'].lower() # 'tubetrailer' or 'vehicle'
         response['vehicle_type'] = request['vehicle_type'].lower() # 'car' or 'hdv'
-        response['energy_price_per_mwh'] = request['energy_price_per_mwh']
+        response['energy_price_per_mwh'] = request['energy_price_per_mwh']*10
         response['is_storage_required'] = False if request['storage_mass'] == 0 else True
         response['storage_requirement'] = request['storage_mass']['value']
         response['storage_requirement_unit'] = request['storage_mass']['unit'].lower()
@@ -33,7 +33,7 @@ class ApiAlgorithmMapper:
         response['peak_hydrogen_dispensing_rate'] = request['peak_hydrogen_dispensing_rate']['value']
         response['peak_hydrogen_dispensing_rate_unit'] = request['peak_hydrogen_dispensing_rate']['unit'].lower() # 'kg_per_hour' or 'vehicles_per_hour'
 
-        response['wacc'] = request['wacc'] # WACC
+        response['wacc'] = request['wacc']/100 # WACC
         response['lifetime'] = request['lifetime_years'] # lifetime in years
 
         # I think this will be calculated rather than being entered by the user
