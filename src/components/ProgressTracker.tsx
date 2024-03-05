@@ -54,8 +54,7 @@ const ProgressTracker = (props: ProgressTrackerProps) => {
                     }
                     sx={{
                         '&::after': {
-                            ...(activeStep > index &&
-                                index !== 2 && { bgcolor: 'primary.solidBg' }),
+                            ...(activeStep > index && { bgcolor: 'primary.solidBg' }),
                         },
                     }}
                 >
