@@ -5,10 +5,40 @@ import { Box, Typography, Button, FormControl, FormLabel, Input, Switch, FormHel
 
 import ProgressTracker from "../components/ProgressTracker";
 import ROUTE_CONSTANTS from "../routing/routeConstants";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { RequestSchema } from "../api/calculator";
 
 
 const CalculatorConfig = () => {
+    const [request, setRequest] = useState({} as RequestSchema)
+    const location = useLocation();
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        const locationRequest = location.state as RequestSchema;
+
+        if (!locationRequest?.peak_hydrogen_dispensing_rate || !locationRequest?.avg_hydrogen_dispensing_rate) {
+            goToPrevious();
+        }
+
+        setRequest({
+            ...locationRequest,
+            wacc: 0.12,
+            lifetime_years: 22,
+            energy_price_per_mwh: 29,
+            is_precooling_used: false
+        })
+    }, [])
+
+
+    const goToPrevious = () => {
+        navigate(ROUTE_CONSTANTS.CALCULATOR_SALES, { state: request });
+    }
+
+    const goToNext = () => {
+        navigate(ROUTE_CONSTANTS.CALCULATOR_RESULTS, { state: request });
+    }
 
 
     return (
@@ -57,7 +87,7 @@ const CalculatorConfig = () => {
                 >
                     <Box
                         sx={{
-                            maxWidth: "400px",
+                            maxWidth: "500px",
                             display: 'flex',
                             flexWrap: 'wrap',
                             gap: 2,
@@ -66,28 +96,41 @@ const CalculatorConfig = () => {
                     >
                         <FormControl>
                             <FormLabel>Energy Cost (p/kWh)</FormLabel>
-                            <Input type="number" defaultValue={29.0} />
+                            <Input
+                                size='lg'
+                                type="number"
+                                value={request.energy_price_per_mwh}
+                                onChange={(e) => setRequest({ ...request, energy_price_per_mwh: parseFloat(e.target.value) })}
+                            />
                             <FormHelperText>
                                 Please provide your energy cost, to allow accurate estimation of the operating cost
                             </FormHelperText>
                         </FormControl>
 
-                        <Box width={400} marginTop={4} marginBottom={3}>
+                        <Box width={500} marginTop={4} marginBottom={3}>
                             <Divider sx={{ '--Divider-childPosition': `50%` }}>
                                 Advanced (optional)
                             </Divider>
                         </Box>
 
-                        <Box width={300}>
+                        <Box width={300} marginBottom={2}>
                             <FormControl>
-                                <FormLabel>LIFETIME (years)</FormLabel>
-                                <Slider valueLabelDisplay="on" min={10} defaultValue={20} max={30} />
+                                <FormLabel sx={{ marginBottom: 3 }}>LIFETIME (years)</FormLabel>
+                                <Slider size='lg'
+                                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                                    onChange={(_e, value, _x) => setRequest({ ...request, lifetime_years: value as number })}
+                                    valueLabelDisplay="on" min={10} value={request?.lifetime_years ?? 20} max={30} />
                             </FormControl>
                         </Box>
 
                         <FormControl>
                             <FormLabel>WACC (%)</FormLabel>
-                            <Input type="number" defaultValue={12} />
+                            <Input
+                                size='lg'
+                                type="number"
+                                value={request.wacc}
+                                onChange={(e) => setRequest({ ...request, wacc: parseFloat(e.target.value) })}
+                            />
                             <FormHelperText>
                                 WAAC - Standing for Weighted Average Cost of Capital, represents the average % interest expected on finance for the infrastructure
                             </FormHelperText>
@@ -97,6 +140,8 @@ const CalculatorConfig = () => {
 
                                 <Typography component="label" endDecorator={<Switch
                                     disabled={false}
+                                    checked={request.is_precooling_used}
+                                    onChange={(e) => setRequest({ ...request, is_precooling_used: e.target.checked })}
                                     size="lg"
                                     variant="solid"
                                 />}>
@@ -121,14 +166,12 @@ const CalculatorConfig = () => {
                         }}
                     >
                         <Button
-                            component="a"
-                            href={ROUTE_CONSTANTS.CALCULATOR_SALES}
+                            onClick={goToPrevious}
                             size="lg" variant="outlined" color="neutral">
                             Back
                         </Button>
                         <Button
-                            component="a"
-                            href={ROUTE_CONSTANTS.CALCULATOR_RESULTS}
+                            onClick={goToNext}
                             size="lg"
                         >
                             Next
