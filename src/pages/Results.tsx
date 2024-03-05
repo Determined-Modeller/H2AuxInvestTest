@@ -15,43 +15,43 @@ import { useLocation } from 'react-router-dom';
 
 
 
-const postBody = {
-    "hydrogen_inlet_pressure": {
-        "value": 10,
-        "unit": "BAR"
-    },
-    "dispensing_type": "TUBETRAILER",
-    "energy_price_per_mwh": 10,
-    "is_storage_required": true,
-    "storage_mass": {
-        "value": 10,
-        "unit": "KG"
-    },
-    "storage_pressure": {
-        "value": 500,
-        "unit": "PSI"
-    },
-    "dispensing_pressure": {
-        "value": 500,
-        "unit": "PSI"
-    },
-    "dispensing_mass": {
-        "value": 20,
-        "unit": "KG_PER_HOUR"
-    },
-    "avg_hydrogen_dispensing_rate": {
-        "value": 20,
-        "unit": "KG_PER_HOUR"
-    },
-    "peak_hydrogen_dispensing_rate": {
-        "value": 30,
-        "unit": "KG_PER_HOUR"
-    },
-    "lifetime_years": 20,
-    "wacc": 0.1,
-    "is_precooling_used": true,
-    "vehicle_type": "TUBETRAILER"
-}
+// const postBody = {
+//     "hydrogen_inlet_pressure": {
+//         "value": 10,
+//         "unit": "BAR"
+//     },
+//     "dispensing_type": "TUBETRAILER",
+//     "energy_price_per_mwh": 10,
+//     "is_storage_required": true,
+//     "storage_mass": {
+//         "value": 10,
+//         "unit": "KG"
+//     },
+//     "storage_pressure": {
+//         "value": 500,
+//         "unit": "PSI"
+//     },
+//     "dispensing_pressure": {
+//         "value": 500,
+//         "unit": "PSI"
+//     },
+//     "dispensing_mass": {
+//         "value": 20,
+//         "unit": "KG_PER_HOUR"
+//     },
+//     "avg_hydrogen_dispensing_rate": {
+//         "value": 20,
+//         "unit": "KG_PER_HOUR"
+//     },
+//     "peak_hydrogen_dispensing_rate": {
+//         "value": 30,
+//         "unit": "KG_PER_HOUR"
+//     },
+//     "lifetime_years": 20,
+//     "wacc": 0.1,
+//     "is_precooling_used": true,
+//     "vehicle_type": "TUBETRAILER"
+// }
 
 const Results = () => {
     const [response, setResponse] = useState<ResponseSchema | undefined>(undefined);

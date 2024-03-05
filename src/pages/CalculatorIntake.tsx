@@ -52,7 +52,7 @@ const CalculatorIntake = () => {
     }
 
     const handleChange = (
-        event: React.SyntheticEvent | null,
+        _event: React.SyntheticEvent | null,
         newValue: string | null,
     ) => {
         setRequest({

@@ -220,7 +220,7 @@ const CalculatorPlantType = () => {
     };
 
     const handleSelectChange = (
-        event: React.SyntheticEvent | null,
+        _event: React.SyntheticEvent | null,
         newValue: string | null,
     ) => {
         const name = newValue;
@@ -235,7 +235,7 @@ const CalculatorPlantType = () => {
     }
 
     const handleDispensingUnitChange = (
-        event: React.SyntheticEvent | null,
+        _event: React.SyntheticEvent | null,
         newValue: string | null,
     ) => {
         setRequest({
@@ -248,7 +248,7 @@ const CalculatorPlantType = () => {
     }
 
     const handleDispensingMassUnitChange = (
-        event: React.SyntheticEvent | null,
+        _event: React.SyntheticEvent | null,
         newValue: string | null,
     ) => {
         setRequest({

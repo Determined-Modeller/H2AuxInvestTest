@@ -48,7 +48,7 @@ const CalculatorConsumer = () => {
     }
 
     const handleDispensingUnitChange = (
-        event: React.SyntheticEvent | null,
+        _event: React.SyntheticEvent | null,
         newValue: string | null,
     ) => {
         setRequest({
@@ -61,7 +61,7 @@ const CalculatorConsumer = () => {
     }
 
     const handleDispensingMassUnitChange = (
-        event: React.SyntheticEvent | null,
+        _event: React.SyntheticEvent | null,
         newValue: string | null,
     ) => {
         setRequest({

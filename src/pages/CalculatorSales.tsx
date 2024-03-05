@@ -54,7 +54,7 @@ const CalculatorSales = () => {
     }
 
     const handleAvgUnitChange = (
-        event: React.SyntheticEvent | null,
+        _event: React.SyntheticEvent | null,
         newValue: string | null,
     ) => {
         console.log("does this even work2?");
@@ -68,7 +68,7 @@ const CalculatorSales = () => {
     };
 
     const handlePeakUnitChange = (
-        event: React.SyntheticEvent | null,
+        _event: React.SyntheticEvent | null,
         newValue: string | null,
     ) => {
         console.log("does this even work?");
