@@ -47,6 +47,10 @@ const CalculatorIntake = () => {
         }
     }
 
+    const goToPrevious = () => {
+        navigate(ROUTE_CONSTANTS.CALCULATOR, { state: request })
+    }
+
     const goToNext = () => {
         if (canProceed()) {
             navigate(ROUTE_CONSTANTS.CALCULATOR_PLANT_TYPE, { state: request })
@@ -83,7 +87,7 @@ const CalculatorIntake = () => {
     return (
         <CalculatorInputLayout
             activeStep={0}
-            onBack={() => console.log('back')}
+            onBack={goToPrevious}
             onNext={goToNext}
         >
             <Box
