@@ -53,6 +53,7 @@ class ApiAlgorithmMapper:
             if 'dispenser' in x:
                 dictionary = {
                     'id': x,
+                    'static': False,
                     'meta': meta[x]
                     }
                 dictionary.update(out[x])
@@ -62,6 +63,7 @@ class ApiAlgorithmMapper:
             elif 'compressor' in x:
                     dictionary = {
                     'id': x,
+                    'static': False,
                     'meta': meta[x]
                     }
                     dictionary.update(out[x])
@@ -71,6 +73,7 @@ class ApiAlgorithmMapper:
             elif 'storage' in x:
                     dictionary = {
                     'id': x,
+                    'static': False,
                     'meta': meta[x]
                     }
                     dictionary.update(out[x])
@@ -79,7 +82,31 @@ class ApiAlgorithmMapper:
                     )
             else:
                 print('undknown equipment type in algorithm output mapper')
-                
+        
+        dictionary = {
+        'id': "new dispenser",
+        'static': True,
+        'meta': meta["new dispenser"]
+        }
+        dictionary.update(out["dispenser"])
+        dispensers.append(dictionary)
+        
+        dictionary = {
+        'id': "new compressor",
+        'static': True,
+        'meta': meta["new compressor"]
+        }
+        dictionary.update(out["piston compressor"])
+        compressors.append()
+        
+        dictionary = {
+        'id': "new storage",
+        'static': True,
+        'meta': meta["new storage"]
+        }
+        dictionary.update(out["type I/II storage"])
+        storage.append()
+        
         response['dispensers'] = dispensers
         response['compressors'] = compressors
         response['storage'] = storage
