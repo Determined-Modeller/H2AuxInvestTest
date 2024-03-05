@@ -5,46 +5,38 @@ import { Box, Typography, Input, Select, Option, FormControl, FormLabel, FormHel
 
 import ROUTE_CONSTANTS from "../routing/routeConstants";
 import { Pressure, RequestSchema } from "../api/calculator";
-import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Ajv, { ErrorObject } from 'ajv';
 import schema from '../api/calculator/schema.json'; // replace with the path to your JSON schema
 import { InfoOutlined } from "@mui/icons-material";
 import CalculatorInputLayout from "../components/CalculatorInputLayout";
+import useRequest from "../hooks/useValidatedRequestForm";
 
 
 
 
 const CalculatorIntake = () => {
-    const [request, setRequest] = useState({} as RequestSchema)
-    const [errorMessages, setErrorMessages] = useState({} as Record<string, string>);
     const location = useLocation();
     const navigate = useNavigate();
-    const ajv = new Ajv({ strictRequired: 'log' });
+    const locationRequest = location.state as RequestSchema;
     const modifiedSchema = schema;
     modifiedSchema.required = ['hydrogen_inlet_pressure']
-    const validate = ajv.compile(modifiedSchema);
+    const { request, errorMessages, handleChange } = useRequest({
+        ...locationRequest,
+        hydrogen_inlet_pressure: {
+            ...locationRequest?.hydrogen_inlet_pressure,
+            unit: Pressure[Object.keys(Pressure)[0] as keyof typeof Pressure],
+        }
+    }, modifiedSchema);
 
-    useEffect(() => {
-        const locationRequest = location.state as RequestSchema;
-        setRequest({
-            ...locationRequest,
-            hydrogen_inlet_pressure: {
-                ...request.hydrogen_inlet_pressure,
-                unit: Pressure[Object.keys(Pressure)[0] as keyof typeof Pressure],
-            }
-        })
-    }, [])
 
 
     const canProceed = () => {
-        const valid = validate(request);
-        if (valid) {
-            return true;
-        } else {
-            console.log(validate.errors);
-            return false;
-        }
+        return hasAllRequiredFields() && Object.keys(errorMessages).length === 0;
+    }
+
+
+    const hasAllRequiredFields = () => {
+        return request.hydrogen_inlet_pressure.value !== undefined && request.hydrogen_inlet_pressure.unit !== undefined;
     }
 
     const goToPrevious = () => {
@@ -57,32 +49,6 @@ const CalculatorIntake = () => {
         }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleChange = (newValue: any, path: string[]) => {
-        setRequest(prevRequest => {
-            const updatedRequest = { ...prevRequest };
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            let target: any = updatedRequest;
-            for (let i = 0; i < path.length - 1; i++) {
-                target = target[path[i]];
-            }
-            target[path[path.length - 1]] = newValue;
-
-            const valid = validate(updatedRequest);
-            const newErrorMessages = { ...errorMessages };
-            if (!valid && validate.errors) {
-                validate.errors.forEach((error: ErrorObject) => {
-                    if (error.instancePath === '/' + path.join('/')) {
-                        newErrorMessages[path.join('.')] = error.message || '';
-                    }
-                });
-            } else {
-                delete newErrorMessages[path.join('.')];
-            }
-            setErrorMessages(newErrorMessages);
-            return updatedRequest;
-        });
-    };
 
     return (
         <CalculatorInputLayout
