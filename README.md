@@ -37,7 +37,7 @@ H2AuxInvest aims to provide a platform that offers:
 - **Full Value Chain:** The project aims to expand the tool to cover hydrogen thermal demands, and accurately estimate transport and storage costs from a supply site of your choice.
 - **Supply Chain Visibility:** The project aims to build, update and share up-to-date open-source cost correlations for multiple low TRL and novel hydrogen technologies.
 - **Benchmarking and Estimation:** Our tool encourages a free comparison of key variables, capable of exploring different multi-technology approaches.
-- **Trusted Partner** Working with manufacturers using a transparent and fair verification process, we allow them to share important information for potential users and investors in H2 infrastructure
+- **Trusted Partner:** Working with manufacturers using a transparent and fair verification process, we allow them to share important information for potential users and investors in H2 infrastructure
 
 #### Community and Accessibility
 - **Open-Source Collaboration:** We use forums and contributions to foster a rich knowledge-sharing environment.
