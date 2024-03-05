@@ -11,6 +11,7 @@ import DispenserCard from '../components/DispenserCard';
 import StorageCard from '../components/StorageCard';
 import CompressorCard from '../components/CompressorCard';
 import CostsCard from '../components/CostsCard';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -58,11 +59,13 @@ const Results = () => {
     const [storage, setStorage] = useState<ResponseSchemaStorageInner | undefined>(undefined);
     const [dispensor, setDispensor] = useState<ResponseSchemaDispensersInner | undefined>(undefined);
     const [loading, setLoading] = useState(true);
+    const formData = useLocation().state as RequestSchema;
+
     useEffect(() => {
         const fetchData = async () => {
             console.log("hook is called");
 
-            const res = await postCalculate(postBody as RequestSchema);
+            const res = await postCalculate(formData);
             setResponse(res);
             setCompressor(res?.compressors?.[0] ?? undefined);
             setStorage(res?.storage?.[0] ?? undefined);
@@ -107,7 +110,7 @@ const Results = () => {
                         Your Bespoke Results - Change your selected equipment types below to compare and explore the outputs
                     </Typography>
                     <Typography sx={(theme) => ({ marginBottom: theme.spacing(3) })}>
-                        Our calculation tool shows detailed technical and commercial outputs for hydrogen compression, storage and dispensing, using your inputs to specify and cost your infrastructure.  Please vary technologies to compare power requirements, levelised costs and much more.  If the infrastrucutre needs of your infrastructure change please restart the survey to update this. 
+                        Our calculation tool shows detailed technical and commercial outputs for hydrogen compression, storage and dispensing, using your inputs to specify and cost your infrastructure.  Please vary technologies to compare power requirements, levelised costs and much more.  If the infrastrucutre needs of your infrastructure change please restart the survey to update this.
                     </Typography>
                     <Stack direction='row' spacing={3}>
                         <FormControl sx={{ width: 240 }}>

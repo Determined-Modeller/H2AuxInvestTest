@@ -27,12 +27,14 @@ const CalculatorSales = () => {
         setRequest({
             ...locationRequest,
             peak_hydrogen_dispensing_rate: {
-                unit: DispensingRateUnitEnum[Object.keys(DispensingRateUnitEnum)[0] as keyof typeof DispensingRateUnitEnum],
                 ...request.peak_hydrogen_dispensing_rate,
+                unit: DispensingRateUnitEnum[Object.keys(DispensingRateUnitEnum)[0] as keyof typeof DispensingRateUnitEnum],
+
             },
             avg_hydrogen_dispensing_rate: {
-                unit: DispensingRateUnitEnum[Object.keys(DispensingRateUnitEnum)[0] as keyof typeof DispensingRateUnitEnum],
                 ...request.avg_hydrogen_dispensing_rate,
+                unit: DispensingRateUnitEnum[Object.keys(DispensingRateUnitEnum)[0] as keyof typeof DispensingRateUnitEnum],
+
             }
         })
     }, [])
@@ -55,6 +57,7 @@ const CalculatorSales = () => {
         event: React.SyntheticEvent | null,
         newValue: string | null,
     ) => {
+        console.log("does this even work2?");
         setRequest({
             ...request,
             avg_hydrogen_dispensing_rate: {
@@ -68,6 +71,8 @@ const CalculatorSales = () => {
         event: React.SyntheticEvent | null,
         newValue: string | null,
     ) => {
+        console.log("does this even work?");
+
         setRequest({
             ...request,
             peak_hydrogen_dispensing_rate: {
@@ -107,6 +112,7 @@ const CalculatorSales = () => {
                     Please enter expected peak and average demand levels for the hydrogen demand.
                     If you are unsure of this please see the 'Choosing Your Inputs' portion of the documentation
                     - or use the standard inputs provided to explore the tool.
+                    {JSON.stringify(request)}
                 </Typography>
             </Box>
             <form>
@@ -149,13 +155,13 @@ const CalculatorSales = () => {
                         </FormControl>
                         <FormControl>
                             <FormLabel>Units</FormLabel>
-                            <Select size="lg" defaultValue={Object.values(DispensingRateUnitEnum)[0]} onChange={handleAvgUnitChange}
+                            <Select size="lg" defaultValue={Object.keys(DispensingRateUnitEnum)[0]} onChange={handleAvgUnitChange}
                                 sx={{
                                     width: "200px",
                                 }}
                             >
                                 {Object.entries(DispensingRateUnitEnum).map(([key, value]) => (
-                                    <Option key={key} value={value}>
+                                    <Option key={value} value={key}>
                                         {key}
                                     </Option>
                                 ))}
@@ -180,13 +186,13 @@ const CalculatorSales = () => {
                         </FormControl>
                         <FormControl>
                             <FormLabel>Units</FormLabel>
-                            <Select size="lg" defaultValue={Object.values(DispensingRateUnitEnum)[0]} onChange={handlePeakUnitChange}
+                            <Select size="lg" defaultValue={Object.keys(DispensingRateUnitEnum)[0]} onChange={handlePeakUnitChange}
                                 sx={{
                                     width: "200px",
                                 }}
                             >
                                 {Object.entries(DispensingRateUnitEnum).map(([key, value]) => (
-                                    <Option key={key} value={value}>
+                                    <Option key={value} value={key}>
                                         {key}
                                     </Option>
                                 ))}
