@@ -92,7 +92,6 @@ meta['new dispenser'] = {
                 ]    
             }
 
-
 meta['new compressor'] = {
                 "title": "New Compressor",
                 "description": "This is a compressor",
