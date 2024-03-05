@@ -1,5 +1,6 @@
 import { Check } from "@mui/icons-material"
-import { Stepper, Step, StepIndicator } from "@mui/joy"
+import { Stepper, Step, StepIndicator, useTheme } from "@mui/joy"
+import { useMediaQuery } from "@mui/material"
 
 
 interface ProgressTrackerProps {
@@ -24,7 +25,7 @@ const steps: CalculationStep[] = [
     },
     {
         "id": 3,
-        "name": "Equipment"
+        "name": "Storage"
     },
     {
         "id": 4,
@@ -38,8 +39,12 @@ const steps: CalculationStep[] = [
 
 const ProgressTracker = (props: ProgressTrackerProps) => {
     const { activeStep } = props;
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
     return (
-        <Stepper sx={{ width: '100%' }}>
+        <Stepper
+
+            sx={{ width: '100%' }}>
             {steps.map((step, index) => (
                 <Step
                     key={step.id}
@@ -58,7 +63,7 @@ const ProgressTracker = (props: ProgressTrackerProps) => {
                         },
                     }}
                 >
-                    {step.name}
+                    {!isSmallScreen ? step.name : ''}
                 </Step>
             ))}
         </Stepper>
