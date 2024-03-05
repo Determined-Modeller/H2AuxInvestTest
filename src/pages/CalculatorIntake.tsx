@@ -6,7 +6,7 @@ import { Box, Typography, Input, Select, Option, FormControl, FormLabel, FormHel
 import ROUTE_CONSTANTS from "../routing/routeConstants";
 import { Pressure, RequestSchema } from "../api/calculator";
 import { useLocation, useNavigate } from "react-router-dom";
-import schema from '../api/calculator/schema.json'; // replace with the path to your JSON schema
+import schema from '../api/calculator/schema.json';
 import { InfoOutlined } from "@mui/icons-material";
 import CalculatorInputLayout from "../components/CalculatorInputLayout";
 import useRequest from "../hooks/useValidatedRequestForm";

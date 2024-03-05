@@ -1,21 +1,21 @@
 
 
-import { Option, Box, Typography, Button, FormLabel, RadioGroup, Sheet, FormControl, ListItemDecorator, Select, Input } from "@mui/joy";
+import { Option, Box, Typography, FormLabel, RadioGroup, Sheet, FormControl, ListItemDecorator, Select, Input, FormHelperText } from "@mui/joy";
 
 import Radio, { radioClasses } from '@mui/joy/Radio';
 
-import ProgressTracker from "../components/ProgressTracker";
 import ROUTE_CONSTANTS from "../routing/routeConstants";
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import BuildIcon from '@mui/icons-material/Build';
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
-import { DirectionsCar } from "@mui/icons-material";
-import { useState, useEffect } from "react";
+import { DirectionsCar, InfoOutlined } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Mass, Pressure, RequestSchema, RequestSchemaDispensingMass, RequestSchemaDispensingPressure, RequestSchemaDispensingTypeEnum, RequestSchemaVehicleTypeEnum } from "../api/calculator";
-
+import { Mass, Pressure, RequestSchema, RequestSchemaVehicleTypeEnum } from "../api/calculator";
+import schema from '../api/calculator/schema.json';
+import useRequest from "../hooks/useValidatedRequestForm";
+import CalculatorInputLayout from "../components/CalculatorInputLayout";
 const options = [
     {
         type: RequestSchemaVehicleTypeEnum.Tubetrailer,
@@ -181,22 +181,36 @@ const options = [
 
 
 const CalculatorPlantType = () => {
-    const [request, setRequest] = useState({} as RequestSchema)
+
     const location = useLocation();
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const locationRequest = location.state as RequestSchema;
-        if (!locationRequest || !locationRequest.hydrogen_inlet_pressure?.value) {
-            navigate(ROUTE_CONSTANTS.CALCULATOR_INTAKE)
+    const locationRequest = location.state as RequestSchema;
+    const modifiedSchema = schema;
+    modifiedSchema.required = ['hydrogen_inlet_pressure']
+    const { request, errorMessages, handleChange } = useRequest({
+        ...locationRequest,
+        dispensing_pressure: {
+            ...locationRequest?.dispensing_pressure,
+            unit: locationRequest?.dispensing_pressure?.unit ?? Pressure[Object.keys(Pressure)[0] as keyof typeof Pressure],
+        },
+        dispensing_mass: {
+            ...locationRequest?.dispensing_mass,
+            unit: locationRequest?.dispensing_mass?.unit ?? Mass[Object.keys(Mass)[0] as keyof typeof Mass],
         }
-        setRequest({
-            ...locationRequest,
-        })
-    }, [])
+    }, modifiedSchema);
+    console.log(request);
 
     const canProceed = () => {
-        return request.dispensing_type !== undefined;
+        return hasAllRequiredFields() && Object.keys(errorMessages).length === 0;
+    }
+
+    const hasAllRequiredFields = () => {
+        return request.dispensing_type !== undefined
+            && request.dispensing_pressure?.value !== undefined
+            && request.dispensing_mass?.value !== undefined
+            && request.dispensing_pressure?.unit !== undefined
+            && request.dispensing_mass?.unit !== undefined
+            && request.vehicle_type !== undefined;
     }
 
     const goToNext = () => {
@@ -210,55 +224,22 @@ const CalculatorPlantType = () => {
     };
 
 
-    const handleChange = (
-        event: React.ChangeEvent<HTMLInputElement> | null
-    ) => {
-        setRequest({
-            ...request,
-            dispensing_type: event?.target?.value as RequestSchemaDispensingTypeEnum,
-        })
-    };
+
 
     const handleSelectChange = (
         _event: React.SyntheticEvent | null,
         newValue: string | null,
     ) => {
-        const name = newValue;
-        const option = options.find(option => option.name === name);
+        const option = options.find(option => option.name === newValue);
         if (!option) return;
-        setRequest({
-            ...request,
-            vehicle_type: option.type as RequestSchemaVehicleTypeEnum,
-            dispensing_mass: option.data.kg as RequestSchemaDispensingMass,
-            dispensing_pressure: option.data.bar as RequestSchemaDispensingPressure
-        })
+        console.log(option);
+
+
+        handleChange(option.type, ['vehicle_type']);
+        handleChange(option.data.kg, ['dispensing_mass']);
+        handleChange(option.data.bar, ['dispensing_pressure']);
     }
 
-    const handleDispensingUnitChange = (
-        _event: React.SyntheticEvent | null,
-        newValue: string | null,
-    ) => {
-        setRequest({
-            ...request,
-            dispensing_pressure: {
-                ...request.dispensing_pressure,
-                unit: Pressure[newValue as keyof typeof Pressure]
-            }
-        })
-    }
-
-    const handleDispensingMassUnitChange = (
-        _event: React.SyntheticEvent | null,
-        newValue: string | null,
-    ) => {
-        setRequest({
-            ...request,
-            dispensing_mass: {
-                ...request.dispensing_mass,
-                unit: Mass[newValue as keyof typeof Mass]
-            }
-        })
-    }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const filterDropDown = (option: any) => {
@@ -273,20 +254,11 @@ const CalculatorPlantType = () => {
         }
     };
     return (
-        <Box
-            sx={{
-                minHeight: '100vh',
-            }}
+        <CalculatorInputLayout
+            activeStep={1}
+            onNext={goToNext}
+            onBack={goToPrevious}
         >
-            <Box
-                py={'70px'}
-                sx={{
-                    maxWidth: '800px',
-                    margin: 'auto'
-                }}
-            >
-                <ProgressTracker activeStep={1} />
-            </Box>
             <Box
                 pb={'50px'}
                 sx={{
@@ -294,181 +266,200 @@ const CalculatorPlantType = () => {
                     margin: 'auto'
                 }}
             >
-                <Typography level="h3" pb="20px">
+                <Typography level="h3" fontSize={'lg'} pb="20px">
                     H2 User
                 </Typography>
-                <Typography>
+                <Typography fontSize={'sm'}>
                     Please select the hydrogen use you wish to build for below.
                 </Typography>
             </Box>
-            <form>
-                <Box
-                    pb={'50px'}
+            <Box
+                sx={{
+                    maxWidth: "420px",
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 2,
+                    '& > *': { flex: 'auto' },
+                }}
+            >
+                <RadioGroup
+                    value={request?.dispensing_type ?? undefined}
+                    onChange={(event) => handleChange(
+                        event?.target?.value ?? '',
+                        ['dispensing_type'])}
+                    aria-label="platform"
+                    defaultValue="Website"
+                    overlay
+                    name="platform"
                     sx={{
-                        maxWidth: '800px',
-                        margin: 'auto',
-                        display: 'grid',
-                        gap: 3,
-                        alignItems: 'center',
-                        flexWrap: 'wrap',
+                        flexDirection: 'row',
+                        gap: 2,
+                        [`& .${radioClasses.checked}`]: {
+                            [`& .${radioClasses.action}`]: {
+                                inset: -1,
+                                border: '3px solid',
+                                borderColor: 'primary.500',
+                            },
+                        },
+                        [`& .${radioClasses.radio}`]: {
+                            display: 'contents',
+                            '& > svg': {
+                                zIndex: 2,
+                                position: 'absolute',
+                                top: '-8px',
+                                right: '-8px',
+                                bgcolor: 'background.surface',
+                                borderRadius: '50%',
+                            },
+                        },
                     }}
                 >
-                    <RadioGroup
-                        onChange={handleChange}
-
-                        aria-label="platform"
-                        defaultValue="Website"
-                        overlay
-                        name="platform"
+                    <Sheet
+                        variant="outlined"
                         sx={{
-                            flexDirection: 'row',
-                            gap: 2,
-                            [`& .${radioClasses.checked}`]: {
-                                [`& .${radioClasses.action}`]: {
-                                    inset: -1,
-                                    border: '3px solid',
-                                    borderColor: 'primary.500',
-                                },
-                            },
-                            [`& .${radioClasses.radio}`]: {
-                                display: 'contents',
-                                '& > svg': {
-                                    zIndex: 2,
-                                    position: 'absolute',
-                                    top: '-8px',
-                                    right: '-8px',
-                                    bgcolor: 'background.surface',
-                                    borderRadius: '50%',
-                                },
-                            },
+                            borderRadius: 'md',
+
+                            boxShadow: 'sm',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            gap: 1.5,
+                            p: 2,
+                            minWidth: 120,
                         }}
                     >
-                        <Sheet
-                            variant="outlined"
-                            sx={{
-                                borderRadius: 'md',
+                        <Radio id={"TUBETRAILER"} value={"TUBETRAILER"} checkedIcon={<CheckCircleRoundedIcon />} />
+                        <LocalShippingIcon />
+                        <FormLabel htmlFor={"TUBETRAILER"}>{"TUBETRAILER"}</FormLabel>
+                    </Sheet>
+                    <Sheet
+                        variant="outlined"
+                        sx={{
+                            borderRadius: 'md',
 
-                                boxShadow: 'sm',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                gap: 1.5,
-                                p: 2,
-                                minWidth: 120,
-                            }}
-                        >
-                            <Radio id={"TUBETRAILER"} value={"TUBETRAILER"} checkedIcon={<CheckCircleRoundedIcon />} />
-                            <LocalShippingIcon />
-                            <FormLabel htmlFor={"TUBETRAILER"}>{"TUBETRAILER"}</FormLabel>
-                        </Sheet>
-                        <Sheet
-                            variant="outlined"
-                            sx={{
-                                borderRadius: 'md',
-
-                                boxShadow: 'sm',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                gap: 1.5,
-                                p: 2,
-                                minWidth: 120,
-                            }}
-                        >
-                            <Radio id={"VEHICLE"} value={"VEHICLE"} checkedIcon={<CheckCircleRoundedIcon />} />
-                            <DirectionsCar />
-                            <FormLabel htmlFor={"VEHICLE"}>{"VEHICLE"}</FormLabel>
-                        </Sheet>
-                    </RadioGroup>
-                    {request.dispensing_type && <>
-                        <Typography>Consumption</Typography>
-                        <Select
-                            size="lg"
-                            onChange={handleSelectChange}
-                            defaultValue="Eric"
-                            slotProps={{
-                                listbox: {
-                                    sx: {
-                                        '--ListItemDecorator-size': '48px',
+                            boxShadow: 'sm',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            gap: 1.5,
+                            p: 2,
+                            minWidth: 120,
+                        }}
+                    >
+                        <Radio id={"VEHICLE"} value={"VEHICLE"} checkedIcon={<CheckCircleRoundedIcon />} />
+                        <DirectionsCar />
+                        <FormLabel htmlFor={"VEHICLE"}>{"VEHICLE"}</FormLabel>
+                    </Sheet>
+                </RadioGroup>
+                {request.dispensing_type &&
+                    <Box
+                        sx={{
+                            maxWidth: "420px",
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            gap: 2,
+                            '& > *': { flex: 'auto' },
+                        }}
+                    >
+                        <FormControl error={!!errorMessages['dispensing_pressure.value']}>
+                            <FormLabel>Consumption</FormLabel>
+                            <Select
+                                size="lg"
+                                onChange={handleSelectChange}
+                                defaultValue="Eric"
+                                slotProps={{
+                                    listbox: {
+                                        sx: {
+                                            '--ListItemDecorator-size': '48px',
+                                        },
                                     },
-                                },
-                            }}
-                            sx={{
-                                minWidth: 240,
-                            }}
-                        >
-                            {options.filter(filterDropDown).map(data => (
-                                <Option
-                                    key={data.name}
-                                    value={data.name}
-                                    label={data.name} // The appearance of the selected value will be a string
-                                >
-                                    <ListItemDecorator>
-                                        {data.icon}
-                                    </ListItemDecorator>
-                                    <Box component="span" sx={{ display: 'block' }}>
-                                        <Typography component="span" level="title-sm">
-                                            {data.name}
-                                        </Typography>
-                                        <Typography level="body-xs">{data.status}</Typography>
-                                    </Box>
-                                </Option>
-                            ))}
-                        </Select>
+                                }}
+                                sx={{
+                                    minWidth: 240,
+                                }}
+                            >
+                                {options.filter(filterDropDown).map(data => (
+                                    <Option
+                                        key={data.name}
+                                        value={data.name}
+                                        label={data.name} // The appearance of the selected value will be a string
+                                    >
+                                        <ListItemDecorator>
+                                            {data.icon}
+                                        </ListItemDecorator>
+                                        <Box component="span" sx={{ display: 'block' }}>
+                                            <Typography component="span" level="title-sm">
+                                                {data.name}
+                                            </Typography>
+                                            <Typography level="body-xs">{data.status}</Typography>
+                                        </Box>
+                                    </Option>
+                                ))}
+                            </Select>
+                        </FormControl>
                         {request.vehicle_type === RequestSchemaVehicleTypeEnum.Custom && <>
-                            <FormControl>
+                            <FormControl error={!!errorMessages['dispensing_pressure.value']}>
                                 <FormLabel>Dispensing Pressure</FormLabel>
                                 <Input
                                     name="dispensing_pressure"
                                     type="number"
                                     placeholder="Placeholder"
                                     size="lg"
-                                    value={request?.dispensing_pressure?.value}
-                                    onChange={(event) => setRequest({
-                                        ...request,
-                                        dispensing_pressure: {
-                                            ...request.dispensing_pressure,
-                                            value: parseFloat(event.target.value),
-                                        }
-                                    })}
+                                    sx={{ width: "290px" }}
+                                    value={request?.dispensing_pressure?.value ?? undefined}
+                                    onChange={(event) => handleChange(
+                                        parseFloat(event.target.value),
+                                        ['dispensing_pressure', 'value'])}
                                 />
+                                {!!errorMessages['dispensing_pressure.value'] &&
+                                    <FormHelperText>
+                                        <InfoOutlined />
+                                        {errorMessages['dispensing_pressure.value']}
+                                    </FormHelperText>
+                                }
                             </FormControl>
                             <FormControl>
                                 <FormLabel>Units</FormLabel>
-                                <Select size="lg" defaultValue={Object.keys(Pressure)[0]} onChange={handleDispensingUnitChange}
+                                <Select size="lg"
+                                    value={request?.dispensing_pressure?.unit ?? ''}
+                                    onChange={(_e, value) => handleChange(value ?? '', ['dispensing_pressure', 'unit'])}
                                     sx={{
                                         width: "110px",
                                     }}
                                 >
                                     {Object.entries(Pressure).map(([key, value]) => (
-                                        <Option key={key} value={key}>
+                                        <Option key={key} value={value}>
                                             {value}
                                         </Option>
                                     ))}
                                 </Select>
                             </FormControl>
-                            <FormControl>
+                            <FormControl error={!!errorMessages['dispensing_mass.value']}>
                                 <FormLabel>Dispensing Mass</FormLabel>
                                 <Input
                                     name="dispensing_mass"
                                     type="number"
                                     placeholder="Placeholder"
                                     size="lg"
-                                    value={request?.dispensing_mass?.value}
-                                    onChange={(event) => setRequest({
-                                        ...request,
-                                        dispensing_mass: {
-                                            ...request.dispensing_mass,
-                                            value: parseFloat(event.target.value),
-                                        }
-                                    })}
+                                    value={request?.dispensing_mass?.value ?? undefined}
+                                    onChange={(event) => handleChange(
+                                        parseFloat(event.target.value),
+                                        ['dispensing_mass', 'value'])}
                                 />
+                                {!!errorMessages['dispensing_mass.value'] &&
+                                    <FormHelperText>
+                                        <InfoOutlined />
+                                        {errorMessages['dispensing_mass.value']}
+                                    </FormHelperText>
+                                }
                             </FormControl>
                             <FormControl>
                                 <FormLabel>Units</FormLabel>
-                                <Select size="lg" defaultValue={request.dispensing_mass.unit} onChange={handleDispensingMassUnitChange}
+                                <Select size="lg"
+                                    value={request?.dispensing_mass?.unit ?? ''}
+                                    onChange={(_e, value) => handleChange(value ?? '', ['dispensing_mass', 'unit'])}
                                     sx={{
-                                        width: "110px",
+                                        width: "90px",
                                     }}
                                 >
                                     {Object.entries(Mass).map(([key, value]) => (
@@ -478,46 +469,12 @@ const CalculatorPlantType = () => {
                                     ))}
                                 </Select>
                             </FormControl>
-                        </>}
-                    </>}
-
-
-
-                    <Box
-                        sx={{
-                            maxWidth: "400px",
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            gap: 2,
-                            my: 7,
-                            '& > *': { flex: 'auto' },
-                        }}
-                    >
-                        <Button
-                            component="a"
-                            onClick={goToPrevious}
-                            size="lg" variant="outlined" color="neutral">
-                            Back
-                        </Button>
-                        <Button
-                            component="a"
-                            onClick={goToNext}
-                            size="lg"
-                        >
-                            Next
-                        </Button>
+                        </>
+                        }
                     </Box>
-                </Box>
-            </form >
-            <Typography color="neutral" fontSize="sm" fontWeight="sm">
-                All calculations and data provided by H2AuxInvest's Hydrogen Infrastructure Costing Tool are for informational purposes only. While this tool aims to provide helpful and accurate information, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information produced.
-                The information provided by the Hydrogen Infrastructure Costing Tool is not a substitute for professional advice. Engineering decisions should not be made solely on the basis of this tool. Always seek the guidance of qualified professionals before making any such decisions.
-                H2AuxInvest's Hydrogen Infrastructure Costing Tool is an open-source project developed for educational and informational purposes under principles of fair use. The tool is designed to support and further the understanding and roll-out of hydrogen infrastructure.
-                In no event shall H2AuxInvest or contributors to the Hydrogen Infrastructure Costing Tool be liable for any special, direct, indirect, consequential, or incidental damages or any damages whatsoever, whether in an action of contract, negligence, or other torts, arising out of or in connection with the use of the tool or the contents of the tool. H2AuxInvest reserves the right to make additions, deletions, or modifications to the contents of the tool at any time without prior notice.
-                The Hydrogen Infrastructure Costing Tool is provided under a MIT License, which allows for redistribution and use in source and binary forms, with or without modification. Users are expected to credit the original creation and not use the tool in a manner that infringes upon the intellectual property rights of H2AuxInvest or any third parties.
-                By using the Hydrogen Infrastructure Costing Tool, you accept this disclaimer in full. If you disagree with any part of this disclaimer, do not use the provided tool or any affiliated websites or services
-            </Typography>
-        </Box >
+                }
+            </Box>
+        </CalculatorInputLayout>
     );
 }
 
