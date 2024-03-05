@@ -10,7 +10,7 @@ We are proud to present our Hydrogen Infrastructure Costing Tool, used to estima
 - Socials: Follow the project on linkedin to stay up in the loop for updates and reports https://www.linkedin.com/company/h2auxinvest/
 
 ### Our Mission
-In Scotland's Hydrogen Supply Chain, knowledge transfer faces significant hurdles. H2AuxInvest is dedicated towards turning this current weakness into a sector-wide strength with an open ecosystem.
+In Scotland's hydrogen supply chain, knowledge transfer faces significant hurdles. H2AuxInvest is dedicated towards turning this current weakness into a sector-wide strength with an open ecosystem.
 
 
 ### The Challenge
