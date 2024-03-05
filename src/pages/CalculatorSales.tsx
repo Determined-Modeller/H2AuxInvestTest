@@ -4,29 +4,77 @@ import { Box, Typography, Button, FormControl, FormLabel, Input, Select, Option 
 
 
 import ProgressTracker from "../components/ProgressTracker";
-import { useForm, SubmitHandler } from "react-hook-form"
 import ROUTE_CONSTANTS from "../routing/routeConstants";
+import { DispensingRateUnitEnum, RequestSchema } from "../api/calculator";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-type Inputs = {
-    example: string
-    exampleRequired: string
-}
+
 
 const CalculatorSales = () => {
-    const {
-        handleSubmit,
-        watch,
-        formState: { errors },
-    } = useForm<Inputs>()
-    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
 
-    console.log(watch("example")) // watch input value by passing the name of it
+    const [request, setRequest] = useState({} as RequestSchema)
+    const location = useLocation();
+    const navigate = useNavigate();
 
-    const handleChange = (
+    useEffect(() => {
+        const locationRequest = location.state as RequestSchema;
+
+        if (!locationRequest?.vehicle_type) {
+            goToPrevious();
+        }
+
+        setRequest({
+            ...locationRequest,
+            peak_hydrogen_dispensing_rate: {
+                unit: DispensingRateUnitEnum[Object.keys(DispensingRateUnitEnum)[0] as keyof typeof DispensingRateUnitEnum],
+                ...request.peak_hydrogen_dispensing_rate,
+            },
+            avg_hydrogen_dispensing_rate: {
+                unit: DispensingRateUnitEnum[Object.keys(DispensingRateUnitEnum)[0] as keyof typeof DispensingRateUnitEnum],
+                ...request.avg_hydrogen_dispensing_rate,
+            }
+        })
+    }, [])
+
+    const canProceed = () => {
+        return request.avg_hydrogen_dispensing_rate?.value !== undefined && request.peak_hydrogen_dispensing_rate?.value !== undefined;
+    }
+
+    const goToNext = () => {
+        if (canProceed()) {
+            navigate(ROUTE_CONSTANTS.CALCULATOR_CONFIG, { state: request })
+        }
+    }
+
+    const goToPrevious = () => {
+        navigate(ROUTE_CONSTANTS.CALCULATOR_CONSUMER, { state: request })
+    }
+
+    const handleAvgUnitChange = (
         event: React.SyntheticEvent | null,
         newValue: string | null,
     ) => {
-        console.log(event, newValue)
+        setRequest({
+            ...request,
+            avg_hydrogen_dispensing_rate: {
+                ...request.avg_hydrogen_dispensing_rate,
+                unit: DispensingRateUnitEnum[newValue as keyof typeof DispensingRateUnitEnum],
+            }
+        })
+    };
+
+    const handlePeakUnitChange = (
+        event: React.SyntheticEvent | null,
+        newValue: string | null,
+    ) => {
+        setRequest({
+            ...request,
+            peak_hydrogen_dispensing_rate: {
+                ...request.peak_hydrogen_dispensing_rate,
+                unit: DispensingRateUnitEnum[newValue as keyof typeof DispensingRateUnitEnum],
+            }
+        })
     };
 
     return (
@@ -61,7 +109,7 @@ const CalculatorSales = () => {
                     - or use the standard inputs provided to explore the tool.
                 </Typography>
             </Box>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form>
                 <Box
                     pb={'50px'}
                     sx={{
@@ -75,38 +123,7 @@ const CalculatorSales = () => {
                 >
                     <Box
                         sx={{
-                            maxWidth: "400px",
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            gap: 2,
-                            '& > *': { flex: 'auto' },
-                        }}
-                    >
-                        <FormControl>
-                            <FormLabel>Average sales estimate</FormLabel>
-                            <Input placeholder="Placeholder" />
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel>Units</FormLabel>
-                            <Select defaultValue="BAR" onChange={handleChange}
-                                sx={{
-                                    width: "120px",
-                                }}
-                            >
-                                <Option value="BAR">Bar</Option>
-                                <Option value="PSI">PSI</Option>
-                            </Select>
-                        </FormControl>
-                        {/* <FormControl>
-                            <FormLabel>Energy Price (£/MWh)</FormLabel>
-                            <Input placeholder="Placeholder" />
-                        </FormControl> */}
-
-                        {errors.exampleRequired && <span>This field is required</span>}
-                    </Box>
-                    <Box
-                        sx={{
-                            maxWidth: "400px",
+                            maxWidth: "500px",
                             display: 'flex',
                             flexWrap: 'wrap',
                             gap: 2,
@@ -115,25 +132,67 @@ const CalculatorSales = () => {
                     >
                         <FormControl>
                             <FormLabel>Best case sales estimate</FormLabel>
-                            <Input placeholder="Placeholder" />
+                            <Input
+                                name="peak_hydrogen_dispensing_rate"
+                                type="number"
+                                placeholder="Placeholder"
+                                size="lg"
+                                value={request?.avg_hydrogen_dispensing_rate?.value}
+                                onChange={(event) => setRequest({
+                                    ...request,
+                                    avg_hydrogen_dispensing_rate: {
+                                        ...request.avg_hydrogen_dispensing_rate,
+                                        value: parseFloat(event.target.value),
+                                    }
+                                })}
+                            />
                         </FormControl>
                         <FormControl>
                             <FormLabel>Units</FormLabel>
-                            <Select defaultValue="dog" onChange={handleChange}
+                            <Select size="lg" defaultValue={Object.values(DispensingRateUnitEnum)[0]} onChange={handleAvgUnitChange}
                                 sx={{
-                                    width: "120px",
+                                    width: "200px",
                                 }}
                             >
-                                <Option value="BAR">Bar</Option>
-                                <Option value="PSI">PSI</Option>
+                                {Object.entries(DispensingRateUnitEnum).map(([key, value]) => (
+                                    <Option key={key} value={value}>
+                                        {key}
+                                    </Option>
+                                ))}
                             </Select>
                         </FormControl>
-                        {/* <FormControl>
-                            <FormLabel>Energy Price (£/MWh)</FormLabel>
-                            <Input placeholder="Placeholder" />
-                        </FormControl> */}
+                        <FormControl>
+                            <FormLabel>Best case sales estimate</FormLabel>
+                            <Input
+                                name="peak_hydrogen_dispensing_rate"
+                                type="number"
+                                placeholder="Placeholder"
+                                size="lg"
+                                value={request?.peak_hydrogen_dispensing_rate?.value}
+                                onChange={(event) => setRequest({
+                                    ...request,
+                                    peak_hydrogen_dispensing_rate: {
+                                        ...request.peak_hydrogen_dispensing_rate,
+                                        value: parseFloat(event.target.value),
+                                    }
+                                })}
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <FormLabel>Units</FormLabel>
+                            <Select size="lg" defaultValue={Object.values(DispensingRateUnitEnum)[0]} onChange={handlePeakUnitChange}
+                                sx={{
+                                    width: "200px",
+                                }}
+                            >
+                                {Object.entries(DispensingRateUnitEnum).map(([key, value]) => (
+                                    <Option key={key} value={value}>
+                                        {key}
+                                    </Option>
+                                ))}
+                            </Select>
+                        </FormControl>
 
-                        {errors.exampleRequired && <span>This field is required</span>}
                     </Box>
 
 
@@ -150,13 +209,13 @@ const CalculatorSales = () => {
                     >
                         <Button
                             component="a"
-                            href={ROUTE_CONSTANTS.CALCULATOR_CONSUMER}
+                            onClick={goToPrevious}
                             size="lg" variant="outlined" color="neutral">
                             Back
                         </Button>
                         <Button
                             component="a"
-                            href={ROUTE_CONSTANTS.CALCULATOR_CONFIG}
+                            onClick={goToNext}
                             size="lg"
                         >
                             Next
@@ -166,12 +225,12 @@ const CalculatorSales = () => {
             </form >
             <Typography color="neutral" fontSize="sm" fontWeight="sm">
                 All calculations and data provided by H2AuxInvest's Hydrogen Infrastructure Costing Tool are for informational purposes only. While this tool aims to provide helpful and accurate information, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information produced.
-The information provided by the Hydrogen Infrastructure Costing Tool is not a substitute for professional advice. Engineering decisions should not be made solely on the basis of this tool. Always seek the guidance of qualified professionals before making any such decisions.
-H2AuxInvest's Hydrogen Infrastructure Costing Tool is an open-source project developed for educational and informational purposes under principles of fair use. The tool is designed to support and further the understanding and roll-out of hydrogen infrastructure.
-In no event shall H2AuxInvest or contributors to the Hydrogen Infrastructure Costing Tool be liable for any special, direct, indirect, consequential, or incidental damages or any damages whatsoever, whether in an action of contract, negligence, or other torts, arising out of or in connection with the use of the tool or the contents of the tool. H2AuxInvest reserves the right to make additions, deletions, or modifications to the contents of the tool at any time without prior notice.
-The Hydrogen Infrastructure Costing Tool is provided under a MIT License, which allows for redistribution and use in source and binary forms, with or without modification. Users are expected to credit the original creation and not use the tool in a manner that infringes upon the intellectual property rights of H2AuxInvest or any third parties.
-By using the Hydrogen Infrastructure Costing Tool, you accept this disclaimer in full. If you disagree with any part of this disclaimer, do not use the provided tool or any affiliated websites or services
-                </Typography>
+                The information provided by the Hydrogen Infrastructure Costing Tool is not a substitute for professional advice. Engineering decisions should not be made solely on the basis of this tool. Always seek the guidance of qualified professionals before making any such decisions.
+                H2AuxInvest's Hydrogen Infrastructure Costing Tool is an open-source project developed for educational and informational purposes under principles of fair use. The tool is designed to support and further the understanding and roll-out of hydrogen infrastructure.
+                In no event shall H2AuxInvest or contributors to the Hydrogen Infrastructure Costing Tool be liable for any special, direct, indirect, consequential, or incidental damages or any damages whatsoever, whether in an action of contract, negligence, or other torts, arising out of or in connection with the use of the tool or the contents of the tool. H2AuxInvest reserves the right to make additions, deletions, or modifications to the contents of the tool at any time without prior notice.
+                The Hydrogen Infrastructure Costing Tool is provided under a MIT License, which allows for redistribution and use in source and binary forms, with or without modification. Users are expected to credit the original creation and not use the tool in a manner that infringes upon the intellectual property rights of H2AuxInvest or any third parties.
+                By using the Hydrogen Infrastructure Costing Tool, you accept this disclaimer in full. If you disagree with any part of this disclaimer, do not use the provided tool or any affiliated websites or services
+            </Typography>
         </Box >
     );
 }
