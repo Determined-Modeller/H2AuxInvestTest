@@ -3,10 +3,14 @@
 ## H2AuxInvest - Estimate costs of your hydrogen infrastructure
 
 ### Our Output
-We are proud to present our Hydrogen Infrastructure Costing Tool, used to estimate costs of your hydrogen compression and storage infrastructure at the following link: www.calculateh2.org
+We are proud to present our Hydrogen Infrastructure Costing Tool, used to estimate costs of your hydrogen compression and storage infrastructure.
+- Webapp: www.calculateh2.org
+- Hydrogen API calculator repo: https://github.com/rg1990/GCH
+- Documentation: https://www.calculateh2.org/documentation
+- Socials: Follow the project on linkedin to stay up in the loop for updates and reports https://www.linkedin.com/company/h2auxinvest/
 
 ### Our Mission
-In Scotland's Hydrogen Supply Chain, knowledge transfer faces significant hurdles. H2AuxInvest is dedicated towards turning this current weakness into a sector-wide strength with an open ecosystem.
+In Scotland's hydrogen supply chain, knowledge transfer faces significant hurdles. H2AuxInvest is dedicated towards turning this current weakness into a sector-wide strength with an open ecosystem.
 
 
 ### The Challenge
@@ -41,7 +45,7 @@ H2AuxInvest aims to provide a platform that offers:
 - **Full Value Chain:** The project aims to expand the tool to cover hydrogen thermal demands, and accurately estimate transport and storage costs from a supply site of your choice.
 - **Supply Chain Visibility:** The project aims to build, update and share up-to-date open-source cost correlations for multiple low TRL and novel hydrogen technologies.
 - **Benchmarking and Estimation:** Our tool encourages a free comparison of key variables, capable of exploring different multi-technology approaches.
-- **Trusted Partner:** Working with manufacturers using a transparent and fair verification process, we allow them to share important information for potential users and investors in H2 infrastructure
+- **Trusted Partner:** Working with manufacturers using a transparent and fair verification process, we allow them to share important information for potential users and investors in H2 infrastructure without compromising IP
 
 #### Community and Accessibility
 - **Open-Source Collaboration:** We use forums and contributions to foster a rich knowledge-sharing environment.
