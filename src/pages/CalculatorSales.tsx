@@ -66,10 +66,10 @@ const CalculatorSales = () => {
                     margin: 'auto'
                 }}
             >
-                <Typography level="h3" pb="20px">
+                <Typography level="h3" fontSize={'lg'} pb="20px">
                     H2 Demand
                 </Typography>
-                <Typography>
+                <Typography fontSize={'sm'}>
                     To output reliable results, the "filling profile" - estimated using peak and actual hydrogen demand must be approximated.
                     Please enter average and peak use of the infrastructure, as a flowrate or as vehicles per hour/day to estimate this.
                     If you are unsure of this please see the 'Choosing Your Inputs' portion of the documentation
