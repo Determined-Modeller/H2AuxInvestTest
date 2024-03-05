@@ -19,7 +19,7 @@ import json
 
 
 from typing import Optional, Union
-from pydantic import BaseModel, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from openapi_client.models.response_schema_dispensers_inner_equipment import ResponseSchemaDispensersInnerEquipment
 from openapi_client.models.response_schema_dispensers_inner_meta import ResponseSchemaDispensersInnerMeta
 
@@ -27,6 +27,7 @@ class ResponseSchemaDispensersInner(BaseModel):
     """
     ResponseSchemaDispensersInner
     """
+    static: Optional[StrictBool] = None
     id: Optional[StrictStr] = None
     meta: Optional[ResponseSchemaDispensersInnerMeta] = None
     num_dispensers: Optional[Union[StrictFloat, StrictInt]] = None
@@ -42,7 +43,7 @@ class ResponseSchemaDispensersInner(BaseModel):
     sum_capex: Optional[ResponseSchemaDispensersInnerEquipment] = None
     sum_opex: Optional[ResponseSchemaDispensersInnerEquipment] = None
     sum_lcoh: Optional[ResponseSchemaDispensersInnerEquipment] = None
-    __properties = ["id", "meta", "num_dispensers", "Pressure", "equipment", "equipment_lcoh", "maintenance", "maintenance_lcoh", "installation", "installation_lcoh", "energy", "energy_lcoh", "sum_capex", "sum_opex", "sum_lcoh"]
+    __properties = ["static", "id", "meta", "num_dispensers", "Pressure", "equipment", "equipment_lcoh", "maintenance", "maintenance_lcoh", "installation", "installation_lcoh", "energy", "energy_lcoh", "sum_capex", "sum_opex", "sum_lcoh"]
 
     class Config:
         """Pydantic configuration"""
@@ -116,6 +117,7 @@ class ResponseSchemaDispensersInner(BaseModel):
             return ResponseSchemaDispensersInner.parse_obj(obj)
 
         _obj = ResponseSchemaDispensersInner.parse_obj({
+            "static": obj.get("static"),
             "id": obj.get("id"),
             "meta": ResponseSchemaDispensersInnerMeta.from_dict(obj.get("meta")) if obj.get("meta") is not None else None,
             "num_dispensers": obj.get("num_dispensers"),

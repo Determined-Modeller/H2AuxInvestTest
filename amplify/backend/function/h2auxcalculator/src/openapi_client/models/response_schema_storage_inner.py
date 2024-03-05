@@ -19,7 +19,7 @@ import json
 
 
 from typing import Optional
-from pydantic import BaseModel, StrictStr
+from pydantic import BaseModel, StrictBool, StrictStr
 from openapi_client.models.response_schema_dispensers_inner_equipment import ResponseSchemaDispensersInnerEquipment
 from openapi_client.models.response_schema_dispensers_inner_meta import ResponseSchemaDispensersInnerMeta
 from openapi_client.models.response_schema_storage_inner_capacity import ResponseSchemaStorageInnerCapacity
@@ -29,6 +29,7 @@ class ResponseSchemaStorageInner(BaseModel):
     ResponseSchemaStorageInner
     """
     id: Optional[StrictStr] = None
+    static: Optional[StrictBool] = None
     meta: Optional[ResponseSchemaDispensersInnerMeta] = None
     capacity: Optional[ResponseSchemaStorageInnerCapacity] = None
     pressure: Optional[ResponseSchemaStorageInnerCapacity] = None
@@ -43,7 +44,7 @@ class ResponseSchemaStorageInner(BaseModel):
     sum_capex: Optional[ResponseSchemaDispensersInnerEquipment] = None
     sum_opex: Optional[ResponseSchemaDispensersInnerEquipment] = None
     sum_lcoh: Optional[ResponseSchemaDispensersInnerEquipment] = None
-    __properties = ["id", "meta", "capacity", "pressure", "equipment", "equipment_lcoh", "installation", "installation_lcoh", "maintenance", "maintenance_lcoh", "energy", "energy_lcoh", "sum_capex", "sum_opex", "sum_lcoh"]
+    __properties = ["id", "static", "meta", "capacity", "pressure", "equipment", "equipment_lcoh", "installation", "installation_lcoh", "maintenance", "maintenance_lcoh", "energy", "energy_lcoh", "sum_capex", "sum_opex", "sum_lcoh"]
 
     class Config:
         """Pydantic configuration"""
@@ -124,6 +125,7 @@ class ResponseSchemaStorageInner(BaseModel):
 
         _obj = ResponseSchemaStorageInner.parse_obj({
             "id": obj.get("id"),
+            "static": obj.get("static"),
             "meta": ResponseSchemaDispensersInnerMeta.from_dict(obj.get("meta")) if obj.get("meta") is not None else None,
             "capacity": ResponseSchemaStorageInnerCapacity.from_dict(obj.get("capacity")) if obj.get("capacity") is not None else None,
             "pressure": ResponseSchemaStorageInnerCapacity.from_dict(obj.get("pressure")) if obj.get("pressure") is not None else None,

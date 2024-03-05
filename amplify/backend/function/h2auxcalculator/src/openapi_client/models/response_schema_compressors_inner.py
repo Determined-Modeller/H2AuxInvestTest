@@ -19,7 +19,7 @@ import json
 
 
 from typing import Optional, Union
-from pydantic import BaseModel, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, StrictBool, StrictFloat, StrictInt, StrictStr
 from openapi_client.models.response_schema_dispensers_inner_equipment import ResponseSchemaDispensersInnerEquipment
 from openapi_client.models.response_schema_dispensers_inner_meta import ResponseSchemaDispensersInnerMeta
 
@@ -28,6 +28,7 @@ class ResponseSchemaCompressorsInner(BaseModel):
     ResponseSchemaCompressorsInner
     """
     id: Optional[StrictStr] = None
+    static: Optional[StrictBool] = None
     meta: Optional[ResponseSchemaDispensersInnerMeta] = None
     power: Optional[Union[StrictFloat, StrictInt]] = None
     cooling_energy: Optional[Union[StrictFloat, StrictInt]] = None
@@ -43,7 +44,7 @@ class ResponseSchemaCompressorsInner(BaseModel):
     sum_capex: Optional[ResponseSchemaDispensersInnerEquipment] = None
     sum_opex: Optional[ResponseSchemaDispensersInnerEquipment] = None
     sum_lcoh: Optional[ResponseSchemaDispensersInnerEquipment] = None
-    __properties = ["id", "meta", "power", "cooling_energy", "compression_energy", "equipment", "equipment_lcoh", "installation", "installation_lcoh", "maintenance", "maintenance_lcoh", "energy", "energy_lcoh", "sum_capex", "sum_opex", "sum_lcoh"]
+    __properties = ["id", "static", "meta", "power", "cooling_energy", "compression_energy", "equipment", "equipment_lcoh", "installation", "installation_lcoh", "maintenance", "maintenance_lcoh", "energy", "energy_lcoh", "sum_capex", "sum_opex", "sum_lcoh"]
 
     class Config:
         """Pydantic configuration"""
@@ -118,6 +119,7 @@ class ResponseSchemaCompressorsInner(BaseModel):
 
         _obj = ResponseSchemaCompressorsInner.parse_obj({
             "id": obj.get("id"),
+            "static": obj.get("static"),
             "meta": ResponseSchemaDispensersInnerMeta.from_dict(obj.get("meta")) if obj.get("meta") is not None else None,
             "power": obj.get("power"),
             "cooling_energy": obj.get("cooling_energy"),

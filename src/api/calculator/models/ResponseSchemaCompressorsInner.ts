@@ -27,6 +27,11 @@ export interface ResponseSchemaCompressorsInner {
      */
     id?: string;
     /**
+     * @type {boolean}
+     * @memberof ResponseSchemaCompressorsInner
+     */
+    _static?: boolean;
+    /**
      * @type {ResponseSchemaDispensersInnerMeta}
      * @memberof ResponseSchemaCompressorsInner
      */

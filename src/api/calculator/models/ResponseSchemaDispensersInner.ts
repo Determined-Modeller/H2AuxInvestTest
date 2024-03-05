@@ -22,6 +22,11 @@ import type {
  */
 export interface ResponseSchemaDispensersInner {
     /**
+     * @type {boolean}
+     * @memberof ResponseSchemaDispensersInner
+     */
+    _static?: boolean;
+    /**
      * @type {string}
      * @memberof ResponseSchemaDispensersInner
      */

@@ -396,7 +396,7 @@
                     "type": "object",
                     "properties": {
                         "value": {
-                            "minimum": 0,
+                            "minimum": 1,
                             "maximum": 3000,
                             "type": "number"
                         },
@@ -447,6 +447,9 @@
                     "items": {
                         "type": "object",
                         "properties": {
+                            "static": {
+                                "type": "boolean"
+                            },
                             "id": {
                                 "type": "string"
                             },
@@ -644,6 +647,9 @@
                             "id": {
                                 "type": "string"
                             },
+                            "static": {
+                                "type": "boolean"
+                            },
                             "meta": {
                                 "type": "object",
                                 "properties": {
@@ -840,6 +846,9 @@
                         "properties": {
                             "id": {
                                 "type": "string"
+                            },
+                            "static": {
+                                "type": "boolean"
                             },
                             "meta": {
                                 "type": "object",

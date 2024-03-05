@@ -28,6 +28,11 @@ export interface ResponseSchemaStorageInner {
      */
     id?: string;
     /**
+     * @type {boolean}
+     * @memberof ResponseSchemaStorageInner
+     */
+    _static?: boolean;
+    /**
      * @type {ResponseSchemaDispensersInnerMeta}
      * @memberof ResponseSchemaStorageInner
      */
