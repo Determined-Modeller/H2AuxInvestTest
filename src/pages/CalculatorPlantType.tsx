@@ -420,7 +420,8 @@ const CalculatorPlantType = () => {
                             </FormControl>
                             <FormControl>
                                 <FormLabel>Units</FormLabel>
-                                <Select size="lg"
+                                <Select
+                                    size="lg"
                                     value={request?.dispensing_pressure?.unit ?? ''}
                                     onChange={(_e, value) => handleChange(value ?? '', ['dispensing_pressure', 'unit'])}
                                     sx={{

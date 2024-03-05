@@ -1,94 +1,65 @@
 
 
-import { Option, Box, Typography, Button, FormControl, FormHelperText, Switch, FormLabel, Select, Input } from "@mui/joy";
+import { Option, Box, Typography, FormControl, FormHelperText, Switch, FormLabel, Select, Input } from "@mui/joy";
 
 
-import ProgressTracker from "../components/ProgressTracker";
-import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Mass, Pressure, RequestSchema } from "../api/calculator";
 import ROUTE_CONSTANTS from "../routing/routeConstants";
+import CalculatorInputLayout from "../components/CalculatorInputLayout";
+import schema from '../api/calculator/schema.json';
+import useRequest from "../hooks/useValidatedRequestForm";
+import { InfoOutlined } from "@mui/icons-material";
 
 const CalculatorConsumer = () => {
 
-    const [request, setRequest] = useState({} as RequestSchema)
     const location = useLocation();
     const navigate = useNavigate();
+    const locationRequest = location.state as RequestSchema;
+    const modifiedSchema = {
+        ...schema,
+        required: []
+    }
 
-    useEffect(() => {
-        const locationRequest = location.state as RequestSchema;
-
-        // if (!locationRequest?.peak_hydrogen_dispensing_rate || !locationRequest?.avg_hydrogen_dispensing_rate) {
-        //     goToPrevious();
-        // }
-        if (!locationRequest?.vehicle_type || !locationRequest?.dispensing_type) {
-            navigate(ROUTE_CONSTANTS.CALCULATOR_PLANT_TYPE)
+    const { request, errorMessages, handleChange } = useRequest({
+        ...locationRequest,
+        storage_pressure: {
+            ...locationRequest?.storage_pressure,
+            unit: locationRequest?.storage_pressure?.unit ?? Pressure[Object.keys(Pressure)[0] as keyof typeof Pressure],
+        },
+        storage_mass: {
+            ...locationRequest?.storage_mass,
+            unit: locationRequest?.storage_mass?.unit ?? Mass[Object.keys(Mass)[0] as keyof typeof Mass],
         }
+    }, modifiedSchema);
 
-        setRequest({
-            ...locationRequest,
-            is_storage_required: false,
-            storage_pressure: {
-                value: 0,
-                unit: Pressure.Bar
-            },
-            storage_mass: {
-                value: 0,
-                unit: Mass.Kg
-            }
-        })
-    }, [])
+    const canProceed = () => {
+        return hasAllRequiredFields() && Object.keys(errorMessages).length === 0;
+    }
+
+    const hasAllRequiredFields = () => {
+        return request.is_storage_required ? (request.storage_mass?.value !== undefined && request.storage_pressure?.value !== undefined) : true;
+    }
+
+
 
     const goToNext = () => {
-        navigate(ROUTE_CONSTANTS.CALCULATOR_SALES, { state: request })
+        if (canProceed()) {
+            navigate(ROUTE_CONSTANTS.CALCULATOR_SALES, { state: request })
+        }
     }
 
     const goToPrevious = () => {
         navigate(ROUTE_CONSTANTS.CALCULATOR_PLANT_TYPE, { state: request })
     }
 
-    const handleDispensingUnitChange = (
-        _event: React.SyntheticEvent | null,
-        newValue: string | null,
-    ) => {
-        setRequest({
-            ...request,
-            storage_pressure: {
-                ...request.storage_pressure,
-                unit: Pressure[newValue as keyof typeof Pressure]
-            }
-        })
-    }
-
-    const handleDispensingMassUnitChange = (
-        _event: React.SyntheticEvent | null,
-        newValue: string | null,
-    ) => {
-        setRequest({
-            ...request,
-            storage_mass: {
-                ...request.storage_mass,
-                unit: Mass[newValue as keyof typeof Mass]
-            }
-        })
-    }
-
 
     return (
-        <Box
-            sx={{
-                minHeight: '100vh',
-            }}
+        <CalculatorInputLayout
+            onBack={goToPrevious}
+            onNext={goToNext}
+            activeStep={2}
         >
-            <Box
-                py={'70px'}
-                sx={{
-                    maxWidth: '800px',
-                    margin: 'auto'
-                }}
-            >
-                <ProgressTracker activeStep={2} />
-            </Box>
             <Box
                 pb={'50px'}
                 sx={{
@@ -96,160 +67,123 @@ const CalculatorConsumer = () => {
                     margin: 'auto'
                 }}
             >
-                <Typography level="h3" pb="20px">
+                <Typography level="h3" fontSize={'lg'} pb="20px">
                     H2 Storage
                 </Typography>
-                <Typography>
+                <Typography fontSize={'sm'}>
                     Enter details of additional hydrogen storage you wish to have on site.
                     If you are unsure of what to choose, please see the 'Choosing Your Inputs' portion of the documentation,
                     or use default values provided for commonly selected setups.
                 </Typography>
             </Box>
-            <form>
-                <Box
-                    pb={'50px'}
-                    sx={{
-                        maxWidth: '800px',
-                        margin: 'auto',
-                        display: 'grid',
-                        gap: 3,
-                        alignItems: 'center',
-                        flexWrap: 'wrap',
-                    }}
-                >
-                    <Box
-                        sx={{
-                            maxWidth: "400px",
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            gap: 2,
-                            '& > *': { flex: 'auto' },
-                        }}
-                    >
+            <Box
+                sx={{
+                    maxWidth: "400px",
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 2,
+                    '& > *': { flex: 'auto' },
+                }}
+            >
 
-                        <Box width={300} marginTop={3}>
-                            <FormControl>
+                <Box width={300} marginTop={3}>
+                    <FormControl>
 
-                                <Typography component="label" endDecorator={<Switch
-                                    disabled={false}
-                                    checked={request.is_storage_required}
-                                    onChange={(e) => setRequest({ ...request, is_storage_required: e.target.checked })}
-                                    size="lg"
-                                    variant="solid"
-                                />}>
-                                    Specify Hydrogen Storage?
-                                </Typography>
-                                <FormHelperText>
-                                    Use this button to toggle hydrogen storage options on and off
-                                </FormHelperText>
-                            </FormControl>
-                        </Box>
-                        {request.is_storage_required && <>
-                            <FormControl>
-                                <FormLabel>Required Delivery Pressure</FormLabel>
-                                <Input
-                                    name="storage_pressure"
-                                    type="number"
-                                    placeholder="350"
-                                    size="lg"
-                                    value={request?.storage_pressure?.value}
-                                    onChange={(event) => setRequest({
-                                        ...request,
-                                        storage_pressure: {
-                                            ...request.storage_pressure,
-                                            value: parseFloat(event.target.value),
-                                        }
-                                    })}
-                                />
-                            </FormControl>
-                            <FormControl>
-                                <FormLabel>Units</FormLabel>
-                                <Select size="lg" defaultValue={Object.keys(Pressure)[0]} onChange={handleDispensingUnitChange}
-                                    sx={{
-                                        width: "110px",
-                                    }}
-                                >
-                                    {Object.entries(Pressure).map(([key, value]) => (
-                                        <Option key={key} value={key}>
-                                            {value}
-                                        </Option>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                            <FormControl>
-                                <FormLabel>Dispensing Mass</FormLabel>
-                                <Input
-                                    name="storage_mass"
-                                    type="number"
-                                    placeholder="10"
-                                    size="lg"
-                                    value={request?.storage_mass?.value}
-                                    onChange={(event) => setRequest({
-                                        ...request,
-                                        storage_mass: {
-                                            ...request.storage_mass,
-                                            value: parseFloat(event.target.value),
-                                        }
-                                    })}
-                                />
-                            </FormControl>
-                            <FormControl>
-                                <FormLabel>Units</FormLabel>
-                                <Select size="lg" defaultValue={request.dispensing_mass.unit} onChange={handleDispensingMassUnitChange}
-                                    sx={{
-                                        width: "110px",
-                                    }}
-                                >
-                                    {Object.entries(Mass).map(([key, value]) => (
-                                        <Option key={key} value={value}>
-                                            {value}
-                                        </Option>
-                                    ))}
-                                </Select>
-                            </FormControl>
-
-                        </>
-                        }
-
-                    </Box>
-
-
-
-                    <Box
-                        sx={{
-                            maxWidth: "400px",
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            gap: 2,
-                            my: 7,
-                            '& > *': { flex: 'auto' },
-                        }}
-                    >
-                        <Button
-                            component="a"
-                            onClick={goToPrevious}
-                            size="lg" variant="outlined" color="neutral">
-                            Back
-                        </Button>
-                        <Button
-                            onClick={goToNext}
-                            component="a"
+                        <Typography component="label" endDecorator={<Switch
+                            disabled={false}
+                            checked={request.is_storage_required}
+                            onChange={(e) => handleChange(e.target.checked as boolean, ['is_storage_required'])}
                             size="lg"
-                        >
-                            Next
-                        </Button>
-                    </Box>
+                            variant="solid"
+                        />}>
+                            Specify Hydrogen Storage?
+                        </Typography>
+                        <FormHelperText>
+                            Use this button to toggle hydrogen storage options on and off
+                        </FormHelperText>
+                    </FormControl>
                 </Box>
-            </form >
-            <Typography color="neutral" fontSize="sm" fontWeight="sm">
-                All calculations and data provided by H2AuxInvest's Hydrogen Infrastructure Costing Tool are for informational purposes only. While this tool aims to provide helpful and accurate information, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information produced.
-                The information provided by the Hydrogen Infrastructure Costing Tool is not a substitute for professional advice. Engineering decisions should not be made solely on the basis of this tool. Always seek the guidance of qualified professionals before making any such decisions.
-                H2AuxInvest's Hydrogen Infrastructure Costing Tool is an open-source project developed for educational and informational purposes under principles of fair use. The tool is designed to support and further the understanding and roll-out of hydrogen infrastructure.
-                In no event shall H2AuxInvest or contributors to the Hydrogen Infrastructure Costing Tool be liable for any special, direct, indirect, consequential, or incidental damages or any damages whatsoever, whether in an action of contract, negligence, or other torts, arising out of or in connection with the use of the tool or the contents of the tool. H2AuxInvest reserves the right to make additions, deletions, or modifications to the contents of the tool at any time without prior notice.
-                The Hydrogen Infrastructure Costing Tool is provided under a MIT License, which allows for redistribution and use in source and binary forms, with or without modification. Users are expected to credit the original creation and not use the tool in a manner that infringes upon the intellectual property rights of H2AuxInvest or any third parties.
-                By using the Hydrogen Infrastructure Costing Tool, you accept this disclaimer in full. If you disagree with any part of this disclaimer, do not use the provided tool or any affiliated websites or services
-            </Typography>
-        </Box >
+                {request.is_storage_required && <>
+                    <FormControl error={!!errorMessages['storage_pressure.value']}>
+                        <FormLabel>Storage Pressure</FormLabel>
+                        <Input
+                            name="storage_pressure"
+                            type="number"
+                            placeholder="350"
+                            size="lg"
+                            value={request?.storage_pressure?.value ?? 0}
+                            onChange={(event) => handleChange(
+                                parseFloat(event.target.value),
+                                ['storage_pressure', 'value'])}
+                        />
+                        {!!errorMessages['storage_pressure.value'] &&
+                            <FormHelperText>
+                                <InfoOutlined />
+                                {errorMessages['storage_pressure.value']}
+                            </FormHelperText>
+                        }
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel>Units</FormLabel>
+                        <Select
+                            size="lg"
+                            value={request?.storage_pressure?.unit ?? ''}
+                            onChange={(_e, value) => handleChange(value ?? '', ['storage_pressure', 'unit'])}
+                            sx={{
+                                width: "110px",
+                            }}
+                        >
+                            {Object.entries(Pressure).map(([key, value]) => (
+                                <Option key={key} value={value}>
+                                    {value}
+                                </Option>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <FormControl error={!!errorMessages['storage_mass.value']}>
+                        <FormLabel>Storage Mass</FormLabel>
+                        <Input
+                            name="storage_mass"
+                            type="number"
+                            placeholder="10"
+                            size="lg"
+                            value={request?.storage_mass?.value ?? undefined}
+                            onChange={(event) => handleChange(
+                                parseFloat(event.target.value),
+                                ['storage_mass', 'value'])}
+                        />
+                        {!!errorMessages['storage_mass.value'] &&
+                            <FormHelperText>
+                                <InfoOutlined />
+                                {errorMessages['storage_mass.value']}
+                            </FormHelperText>
+                        }
+                    </FormControl>
+                    <FormControl>
+                        <FormLabel>Units</FormLabel>
+                        <Select
+                            size="lg"
+                            value={request?.storage_mass?.unit ?? ''}
+                            onChange={(_e, value) => handleChange(value ?? '', ['storage_mass', 'unit'])}
+                            sx={{
+                                width: "110px",
+                            }}
+                        >
+                            {Object.entries(Mass).map(([key, value]) => (
+                                <Option key={key} value={value}>
+                                    {value}
+                                </Option>
+                            ))}
+                        </Select>
+                    </FormControl>
+
+                </>
+                }
+
+            </Box>
+
+
+        </CalculatorInputLayout>
     );
 }
 
