@@ -43,3 +43,18 @@ enrich_lib['type III/IV storage'] = {
     'negatives': ['Moderate initial cost',
                   'Higher inspection and maintenance requirements than type I/II']
 }
+
+enrich_lib['new dispenser'] = {
+    'positives': ['New dispenser coming soon'],
+    'negatives': ['New dispenser coming soon']
+}
+
+enrich_lib['new compressor'] = {
+    'positives': ['New compressor coming soon'],
+    'negatives': ['New compressor coming soon']
+}
+
+enrich_lib['new storage'] = {
+    'positives': ['New storage type coming soon'],
+    'negatives': ['New storage type coming soon']
+}
