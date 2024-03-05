@@ -1,13 +1,9 @@
-![Logo](src\assets\ProjectLogo2.png)
-# H2AuxInvest
+<img src="src/assets/ProjectLogo2.png"  height="210" width="210">
 
-## An Open-Source Project to Develop Hydrogen Supply Chains
-
-### Welcome Collaborators!
-For those looking to contribute, please review the open issues, or for further inquiries and permissions, reach out to us via email at H2AuxInvest@gchydrogen.co.uk.
+## H2AuxInvest - Supporting the Hydrogen Supply Chain
 
 ### Our Mission
-In Scotland's Hydrogen Supply Chain, knowledge transfer faces significant hurdles. H2AuxInvest is dedicated to addressing this by providing a platform for enhanced decision-making processes.
+In Scotland's Hydrogen Supply Chain, knowledge transfer faces significant hurdles. H2AuxInvest is dedicated towards turning this current weakness into a sector-wide strength with an open ecosystem.
 
 ### The Challenge
 
@@ -57,5 +53,5 @@ By increasing access to finance and reducing the cost of financing, we aim to:
 - Enable successful projects at various scales using innovative technology.
 
 ### Join Us in This Venture
-We invite you to contribute, collaborate, and help us in making H2AuxInvest a cornerstone for the future of Scotland's Hydrogen Supply Chain. Let's innovate together for a greener, more sustainable future.
-
+We invite you to contribute, collaborate, and help us in partnering across industry to provide information and support.
+For those looking to contribute, please review the open issues, or for further inquiries and permissions, reach out to us via email at H2AuxInvest@gchydrogen.co.uk.
