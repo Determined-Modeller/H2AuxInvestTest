@@ -5,7 +5,7 @@ import { Box, Typography, Input, Button, Select, Option, FormControl, FormLabel 
 
 import ProgressTracker from "../components/ProgressTracker";
 import ROUTE_CONSTANTS from "../routing/routeConstants";
-import { PressureUnitEnum, RequestSchema } from "../api/calculator";
+import { Pressure, RequestSchema } from "../api/calculator";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -22,7 +22,7 @@ const CalculatorIntake = () => {
             ...locationRequest,
             hydrogen_inlet_pressure: {
                 ...request.hydrogen_inlet_pressure,
-                unit: PressureUnitEnum[Object.keys(PressureUnitEnum)[0] as keyof typeof PressureUnitEnum],
+                unit: Pressure[Object.keys(Pressure)[0] as keyof typeof Pressure],
             }
         })
     }, [])
@@ -46,7 +46,7 @@ const CalculatorIntake = () => {
             ...request,
             hydrogen_inlet_pressure: {
                 ...request.hydrogen_inlet_pressure,
-                unit: PressureUnitEnum[newValue as keyof typeof PressureUnitEnum],
+                unit: Pressure[newValue as keyof typeof Pressure],
             }
         })
     };
@@ -121,12 +121,12 @@ const CalculatorIntake = () => {
                         </FormControl>
                         <FormControl>
                             <FormLabel>Units</FormLabel>
-                            <Select size="lg" defaultValue={Object.keys(PressureUnitEnum)[0]} onChange={handleChange}
+                            <Select size="lg" defaultValue={Object.keys(Pressure)[0]} onChange={handleChange}
                                 sx={{
                                     width: "110px",
                                 }}
                             >
-                                {Object.entries(PressureUnitEnum).map(([key, value]) => (
+                                {Object.entries(Pressure).map(([key, value]) => (
                                     <Option key={key} value={key}>
                                         {value}
                                     </Option>

@@ -13,8 +13,11 @@
 
 import type {
     DispensingRate,
-    Mass,
-    Pressure,
+    RequestSchemaDispensingMass,
+    RequestSchemaDispensingPressure,
+    RequestSchemaHydrogenInletPressure,
+    RequestSchemaStorageMass,
+    RequestSchemaStoragePressure,
 } from './';
 
 /**
@@ -23,10 +26,10 @@ import type {
  */
 export interface RequestSchema {
     /**
-     * @type {Pressure}
+     * @type {RequestSchemaHydrogenInletPressure}
      * @memberof RequestSchema
      */
-    hydrogen_inlet_pressure: Pressure;
+    hydrogen_inlet_pressure: RequestSchemaHydrogenInletPressure;
     /**
      * @type {string}
      * @memberof RequestSchema
@@ -36,52 +39,52 @@ export interface RequestSchema {
      * @type {number}
      * @memberof RequestSchema
      */
-    energy_price_per_mwh?: number;
+    energy_price_per_mwh: number;
     /**
      * @type {boolean}
      * @memberof RequestSchema
      */
     is_storage_required?: boolean;
     /**
-     * @type {Mass}
+     * @type {RequestSchemaStorageMass}
      * @memberof RequestSchema
      */
-    storage_mass?: Mass;
+    storage_mass: RequestSchemaStorageMass;
     /**
-     * @type {Pressure}
+     * @type {RequestSchemaStoragePressure}
      * @memberof RequestSchema
      */
-    storage_pressure?: Pressure;
+    storage_pressure: RequestSchemaStoragePressure;
     /**
-     * @type {Pressure}
+     * @type {RequestSchemaDispensingPressure}
      * @memberof RequestSchema
      */
-    dispensing_pressure?: Pressure;
+    dispensing_pressure: RequestSchemaDispensingPressure;
     /**
-     * @type {DispensingRate}
+     * @type {RequestSchemaDispensingMass}
      * @memberof RequestSchema
      */
-    dispensing_mass?: DispensingRate;
-    /**
-     * @type {DispensingRate}
-     * @memberof RequestSchema
-     */
-    avg_hydrogen_dispensing_rate?: DispensingRate;
+    dispensing_mass: RequestSchemaDispensingMass;
     /**
      * @type {DispensingRate}
      * @memberof RequestSchema
      */
-    peak_hydrogen_dispensing_rate?: DispensingRate;
+    avg_hydrogen_dispensing_rate: DispensingRate;
+    /**
+     * @type {DispensingRate}
+     * @memberof RequestSchema
+     */
+    peak_hydrogen_dispensing_rate: DispensingRate;
     /**
      * @type {number}
      * @memberof RequestSchema
      */
-    lifetime_years?: number;
+    lifetime_years: number;
     /**
      * @type {number}
      * @memberof RequestSchema
      */
-    wacc?: number;
+    wacc: number;
     /**
      * @type {boolean}
      * @memberof RequestSchema

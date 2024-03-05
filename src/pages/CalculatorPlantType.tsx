@@ -93,87 +93,73 @@ const CalculatorPlantType = () => {
                         flexWrap: 'wrap',
                     }}
                 >
-                    <Box
+                    <RadioGroup
+                        onChange={handleChange}
+
+                        aria-label="platform"
+                        defaultValue="Website"
+                        overlay
+                        name="platform"
                         sx={{
-                            maxWidth: "400px",
-                            display: 'flex',
-                            flexWrap: 'wrap',
+                            flexDirection: 'row',
                             gap: 2,
-                            '& > *': { flex: 'auto' },
+                            [`& .${radioClasses.checked}`]: {
+                                [`& .${radioClasses.action}`]: {
+                                    inset: -1,
+                                    border: '3px solid',
+                                    borderColor: 'primary.500',
+                                },
+                            },
+                            [`& .${radioClasses.radio}`]: {
+                                display: 'contents',
+                                '& > svg': {
+                                    zIndex: 2,
+                                    position: 'absolute',
+                                    top: '-8px',
+                                    right: '-8px',
+                                    bgcolor: 'background.surface',
+                                    borderRadius: '50%',
+                                },
+                            },
                         }}
                     >
-                        <Typography>
-
-                        </Typography>
-                        <RadioGroup
-                            onChange={handleChange}
-
-                            aria-label="platform"
-                            defaultValue="Website"
-                            overlay
-                            name="platform"
+                        <Sheet
+                            variant="outlined"
                             sx={{
-                                flexDirection: 'row',
-                                gap: 2,
-                                [`& .${radioClasses.checked}`]: {
-                                    [`& .${radioClasses.action}`]: {
-                                        inset: -1,
-                                        border: '3px solid',
-                                        borderColor: 'primary.500',
-                                    },
-                                },
-                                [`& .${radioClasses.radio}`]: {
-                                    display: 'contents',
-                                    '& > svg': {
-                                        zIndex: 2,
-                                        position: 'absolute',
-                                        top: '-8px',
-                                        right: '-8px',
-                                        bgcolor: 'background.surface',
-                                        borderRadius: '50%',
-                                    },
-                                },
+                                borderRadius: 'md',
+
+                                boxShadow: 'sm',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                gap: 1.5,
+                                p: 2,
+                                minWidth: 120,
                             }}
                         >
-                            <Sheet
-                                variant="outlined"
-                                sx={{
-                                    borderRadius: 'md',
+                            <Radio id={"TUBETRAILER"} value={"TUBETRAILER"} checkedIcon={<CheckCircleRoundedIcon />} />
+                            <LocalShippingIcon />
+                            <FormLabel htmlFor={"TUBETRAILER"}>{"TUBETRAILER"}</FormLabel>
+                        </Sheet>
+                        <Sheet
+                            variant="outlined"
+                            sx={{
+                                borderRadius: 'md',
 
-                                    boxShadow: 'sm',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    gap: 1.5,
-                                    p: 2,
-                                    minWidth: 120,
-                                }}
-                            >
-                                <Radio id={"TUBETRAILER"} value={"TUBETRAILER"} checkedIcon={<CheckCircleRoundedIcon />} />
-                                <LocalShippingIcon />
-                                <FormLabel htmlFor={"TUBETRAILER"}>{"TUBETRAILER"}</FormLabel>
-                            </Sheet>
-                            <Sheet
-                                variant="outlined"
-                                sx={{
-                                    borderRadius: 'md',
-
-                                    boxShadow: 'sm',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    gap: 1.5,
-                                    p: 2,
-                                    minWidth: 120,
-                                }}
-                            >
-                                <Radio id={"VEHICLE"} value={"VEHICLE"} checkedIcon={<CheckCircleRoundedIcon />} />
-                                <DirectionsCar />
-                                <FormLabel htmlFor={"VEHICLE"}>{"VEHICLE"}</FormLabel>
-                            </Sheet>
-                        </RadioGroup>
-
-                    </Box>
+                                boxShadow: 'sm',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                gap: 1.5,
+                                p: 2,
+                                minWidth: 120,
+                            }}
+                        >
+                            <Radio id={"VEHICLE"} value={"VEHICLE"} checkedIcon={<CheckCircleRoundedIcon />} />
+                            <DirectionsCar />
+                            <FormLabel htmlFor={"VEHICLE"}>{"VEHICLE"}</FormLabel>
+                        </Sheet>
+                    </RadioGroup>
 
 
                     <Box

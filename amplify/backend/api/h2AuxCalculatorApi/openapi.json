@@ -372,7 +372,7 @@
                     }
                 },
                 "dispensing_pressure": {
-                    "required":[
+                    "required": [
                         "value",
                         "unit"
                     ],
@@ -389,7 +389,21 @@
                     }
                 },
                 "dispensing_mass": {
-                    "$ref": "#/definitions/DispensingRate"
+                    "required": [
+                        "value",
+                        "unit"
+                    ],
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "minimum": 0,
+                            "maximum": 3000,
+                            "type": "number"
+                        },
+                        "unit": {
+                            "$ref": "#/definitions/Mass"
+                        }
+                    }
                 },
                 "avg_hydrogen_dispensing_rate": {
                     "$ref": "#/definitions/DispensingRate"

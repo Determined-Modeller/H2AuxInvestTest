@@ -9,3 +9,8 @@ export * from './ResponseSchemaDispensersInnerEquipment';
 export * from './ResponseSchemaDispensersInnerMeta';
 export * from './ResponseSchemaStorageInner';
 export * from './ResponseSchemaStorageInnerCapacity';
+export * from './RequestSchemaDispensingMass';
+export * from './RequestSchemaDispensingPressure';
+export * from './RequestSchemaHydrogenInletPressure';
+export * from './RequestSchemaStorageMass';
+export * from './RequestSchemaStoragePressure';

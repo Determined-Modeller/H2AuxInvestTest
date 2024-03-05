@@ -11,13 +11,25 @@
  * Do not edit the class manually.
  */
 
+import type {
+    Pressure,
+} from './';
+
 /**
- * 
  * @export
- * @enum {string}
+ * @interface RequestSchemaHydrogenInletPressure
  */
-export enum Pressure {
-    Bar = 'BAR',
-    Psi = 'PSI'
+export interface RequestSchemaHydrogenInletPressure {
+    /**
+     * @type {number}
+     * @memberof RequestSchemaHydrogenInletPressure
+     */
+    value: number;
+    /**
+     * @type {Pressure}
+     * @memberof RequestSchemaHydrogenInletPressure
+     */
+    unit: Pressure;
 }
+
 

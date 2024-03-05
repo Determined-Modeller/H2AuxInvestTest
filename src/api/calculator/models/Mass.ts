@@ -12,27 +12,11 @@
  */
 
 /**
- * @export
- * @interface Mass
- */
-export interface Mass {
-    /**
-     * @type {number}
-     * @memberof Mass
-     */
-    value?: number;
-    /**
-     * @type {string}
-     * @memberof Mass
-     */
-    unit?: MassUnitEnum;
-}
-
-/**
+ * 
  * @export
  * @enum {string}
  */
-export enum MassUnitEnum {
+export enum Mass {
     Kg = 'KG'
 }
 
