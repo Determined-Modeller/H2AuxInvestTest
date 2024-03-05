@@ -25,7 +25,7 @@ const CalculatorConfig = () => {
 
         setRequest({
             ...locationRequest,
-            wacc: 0.12,
+            wacc: 12,
             lifetime_years: 22,
             energy_price_per_mwh: 29,
             is_precooling_used: false
@@ -149,7 +149,7 @@ const CalculatorConfig = () => {
                                     Use precooling?
                                 </Typography>
                                 <FormHelperText>
-                                    This shows whether the hydrogen supply cooled before dispensing to allow for a higher fill level
+                                    This shows whether the hydrogen supply is cooled before dispensing to allow for faster filling and a higher tank fill level
                                 </FormHelperText>
                             </FormControl>
                         </Box>

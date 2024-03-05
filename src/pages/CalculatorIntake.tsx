@@ -120,7 +120,7 @@ const CalculatorIntake = () => {
                             <Input
                                 name="hydrogen_inlet_pressure"
                                 type="number"
-                                placeholder="Placeholder"
+                                placeholder="7"
                                 size="lg"
                                 value={request?.hydrogen_inlet_pressure?.value}
                                 onChange={(event) => setRequest({
@@ -134,7 +134,7 @@ const CalculatorIntake = () => {
                         </FormControl>
                         <FormControl>
                             <FormLabel>Units</FormLabel>
-                            <Select size="lg" defaultValue={Object.keys(Pressure)[0]} onChange={handleChange}
+                            <Select size="lg" color="neutral" defaultValue={Object.keys(Pressure)[0]} onChange={handleChange}
                                 sx={{
                                     width: "110px",
                                 }}
@@ -162,7 +162,7 @@ const CalculatorIntake = () => {
                         <Button
                             component="a"
                             href={ROUTE_CONSTANTS.CALCULATOR}
-                            size="lg" variant="outlined" color="neutral">
+                            size="lg" variant="outlined" >
                             Back
                         </Button>
                         <Button

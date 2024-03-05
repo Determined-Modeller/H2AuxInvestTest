@@ -108,11 +108,11 @@ const CalculatorSales = () => {
                     H2 Demand
                 </Typography>
                 <Typography>
-                    To output reliable results, the end user demand for hydrogen needs to be approximated.
-                    Please enter expected peak and average demand levels for the hydrogen demand.
+                    To output reliable results, the "filling profile" - estimated using peak and actual hydrogen demand must be approximated.
+                    Please enter average and peak use of the infrastructure, as a flowrate or as vehicles per hour/day to estimate this.
                     If you are unsure of this please see the 'Choosing Your Inputs' portion of the documentation
                     - or use the standard inputs provided to explore the tool.
-                    {JSON.stringify(request)}
+                    
                 </Typography>
             </Box>
             <form>
@@ -137,11 +137,11 @@ const CalculatorSales = () => {
                         }}
                     >
                         <FormControl>
-                            <FormLabel>Best case sales estimate</FormLabel>
+                            <FormLabel>Peak H2 Demand</FormLabel>
                             <Input
                                 name="peak_hydrogen_dispensing_rate"
                                 type="number"
-                                placeholder="Placeholder"
+                                placeholder="2"
                                 size="lg"
                                 value={request?.avg_hydrogen_dispensing_rate?.value}
                                 onChange={(event) => setRequest({
@@ -168,11 +168,11 @@ const CalculatorSales = () => {
                             </Select>
                         </FormControl>
                         <FormControl>
-                            <FormLabel>Best case sales estimate</FormLabel>
+                            <FormLabel>Average H2 Demand</FormLabel>
                             <Input
                                 name="peak_hydrogen_dispensing_rate"
                                 type="number"
-                                placeholder="Placeholder"
+                                placeholder="12"
                                 size="lg"
                                 value={request?.peak_hydrogen_dispensing_rate?.value}
                                 onChange={(event) => setRequest({

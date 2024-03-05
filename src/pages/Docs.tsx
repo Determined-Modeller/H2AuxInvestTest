@@ -11,7 +11,7 @@ const Docs = () => {
                 height: '100vh',
             }}
         >
-            <Typography>Documentaion page</Typography>
+            <Typography>Documentation page</Typography>
         </Box>
     );
 }

@@ -23,7 +23,7 @@ const Home = () => {
                     fontWeight="xl"
                     fontSize="clamp(1.875rem, 1.3636rem + 2.1818vw, 3rem)"
                 >
-                    Estimate costs of your hydrogen infrastrucuture
+                    Estimate costs of your hydrogen infrastructure
                 </Typography>
                 <Typography fontSize="lg" textColor="text.secondary" lineHeight="lg">
                 Rapidly estimate capital, operating, installation and energy costs for your end-use of hydrogen, compare available configurations and explore different technologies

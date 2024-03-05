@@ -97,12 +97,12 @@ const CalculatorConsumer = () => {
                 }}
             >
                 <Typography level="h3" pb="20px">
-                    H2 Equipment
+                    H2 Storage
                 </Typography>
                 <Typography>
-                    Enter details of the hydrogen equipment you are looking to supply on site,
-                    if you are unsure of this please see the 'Choosing Your Inputs' portion of the documentation,
-                    or use default values provided for commonly available industry equipment.
+                    Enter details of additional hydrogen storage you wish to have on site.
+                    If you are unsure of what to choose, please see the 'Choosing Your Inputs' portion of the documentation,
+                    or use default values provided for commonly selected setups.
                 </Typography>
             </Box>
             <form>
@@ -137,20 +137,20 @@ const CalculatorConsumer = () => {
                                     size="lg"
                                     variant="solid"
                                 />}>
-                                    Is storage required?
+                                    Specify Hydrogen Storage?
                                 </Typography>
                                 <FormHelperText>
-                                    This shows whether the hydrogen supply cooled before dispensing to allow for a higher fill level
+                                    Use this button to toggle hydrogen storage options on and off
                                 </FormHelperText>
                             </FormControl>
                         </Box>
                         {request.is_storage_required && <>
                             <FormControl>
-                                <FormLabel>Dispensing Pressure</FormLabel>
+                                <FormLabel>Required Delivery Pressure</FormLabel>
                                 <Input
                                     name="storage_pressure"
                                     type="number"
-                                    placeholder="10"
+                                    placeholder="350"
                                     size="lg"
                                     value={request?.storage_pressure?.value}
                                     onChange={(event) => setRequest({
