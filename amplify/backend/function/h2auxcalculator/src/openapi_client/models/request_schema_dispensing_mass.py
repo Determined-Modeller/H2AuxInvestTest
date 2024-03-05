@@ -20,14 +20,14 @@ import json
 
 from typing import Union
 from pydantic import BaseModel, Field, confloat, conint
-from openapi_client.models.pressure import Pressure
+from openapi_client.models.mass import Mass
 
-class RequestSchemaDispensingPressure(BaseModel):
+class RequestSchemaDispensingMass(BaseModel):
     """
-    RequestSchemaDispensingPressure
+    RequestSchemaDispensingMass
     """
-    value: Union[confloat(le=1.5E+4, ge=3E+1, strict=True), conint(le=15000, ge=30, strict=True)] = Field(...)
-    unit: Pressure = Field(...)
+    value: Union[confloat(le=3E+3, ge=0, strict=True), conint(le=3000, ge=0, strict=True)] = Field(...)
+    unit: Mass = Field(...)
     __properties = ["value", "unit"]
 
     class Config:
@@ -44,8 +44,8 @@ class RequestSchemaDispensingPressure(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> RequestSchemaDispensingPressure:
-        """Create an instance of RequestSchemaDispensingPressure from a JSON string"""
+    def from_json(cls, json_str: str) -> RequestSchemaDispensingMass:
+        """Create an instance of RequestSchemaDispensingMass from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self):
@@ -57,15 +57,15 @@ class RequestSchemaDispensingPressure(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> RequestSchemaDispensingPressure:
-        """Create an instance of RequestSchemaDispensingPressure from a dict"""
+    def from_dict(cls, obj: dict) -> RequestSchemaDispensingMass:
+        """Create an instance of RequestSchemaDispensingMass from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return RequestSchemaDispensingPressure.parse_obj(obj)
+            return RequestSchemaDispensingMass.parse_obj(obj)
 
-        _obj = RequestSchemaDispensingPressure.parse_obj({
+        _obj = RequestSchemaDispensingMass.parse_obj({
             "value": obj.get("value"),
             "unit": obj.get("unit")
         })

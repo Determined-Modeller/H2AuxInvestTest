@@ -26,7 +26,7 @@ class RequestSchemaHydrogenInletPressure(BaseModel):
     """
     RequestSchemaHydrogenInletPressure
     """
-    value: Union[confloat(le=1.5E+2, ge=1E+1, strict=True), conint(le=150, ge=10, strict=True)] = Field(...)
+    value: Union[confloat(le=1.5E+4, ge=1, strict=True), conint(le=15000, ge=1, strict=True)] = Field(...)
     unit: Pressure = Field(...)
     __properties = ["value", "unit"]
 

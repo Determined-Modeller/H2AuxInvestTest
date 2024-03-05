@@ -19,14 +19,14 @@ import json
 
 
 from typing import Union
-from pydantic import BaseModel, Field, StrictFloat, StrictInt
+from pydantic import BaseModel, Field, confloat, conint
 from openapi_client.models.pressure import Pressure
 
 class RequestSchemaStoragePressure(BaseModel):
     """
     RequestSchemaStoragePressure
     """
-    value: Union[StrictFloat, StrictInt] = Field(...)
+    value: Union[confloat(le=2E+4, ge=3E+1, strict=True), conint(le=20000, ge=30, strict=True)] = Field(...)
     unit: Pressure = Field(...)
     __properties = ["value", "unit"]
 

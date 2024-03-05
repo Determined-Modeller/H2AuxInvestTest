@@ -18,16 +18,16 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional, Union
-from pydantic import BaseModel, confloat, conint
+from typing import Union
+from pydantic import BaseModel, Field, confloat, conint
 from openapi_client.models.mass import Mass
 
 class RequestSchemaStorageMass(BaseModel):
     """
     RequestSchemaStorageMass
     """
-    value: Optional[Union[confloat(le=1.5E+2, ge=1E+1, strict=True), conint(le=150, ge=10, strict=True)]] = None
-    unit: Optional[Mass] = None
+    value: Union[confloat(le=1E+6, ge=0, strict=True), conint(le=1000000, ge=0, strict=True)] = Field(...)
+    unit: Mass = Field(...)
     __properties = ["value", "unit"]
 
     class Config:

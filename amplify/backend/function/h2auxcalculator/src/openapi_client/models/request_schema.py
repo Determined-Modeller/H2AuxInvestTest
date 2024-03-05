@@ -19,8 +19,9 @@ import json
 
 
 from typing import Optional, Union
-from pydantic import BaseModel, Field, StrictBool, StrictFloat, StrictInt, StrictStr, confloat, conint, validator
+from pydantic import BaseModel, Field, StrictBool, StrictStr, confloat, conint, validator
 from openapi_client.models.dispensing_rate import DispensingRate
+from openapi_client.models.request_schema_dispensing_mass import RequestSchemaDispensingMass
 from openapi_client.models.request_schema_dispensing_pressure import RequestSchemaDispensingPressure
 from openapi_client.models.request_schema_hydrogen_inlet_pressure import RequestSchemaHydrogenInletPressure
 from openapi_client.models.request_schema_storage_mass import RequestSchemaStorageMass
@@ -31,17 +32,17 @@ class RequestSchema(BaseModel):
     RequestSchema
     """
     hydrogen_inlet_pressure: RequestSchemaHydrogenInletPressure = Field(...)
-    dispensing_type: StrictStr = Field(...)
-    energy_price_per_mwh: Optional[Union[confloat(le=1.5E+2, ge=1E+1, strict=True), conint(le=150, ge=10, strict=True)]] = None
+    dispensing_type: Optional[StrictStr] = None
+    energy_price_per_mwh: Union[confloat(le=1E+4, ge=0, strict=True), conint(le=10000, ge=0, strict=True)] = Field(...)
     is_storage_required: Optional[StrictBool] = None
-    storage_mass: Optional[RequestSchemaStorageMass] = None
-    storage_pressure: Optional[RequestSchemaStoragePressure] = None
-    dispensing_pressure: Optional[RequestSchemaDispensingPressure] = None
-    dispensing_mass: Optional[DispensingRate] = None
-    avg_hydrogen_dispensing_rate: Optional[DispensingRate] = None
-    peak_hydrogen_dispensing_rate: Optional[DispensingRate] = None
-    lifetime_years: Optional[Union[StrictFloat, StrictInt]] = None
-    wacc: Optional[Union[StrictFloat, StrictInt]] = None
+    storage_mass: RequestSchemaStorageMass = Field(...)
+    storage_pressure: RequestSchemaStoragePressure = Field(...)
+    dispensing_pressure: RequestSchemaDispensingPressure = Field(...)
+    dispensing_mass: RequestSchemaDispensingMass = Field(...)
+    avg_hydrogen_dispensing_rate: DispensingRate = Field(...)
+    peak_hydrogen_dispensing_rate: DispensingRate = Field(...)
+    lifetime_years: Union[confloat(le=1E+2, ge=1, strict=True), conint(le=100, ge=1, strict=True)] = Field(...)
+    wacc: Union[confloat(le=1E+2, ge=0, strict=True), conint(le=100, ge=0, strict=True)] = Field(...)
     is_precooling_used: Optional[StrictBool] = None
     vehicle_type: Optional[StrictStr] = None
     __properties = ["hydrogen_inlet_pressure", "dispensing_type", "energy_price_per_mwh", "is_storage_required", "storage_mass", "storage_pressure", "dispensing_pressure", "dispensing_mass", "avg_hydrogen_dispensing_rate", "peak_hydrogen_dispensing_rate", "lifetime_years", "wacc", "is_precooling_used", "vehicle_type"]
@@ -49,6 +50,9 @@ class RequestSchema(BaseModel):
     @validator('dispensing_type')
     def dispensing_type_validate_enum(cls, value):
         """Validates the enum"""
+        if value is None:
+            return value
+
         if value not in ('TUBETRAILER', 'VEHICLE'):
             raise ValueError("must be one of enum values ('TUBETRAILER', 'VEHICLE')")
         return value
@@ -127,7 +131,7 @@ class RequestSchema(BaseModel):
             "storage_mass": RequestSchemaStorageMass.from_dict(obj.get("storage_mass")) if obj.get("storage_mass") is not None else None,
             "storage_pressure": RequestSchemaStoragePressure.from_dict(obj.get("storage_pressure")) if obj.get("storage_pressure") is not None else None,
             "dispensing_pressure": RequestSchemaDispensingPressure.from_dict(obj.get("dispensing_pressure")) if obj.get("dispensing_pressure") is not None else None,
-            "dispensing_mass": DispensingRate.from_dict(obj.get("dispensing_mass")) if obj.get("dispensing_mass") is not None else None,
+            "dispensing_mass": RequestSchemaDispensingMass.from_dict(obj.get("dispensing_mass")) if obj.get("dispensing_mass") is not None else None,
             "avg_hydrogen_dispensing_rate": DispensingRate.from_dict(obj.get("avg_hydrogen_dispensing_rate")) if obj.get("avg_hydrogen_dispensing_rate") is not None else None,
             "peak_hydrogen_dispensing_rate": DispensingRate.from_dict(obj.get("peak_hydrogen_dispensing_rate")) if obj.get("peak_hydrogen_dispensing_rate") is not None else None,
             "lifetime_years": obj.get("lifetime_years"),
