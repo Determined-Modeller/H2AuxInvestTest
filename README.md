@@ -7,7 +7,7 @@ We are proud to present our Hydrogen Infrastructure Costing Tool, used to estima
 - Webapp: www.calculateh2.org
 - Hydrogen API calculator repo: https://github.com/rg1990/GCH
 - Documentation: https://www.calculateh2.org/documentation
-- Socials: Follow the project on linkedin to stay up in the loop for updates and reports
+- Socials: Follow the project on linkedin to stay up in the loop for updates and reports https://www.linkedin.com/company/h2auxinvest/
 
 ### Our Mission
 In Scotland's Hydrogen Supply Chain, knowledge transfer faces significant hurdles. H2AuxInvest is dedicated towards turning this current weakness into a sector-wide strength with an open ecosystem.
