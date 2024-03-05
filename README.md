@@ -1,30 +1,61 @@
-# React + TypeScript + Vite
+![Logo](src\assets\ProjectLogo2.png)
+# H2AuxInvest
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## An Open-Source Project to Develop Hydrogen Supply Chains
 
-Currently, two official plugins are available:
+### Welcome Collaborators!
+For those looking to contribute, please review the open issues, or for further inquiries and permissions, reach out to us via email at H2AuxInvest@gchydrogen.co.uk.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Our Mission
+In Scotland's Hydrogen Supply Chain, knowledge transfer faces significant hurdles. H2AuxInvest is dedicated to addressing this by providing a platform for enhanced decision-making processes.
 
-## Expanding the ESLint configuration
+### The Challenge
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+#### Lack of Accessible Information
+Developers often face difficulties in obtaining reliable information on low Technology Readiness Level (TRL) components from smaller manufacturers. This situation frequently leads to:
+- Preference for mature technologies from established international vendors.
+- Compromise on performance across essential metrics.
 
-- Configure the top-level `parserOptions` property like this:
+#### Specific Issues Identified:
+- **Data Scarcity:** Unavailable or unverifiable data from manufacturers.
+- **Performance Uncertainty:** A gap between real-world performance and the information publicly available.
+- **Late-stage Data Procurement:** Projects have high sunk costs by the time real data is available.
+- **Outdated Tools:** Existing modelling tools require expert skills for simple estimation or are either generic, obsolete, or irrelevant.
+- **Investment Risks:** Significant risk premiums associated with investing in low TRL equipment from smaller manufacturers.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### Our Solution
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+#### Open-Source Software Tool
+We created a powerful open-source calculation tool, made it accessable and free to access, aiming to :
+- Utilize real-world, low TRL datasets from new manufacturers alongside high TRL data.
+- Allow for the easy integration of user data sources.
+- Generate key metrics to enable informed equipment investment decisions.
+
+### Vision for H2AuxInvest
+
+#### A Comprehensive Webtool
+H2AuxInvest aims to provide a platform that offers:
+- **Optimisation and Sizing:** Shortcut methods for storage and compression based on user inputs.
+- **Financial Insights:** Detailed CAPEX and OPEX comparisons of low TRL solutions against established systems.
+- **Clear Reporting:** Comprehensive reports highlighting key metrics, design limitations, and recommendations.
+- **Full Value Chain:** The project aims to expand the tool to cover hydrogen thermal demands, and accurately estimate transport and storage costs from a supply site of your choice.
+- **Supply Chain Visibility:** The project aims to build, update and share up-to-date open-source cost correlations for multiple low TRL and novel hydrogen technologies.
+- **Benchmarking and Estimation:** Our tool encourages a free comparison of key variables, capable of exploring different multi-technology approaches.
+- **Trusted Partner** Working with manufacturers using a transparent and fair verification process, we allow them to share important information for potential users and investors in H2 infrastructure
+
+#### Community and Accessibility
+- **Open-Source Collaboration:** We use forums and contributions to foster a rich knowledge-sharing environment.
+- **Accessibility Standards:** Ensuring the tool meets accessibility guidelines for all users.
+
+### The Impact
+
+#### Completing the Puzzle
+By increasing access to finance and reducing the cost of financing, we aim to:
+- Boost investor confidence.
+- Overcome barriers due to high initial capital expenditure.
+- Support Scottish component manufacturers and the green hydrogen project pipeline.
+- Enable successful projects at various scales using innovative technology.
+
+### Join Us in This Venture
+We invite you to contribute, collaborate, and help us in making H2AuxInvest a cornerstone for the future of Scotland's Hydrogen Supply Chain. Let's innovate together for a greener, more sustainable future.
+
