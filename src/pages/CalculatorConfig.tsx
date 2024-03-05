@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 
 import { Box, Typography, Button, FormControl, FormLabel, Input, Switch, FormHelperText, Slider, Divider } from "@mui/joy";
