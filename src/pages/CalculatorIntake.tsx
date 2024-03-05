@@ -8,6 +8,9 @@ import ROUTE_CONSTANTS from "../routing/routeConstants";
 import { Pressure, RequestSchema } from "../api/calculator";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Ajv from 'ajv';
+import schema from '../api/calculator/schema.json'; // replace with the path to your JSON schema
+
 
 
 
@@ -15,6 +18,10 @@ const CalculatorIntake = () => {
     const [request, setRequest] = useState({} as RequestSchema)
     const location = useLocation();
     const navigate = useNavigate();
+    const ajv = new Ajv({ allErrors: true, strictRequired: 'log' });
+    const modifiedSchema = schema;
+    modifiedSchema.required = ['hydrogen_inlet_pressure']
+    const validate = ajv.compile(modifiedSchema);
 
     useEffect(() => {
         const locationRequest = location.state as RequestSchema;
@@ -29,7 +36,13 @@ const CalculatorIntake = () => {
 
 
     const canProceed = () => {
-        return request.hydrogen_inlet_pressure?.value !== undefined;
+        const valid = validate(request);
+        if (valid) {
+            return true;
+        } else {
+            console.log(validate.errors);
+            return false;
+        }
     }
 
     const goToNext = () => {

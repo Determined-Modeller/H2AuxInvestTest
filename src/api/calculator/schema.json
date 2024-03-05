@@ -1,0 +1,179 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "Pressure": {
+            "type": "string",
+            "enum": [
+                "BAR",
+                "PSI"
+            ]
+        },
+        "Mass": {
+            "type": "string",
+            "enum": [
+                "KG"
+            ]
+        },
+        "DispensingRate": {
+            "type": "object",
+            "properties": {
+                "value": {
+                    "type": "number"
+                },
+                "unit": {
+                    "type": "string",
+                    "enum": [
+                        "KG_PER_HOUR",
+                        "VEHICLES_PER_HOUR",
+                        "VEHICLES_PER_DAY",
+                        "KG_PER_YEAR"
+                    ]
+                }
+            }
+        }
+    },
+    "type": "object",
+    "properties": {
+        "hydrogen_inlet_pressure": {
+            "type": "object",
+            "required": [
+                "value",
+                "unit"
+            ],
+            "properties": {
+                "value": {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 15000
+                },
+                "unit": {
+                    "$ref": "#/definitions/Pressure"
+                }
+            }
+        },
+        "dispensing_type": {
+            "type": "string",
+            "enum": [
+                "TUBETRAILER",
+                "VEHICLE"
+            ]
+        },
+        "energy_price_per_mwh": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10000
+        },
+        "is_storage_required": {
+            "type": "boolean"
+        },
+        "storage_mass": {
+            "type": "object",
+            "required": [
+                "value",
+                "unit"
+            ],
+            "properties": {
+                "value": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000
+                },
+                "unit": {
+                    "$ref": "#/definitions/Mass"
+                }
+            }
+        },
+        "storage_pressure": {
+            "type": "object",
+            "required": [
+                "value",
+                "unit"
+            ],
+            "properties": {
+                "value": {
+                    "type": "number",
+                    "minimum": 30,
+                    "maximum": 20000
+                },
+                "unit": {
+                    "$ref": "#/definitions/Pressure"
+                }
+            }
+        },
+        "dispensing_pressure": {
+            "type": "object",
+            "required": [
+                "value",
+                "unit"
+            ],
+            "properties": {
+                "value": {
+                    "type": "number",
+                    "minimum": 30,
+                    "maximum": 15000
+                },
+                "unit": {
+                    "$ref": "#/definitions/Pressure"
+                }
+            }
+        },
+        "dispensing_mass": {
+            "type": "object",
+            "required": [
+                "value",
+                "unit"
+            ],
+            "properties": {
+                "value": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 3000
+                },
+                "unit": {
+                    "$ref": "#/definitions/Mass"
+                }
+            }
+        },
+        "avg_hydrogen_dispensing_rate": {
+            "$ref": "#/definitions/DispensingRate"
+        },
+        "peak_hydrogen_dispensing_rate": {
+            "$ref": "#/definitions/DispensingRate"
+        },
+        "lifetime_years": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 100
+        },
+        "wacc": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+        },
+        "is_precooling_used": {
+            "type": "boolean"
+        },
+        "vehicle_type": {
+            "type": "string",
+            "enum": [
+                "TUBETRAILER",
+                "CAR",
+                "HDV",
+                "CUSTOM"
+            ]
+        }
+    },
+    "required": [
+        "hydrogen_inlet_pressure",
+        "energy_price_per_mwh",
+        "storage_mass",
+        "storage_pressure",
+        "dispensing_pressure",
+        "dispensing_mass",
+        "avg_hydrogen_dispensing_rate",
+        "peak_hydrogen_dispensing_rate",
+        "lifetime_years",
+        "wacc"
+    ],
+    "title": "Request Schema"
+}
