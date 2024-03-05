@@ -3,7 +3,11 @@
 ## H2AuxInvest - Estimate costs of your hydrogen infrastructure
 
 ### Our Output
-We are proud to present our Hydrogen Infrastructure Costing Tool, used to estimate costs of your hydrogen compression and storage infrastructure at the following link: www.calculateh2.org
+We are proud to present our Hydrogen Infrastructure Costing Tool, used to estimate costs of your hydrogen compression and storage infrastructure.
+- Webapp: www.calculateh2.org
+- Hydrogen API calculator repo: https://github.com/rg1990/GCH
+- Documentation: https://www.calculateh2.org/documentation
+- Socials: Follow the project on linkedin to stay up in the loop for updates and reports
 
 ### Our Mission
 In Scotland's Hydrogen Supply Chain, knowledge transfer faces significant hurdles. H2AuxInvest is dedicated towards turning this current weakness into a sector-wide strength with an open ecosystem.
