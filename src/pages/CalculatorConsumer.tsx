@@ -1,231 +1,50 @@
 
 
-import { Option, Box, Typography, Button, ListItemDecorator, Select, FormControl, FormLabel, Input } from "@mui/joy";
+import { Option, Box, Typography, Button, FormControl, FormHelperText, Switch, FormLabel, Select, Input } from "@mui/joy";
 
 
 import ProgressTracker from "../components/ProgressTracker";
-import ROUTE_CONSTANTS from "../routing/routeConstants";
-import { useEffect, useState } from "react";
-import { Mass, Pressure, RequestSchema, RequestSchemaDispensingMass, RequestSchemaDispensingPressure, RequestSchemaVehicleTypeEnum } from "../api/calculator";
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import BuildIcon from '@mui/icons-material/Build';
-import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-
-RequestSchemaVehicleTypeEnum
-
-const options = [
-    {
-        type: RequestSchemaVehicleTypeEnum.Tubetrailer,
-        name: 'TUBETRAILER Type A',
-        status: "200 bar, 580 kg",
-        icon: <LocalShippingIcon />,
-        data: {
-            bar: {
-                value: 200,
-                unit: 'BAR'
-            },
-            kg: {
-                value: 580,
-                unit: 'KG'
-            }
-        }
-    },
-    {
-        type: RequestSchemaVehicleTypeEnum.Tubetrailer,
-        name: 'TUBETRAILER Type B',
-        status: "300 bar, 840 kg",
-        icon: <LocalShippingIcon />,
-        data: {
-            bar: {
-                value: 300,
-                unit: 'BAR'
-            },
-            kg: {
-                value: 840,
-                unit: 'KG'
-            }
-        }
-    },
-    {
-        type: RequestSchemaVehicleTypeEnum.Tubetrailer,
-        name: 'TUBETRAILER Type C',
-        status: "380 bar, 1000 kg",
-        icon: <LocalShippingIcon />,
-        data: {
-            bar: {
-                value: 380,
-                unit: 'BAR'
-            },
-            kg: {
-                value: 1000,
-                unit: 'KG'
-            }
-        }
-    },
-    {
-        type: RequestSchemaVehicleTypeEnum.Tubetrailer,
-        name: 'TUBETRAILER Type D',
-        status: "450 bar, 1150 kg (non-standard)",
-        icon: <LocalShippingIcon />,
-        data: {
-            bar: {
-                value: 450,
-                unit: 'BAR'
-            },
-            kg: {
-                value: 1150,
-                unit: 'KG'
-            }
-        }
-    },
-    {
-        type: RequestSchemaVehicleTypeEnum.Tubetrailer,
-        name: 'TUBETRAILER Type E',
-        status: "500 bar, 1300 kg (non-standard)",
-        icon: <LocalShippingIcon />,
-        data: {
-            bar: {
-                value: 500,
-                unit: 'BAR'
-            },
-            kg: {
-                value: 1300,
-                unit: 'KG'
-            }
-        }
-    },
-    {
-        type: RequestSchemaVehicleTypeEnum.Car,
-        name: 'Car Type A',
-        status: '350 bar, 5 kg',
-        icon: <DirectionsCarIcon />,
-        data: {
-            bar: {
-                value: 350,
-                unit: 'BAR'
-            },
-            kg: {
-                value: 5,
-                unit: 'KG'
-            }
-        }
-    },
-    {
-        type: RequestSchemaVehicleTypeEnum.Car,
-        name: 'Car Type B',
-        status: '700 bar, 5 kg',
-        icon: <DirectionsCarIcon />,
-        data: {
-            bar: {
-                value: 700,
-                unit: 'BAR'
-            },
-            kg: {
-                value: 5,
-                unit: 'KG'
-            }
-        }
-    },
-    {
-        type: RequestSchemaVehicleTypeEnum.Hdv,
-        name: 'HDV Type A',
-        status: '350 bar, 30 kg',
-        icon: <DirectionsBusIcon />,
-        data: {
-            bar: {
-                value: 350,
-                unit: 'BAR'
-            },
-            kg: {
-                value: 30,
-                unit: 'KG'
-            }
-        }
-    },
-    {
-        type: RequestSchemaVehicleTypeEnum.Hdv,
-        name: 'HDV Type B',
-        status: '700 bar, 30 kg',
-        icon: <DirectionsBusIcon />,
-        data: {
-            bar: {
-                value: 700,
-                unit: 'BAR'
-            },
-            kg: {
-                value: 30,
-                unit: 'KG'
-            }
-        }
-    },
-    {
-        type: RequestSchemaVehicleTypeEnum.Custom,
-        name: 'Custom',
-        status: 'Specify your vehicle',
-        icon: <BuildIcon />,
-        data: {
-            bar: {
-                value: 700,
-                unit: 'BAR'
-            },
-            kg: {
-                value: 5,
-                unit: 'KG'
-            }
-        }
-    }
-] as const;
-
+import { Mass, Pressure, RequestSchema } from "../api/calculator";
+import ROUTE_CONSTANTS from "../routing/routeConstants";
 
 const CalculatorConsumer = () => {
 
-    const [request, setRequest] = useState({} as RequestSchema);
+    const [request, setRequest] = useState({} as RequestSchema)
     const location = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {
         const locationRequest = location.state as RequestSchema;
-        if (!locationRequest || !locationRequest.dispensing_type) {
+
+        // if (!locationRequest?.peak_hydrogen_dispensing_rate || !locationRequest?.avg_hydrogen_dispensing_rate) {
+        //     goToPrevious();
+        // }
+        if (!locationRequest?.vehicle_type || !locationRequest?.dispensing_type) {
             navigate(ROUTE_CONSTANTS.CALCULATOR_PLANT_TYPE)
         }
+
         setRequest({
             ...locationRequest,
+            is_storage_required: false,
+            storage_pressure: {
+                value: 0,
+                unit: Pressure.Bar
+            },
+            storage_mass: {
+                value: 0,
+                unit: Mass.Kg
+            }
         })
     }, [])
 
+    const goToNext = () => {
+        navigate(ROUTE_CONSTANTS.CALCULATOR_SALES, { state: request })
+    }
+
     const goToPrevious = () => {
         navigate(ROUTE_CONSTANTS.CALCULATOR_PLANT_TYPE, { state: request })
-    }
-
-    const goToNext = () => {
-        if (canProceed()) {
-            navigate(ROUTE_CONSTANTS.CALCULATOR_SALES, { state: request })
-        }
-    }
-
-    const canProceed = () => {
-        return request.vehicle_type !== undefined
-            && request.dispensing_mass !== undefined
-            && request.dispensing_mass.value !== undefined
-            && request.dispensing_pressure !== undefined
-            && request.dispensing_pressure.value !== undefined;
-    }
-
-    const handleChange = (
-        event: React.SyntheticEvent | null,
-        newValue: string | null,
-    ) => {
-        const name = newValue;
-        const option = options.find(option => option.name === name);
-        if (!option) return;
-        setRequest({
-            ...request,
-            vehicle_type: option.type as RequestSchemaVehicleTypeEnum,
-            dispensing_mass: option.data.kg as RequestSchemaDispensingMass,
-            dispensing_pressure: option.data.bar as RequestSchemaDispensingPressure
-        })
     }
 
     const handleDispensingUnitChange = (
@@ -234,8 +53,8 @@ const CalculatorConsumer = () => {
     ) => {
         setRequest({
             ...request,
-            dispensing_pressure: {
-                ...request.dispensing_pressure,
+            storage_pressure: {
+                ...request.storage_pressure,
                 unit: Pressure[newValue as keyof typeof Pressure]
             }
         })
@@ -247,25 +66,13 @@ const CalculatorConsumer = () => {
     ) => {
         setRequest({
             ...request,
-            dispensing_mass: {
-                ...request.dispensing_mass,
+            storage_mass: {
+                ...request.storage_mass,
                 unit: Mass[newValue as keyof typeof Mass]
             }
         })
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const filterDropDown = (option: any) => {
-        if (option.type as RequestSchemaVehicleTypeEnum === RequestSchemaVehicleTypeEnum.Custom) {
-            return true;
-        } else if (request.dispensing_type === "VEHICLE" && option.type !== RequestSchemaVehicleTypeEnum.Tubetrailer) {
-            return true;
-        } else if (request.dispensing_type === "TUBETRAILER" && option.type === RequestSchemaVehicleTypeEnum.Tubetrailer) {
-            return true;
-        } else {
-            return false;
-        }
-    };
 
     return (
         <Box
@@ -319,53 +126,37 @@ const CalculatorConsumer = () => {
                             '& > *': { flex: 'auto' },
                         }}
                     >
-                        <Typography>[add vehicle select and manual override for vehicle storage volume and pressure]</Typography>
-                        <Select
-                            size="lg"
-                            onChange={handleChange}
-                            defaultValue="Eric"
-                            slotProps={{
-                                listbox: {
-                                    sx: {
-                                        '--ListItemDecorator-size': '48px',
-                                    },
-                                },
-                            }}
-                            sx={{
-                                minWidth: 240,
-                            }}
-                        >
-                            {options.filter(filterDropDown).map(data => (
-                                <Option
-                                    key={data.name}
-                                    value={data.name}
-                                    label={data.name} // The appearance of the selected value will be a string
-                                >
-                                    <ListItemDecorator>
-                                        {data.icon}
-                                    </ListItemDecorator>
-                                    <Box component="span" sx={{ display: 'block' }}>
-                                        <Typography component="span" level="title-sm">
-                                            {data.name}
-                                        </Typography>
-                                        <Typography level="body-xs">{data.status}</Typography>
-                                    </Box>
-                                </Option>
-                            ))}
-                        </Select>
-                        {request.vehicle_type === RequestSchemaVehicleTypeEnum.Custom && <>
+
+                        <Box width={300} marginTop={3}>
+                            <FormControl>
+
+                                <Typography component="label" endDecorator={<Switch
+                                    disabled={false}
+                                    checked={request.is_storage_required}
+                                    onChange={(e) => setRequest({ ...request, is_storage_required: e.target.checked })}
+                                    size="lg"
+                                    variant="solid"
+                                />}>
+                                    Is storage required?
+                                </Typography>
+                                <FormHelperText>
+                                    This shows whether the hydrogen supply cooled before dispensing to allow for a higher fill level
+                                </FormHelperText>
+                            </FormControl>
+                        </Box>
+                        {request.is_storage_required && <>
                             <FormControl>
                                 <FormLabel>Dispensing Pressure</FormLabel>
                                 <Input
-                                    name="dispensing_pressure"
+                                    name="storage_pressure"
                                     type="number"
-                                    placeholder="Placeholder"
+                                    placeholder="10"
                                     size="lg"
-                                    value={request?.dispensing_pressure?.value}
+                                    value={request?.storage_pressure?.value}
                                     onChange={(event) => setRequest({
                                         ...request,
-                                        dispensing_pressure: {
-                                            ...request.dispensing_pressure,
+                                        storage_pressure: {
+                                            ...request.storage_pressure,
                                             value: parseFloat(event.target.value),
                                         }
                                     })}
@@ -388,15 +179,15 @@ const CalculatorConsumer = () => {
                             <FormControl>
                                 <FormLabel>Dispensing Mass</FormLabel>
                                 <Input
-                                    name="dispensing_mass"
+                                    name="storage_mass"
                                     type="number"
-                                    placeholder="Placeholder"
+                                    placeholder="10"
                                     size="lg"
-                                    value={request?.dispensing_mass?.value}
+                                    value={request?.storage_mass?.value}
                                     onChange={(event) => setRequest({
                                         ...request,
-                                        dispensing_mass: {
-                                            ...request.dispensing_mass,
+                                        storage_mass: {
+                                            ...request.storage_mass,
                                             value: parseFloat(event.target.value),
                                         }
                                     })}
@@ -416,7 +207,10 @@ const CalculatorConsumer = () => {
                                     ))}
                                 </Select>
                             </FormControl>
-                        </>}
+
+                        </>
+                        }
+
                     </Box>
 
 
@@ -438,8 +232,8 @@ const CalculatorConsumer = () => {
                             Back
                         </Button>
                         <Button
-                            component="a"
                             onClick={goToNext}
+                            component="a"
                             size="lg"
                         >
                             Next

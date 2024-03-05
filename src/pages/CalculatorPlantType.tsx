@@ -1,6 +1,6 @@
 
 
-import { Box, Typography, Button, FormLabel, RadioGroup, Sheet } from "@mui/joy";
+import { Option, Box, Typography, Button, FormLabel, RadioGroup, Sheet, FormControl, ListItemDecorator, Select, Input } from "@mui/joy";
 
 import Radio, { radioClasses } from '@mui/joy/Radio';
 
@@ -8,10 +8,176 @@ import ProgressTracker from "../components/ProgressTracker";
 import ROUTE_CONSTANTS from "../routing/routeConstants";
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import BuildIcon from '@mui/icons-material/Build';
+import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import { DirectionsCar } from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { RequestSchema, RequestSchemaDispensingTypeEnum } from "../api/calculator";
+import { Mass, Pressure, RequestSchema, RequestSchemaDispensingMass, RequestSchemaDispensingPressure, RequestSchemaDispensingTypeEnum, RequestSchemaVehicleTypeEnum } from "../api/calculator";
+
+const options = [
+    {
+        type: RequestSchemaVehicleTypeEnum.Tubetrailer,
+        name: 'TUBETRAILER Type A',
+        status: "200 bar, 580 kg",
+        icon: <LocalShippingIcon />,
+        data: {
+            bar: {
+                value: 200,
+                unit: 'BAR'
+            },
+            kg: {
+                value: 580,
+                unit: 'KG'
+            }
+        }
+    },
+    {
+        type: RequestSchemaVehicleTypeEnum.Tubetrailer,
+        name: 'TUBETRAILER Type B',
+        status: "300 bar, 840 kg",
+        icon: <LocalShippingIcon />,
+        data: {
+            bar: {
+                value: 300,
+                unit: 'BAR'
+            },
+            kg: {
+                value: 840,
+                unit: 'KG'
+            }
+        }
+    },
+    {
+        type: RequestSchemaVehicleTypeEnum.Tubetrailer,
+        name: 'TUBETRAILER Type C',
+        status: "380 bar, 1000 kg",
+        icon: <LocalShippingIcon />,
+        data: {
+            bar: {
+                value: 380,
+                unit: 'BAR'
+            },
+            kg: {
+                value: 1000,
+                unit: 'KG'
+            }
+        }
+    },
+    {
+        type: RequestSchemaVehicleTypeEnum.Tubetrailer,
+        name: 'TUBETRAILER Type D',
+        status: "450 bar, 1150 kg (non-standard)",
+        icon: <LocalShippingIcon />,
+        data: {
+            bar: {
+                value: 450,
+                unit: 'BAR'
+            },
+            kg: {
+                value: 1150,
+                unit: 'KG'
+            }
+        }
+    },
+    {
+        type: RequestSchemaVehicleTypeEnum.Tubetrailer,
+        name: 'TUBETRAILER Type E',
+        status: "500 bar, 1300 kg (non-standard)",
+        icon: <LocalShippingIcon />,
+        data: {
+            bar: {
+                value: 500,
+                unit: 'BAR'
+            },
+            kg: {
+                value: 1300,
+                unit: 'KG'
+            }
+        }
+    },
+    {
+        type: RequestSchemaVehicleTypeEnum.Car,
+        name: 'Car Type A',
+        status: '350 bar, 5 kg',
+        icon: <DirectionsCarIcon />,
+        data: {
+            bar: {
+                value: 350,
+                unit: 'BAR'
+            },
+            kg: {
+                value: 5,
+                unit: 'KG'
+            }
+        }
+    },
+    {
+        type: RequestSchemaVehicleTypeEnum.Car,
+        name: 'Car Type B',
+        status: '700 bar, 5 kg',
+        icon: <DirectionsCarIcon />,
+        data: {
+            bar: {
+                value: 700,
+                unit: 'BAR'
+            },
+            kg: {
+                value: 5,
+                unit: 'KG'
+            }
+        }
+    },
+    {
+        type: RequestSchemaVehicleTypeEnum.Hdv,
+        name: 'HDV Type A',
+        status: '350 bar, 30 kg',
+        icon: <DirectionsBusIcon />,
+        data: {
+            bar: {
+                value: 350,
+                unit: 'BAR'
+            },
+            kg: {
+                value: 30,
+                unit: 'KG'
+            }
+        }
+    },
+    {
+        type: RequestSchemaVehicleTypeEnum.Hdv,
+        name: 'HDV Type B',
+        status: '700 bar, 30 kg',
+        icon: <DirectionsBusIcon />,
+        data: {
+            bar: {
+                value: 700,
+                unit: 'BAR'
+            },
+            kg: {
+                value: 30,
+                unit: 'KG'
+            }
+        }
+    },
+    {
+        type: RequestSchemaVehicleTypeEnum.Custom,
+        name: 'Custom',
+        status: 'Specify your vehicle',
+        icon: <BuildIcon />,
+        data: {
+            bar: {
+                value: 700,
+                unit: 'BAR'
+            },
+            kg: {
+                value: 5,
+                unit: 'KG'
+            }
+        }
+    }
+] as const;
 
 
 const CalculatorPlantType = () => {
@@ -51,6 +217,60 @@ const CalculatorPlantType = () => {
             ...request,
             dispensing_type: event?.target?.value as RequestSchemaDispensingTypeEnum,
         })
+    };
+
+    const handleSelectChange = (
+        event: React.SyntheticEvent | null,
+        newValue: string | null,
+    ) => {
+        const name = newValue;
+        const option = options.find(option => option.name === name);
+        if (!option) return;
+        setRequest({
+            ...request,
+            vehicle_type: option.type as RequestSchemaVehicleTypeEnum,
+            dispensing_mass: option.data.kg as RequestSchemaDispensingMass,
+            dispensing_pressure: option.data.bar as RequestSchemaDispensingPressure
+        })
+    }
+
+    const handleDispensingUnitChange = (
+        event: React.SyntheticEvent | null,
+        newValue: string | null,
+    ) => {
+        setRequest({
+            ...request,
+            dispensing_pressure: {
+                ...request.dispensing_pressure,
+                unit: Pressure[newValue as keyof typeof Pressure]
+            }
+        })
+    }
+
+    const handleDispensingMassUnitChange = (
+        event: React.SyntheticEvent | null,
+        newValue: string | null,
+    ) => {
+        setRequest({
+            ...request,
+            dispensing_mass: {
+                ...request.dispensing_mass,
+                unit: Mass[newValue as keyof typeof Mass]
+            }
+        })
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const filterDropDown = (option: any) => {
+        if (option.type as RequestSchemaVehicleTypeEnum === RequestSchemaVehicleTypeEnum.Custom) {
+            return true;
+        } else if (request.dispensing_type === "VEHICLE" && option.type !== RequestSchemaVehicleTypeEnum.Tubetrailer) {
+            return true;
+        } else if (request.dispensing_type === "TUBETRAILER" && option.type === RequestSchemaVehicleTypeEnum.Tubetrailer) {
+            return true;
+        } else {
+            return false;
+        }
     };
     return (
         <Box
@@ -160,6 +380,107 @@ const CalculatorPlantType = () => {
                             <FormLabel htmlFor={"VEHICLE"}>{"VEHICLE"}</FormLabel>
                         </Sheet>
                     </RadioGroup>
+                    {request.dispensing_type && <>
+                        <Typography>Consumption</Typography>
+                        <Select
+                            size="lg"
+                            onChange={handleSelectChange}
+                            defaultValue="Eric"
+                            slotProps={{
+                                listbox: {
+                                    sx: {
+                                        '--ListItemDecorator-size': '48px',
+                                    },
+                                },
+                            }}
+                            sx={{
+                                minWidth: 240,
+                            }}
+                        >
+                            {options.filter(filterDropDown).map(data => (
+                                <Option
+                                    key={data.name}
+                                    value={data.name}
+                                    label={data.name} // The appearance of the selected value will be a string
+                                >
+                                    <ListItemDecorator>
+                                        {data.icon}
+                                    </ListItemDecorator>
+                                    <Box component="span" sx={{ display: 'block' }}>
+                                        <Typography component="span" level="title-sm">
+                                            {data.name}
+                                        </Typography>
+                                        <Typography level="body-xs">{data.status}</Typography>
+                                    </Box>
+                                </Option>
+                            ))}
+                        </Select>
+                        {request.vehicle_type === RequestSchemaVehicleTypeEnum.Custom && <>
+                            <FormControl>
+                                <FormLabel>Dispensing Pressure</FormLabel>
+                                <Input
+                                    name="dispensing_pressure"
+                                    type="number"
+                                    placeholder="Placeholder"
+                                    size="lg"
+                                    value={request?.dispensing_pressure?.value}
+                                    onChange={(event) => setRequest({
+                                        ...request,
+                                        dispensing_pressure: {
+                                            ...request.dispensing_pressure,
+                                            value: parseFloat(event.target.value),
+                                        }
+                                    })}
+                                />
+                            </FormControl>
+                            <FormControl>
+                                <FormLabel>Units</FormLabel>
+                                <Select size="lg" defaultValue={Object.keys(Pressure)[0]} onChange={handleDispensingUnitChange}
+                                    sx={{
+                                        width: "110px",
+                                    }}
+                                >
+                                    {Object.entries(Pressure).map(([key, value]) => (
+                                        <Option key={key} value={key}>
+                                            {value}
+                                        </Option>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            <FormControl>
+                                <FormLabel>Dispensing Mass</FormLabel>
+                                <Input
+                                    name="dispensing_mass"
+                                    type="number"
+                                    placeholder="Placeholder"
+                                    size="lg"
+                                    value={request?.dispensing_mass?.value}
+                                    onChange={(event) => setRequest({
+                                        ...request,
+                                        dispensing_mass: {
+                                            ...request.dispensing_mass,
+                                            value: parseFloat(event.target.value),
+                                        }
+                                    })}
+                                />
+                            </FormControl>
+                            <FormControl>
+                                <FormLabel>Units</FormLabel>
+                                <Select size="lg" defaultValue={request.dispensing_mass.unit} onChange={handleDispensingMassUnitChange}
+                                    sx={{
+                                        width: "110px",
+                                    }}
+                                >
+                                    {Object.entries(Mass).map(([key, value]) => (
+                                        <Option key={key} value={value}>
+                                            {value}
+                                        </Option>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </>}
+                    </>}
+
 
 
                     <Box
