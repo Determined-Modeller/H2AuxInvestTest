@@ -1,12 +1,13 @@
 <img src="src/assets/ProjectLogo2.png"  height="210" width="210">
 
-## H2AuxInvest - Supporting the Hydrogen Supply Chain
+## H2AuxInvest - Estimate costs of your hydrogen infrastructure
+
+### Our Output
+We are proud to present our Hydrogen Infrastructure Costing Tool, used to estimate costs of your hydrogen compression and storage infrastructure at the following link: www.calculateh2.org
 
 ### Our Mission
 In Scotland's Hydrogen Supply Chain, knowledge transfer faces significant hurdles. H2AuxInvest is dedicated towards turning this current weakness into a sector-wide strength with an open ecosystem.
 
-### Our Output
-We are proud to present our web app at the following link: www.calculateh2.org
 
 ### The Challenge
 
