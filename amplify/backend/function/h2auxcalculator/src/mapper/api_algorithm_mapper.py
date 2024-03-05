@@ -97,7 +97,7 @@ class ApiAlgorithmMapper:
         'meta': meta["new compressor"]
         }
         dictionary.update(out["piston compressor"])
-        compressors.append()
+        compressors.append(dictionary)
         
         dictionary = {
         'id': "new storage",
@@ -105,7 +105,7 @@ class ApiAlgorithmMapper:
         'meta': meta["new storage"]
         }
         dictionary.update(out["type I/II storage"])
-        storage.append()
+        storage.append(dictionary)
         
         response['dispensers'] = dispensers
         response['compressors'] = compressors
