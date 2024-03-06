@@ -177,7 +177,7 @@ const Results = () => {
                     System Overview
                 </Typography>
             </Grid>
-            <Grid xs={12} xl={5}>
+            {/* <Grid xs={12} xl={5}>
                 <CompressorCard compressor={compressor} />
             </Grid>
             <Grid xs={12} xl={7} container spacing={2} sx={{ flexGrow: 1 }}>
@@ -187,14 +187,14 @@ const Results = () => {
                 <Grid xs={12} xl={6}>
                     <DispenserCard dispensor={dispensor} />
                 </Grid>
-            </Grid>
-            <Grid xs={12} xl={12}>
+            </Grid> */}
+            {/* <Grid xs={12} xl={12}>
                 <Typography level="h2" fontWeight={6} sx={(theme) => ({ marginY: theme.spacing(4) })}>
                     Cost Analysis
                 </Typography>
-            </Grid>
+            </Grid> */}
 
-            <Grid xs={12} xl={5}>
+            {/* <Grid xs={12} xl={5}>
 
                 <Card variant='soft' sx={{ minHeight: '100%' }}>
                     <Typography level="h3" fontWeight={3}>
@@ -211,8 +211,8 @@ const Results = () => {
                         xAxis={[{ data: ['Compressor', 'Storage', 'Dispensor'], scaleType: 'band' }]}
                     />
                 </Card>
-            </Grid>
-            <Grid xs={12} xl={7} rowSpacing={2}>
+            </Grid> */}
+            {/* <Grid xs={12} xl={7} rowSpacing={2}>
                 <CostsCard compressor={compressor} storage={storage} dispenser={dispensor} />
                 <Card variant="soft">
                     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
@@ -238,7 +238,7 @@ const Results = () => {
                         </Grid>
                     </Grid>
                 </Card>
-            </Grid>
+            </Grid> */}
             <Grid xs={12} xl={12}>
                 <Typography level="h2" fontWeight={6} sx={(theme) => ({ marginY: theme.spacing(7) })}>
                     Equipment Comparison

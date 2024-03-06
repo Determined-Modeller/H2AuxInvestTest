@@ -9,8 +9,14 @@ interface ComparisonTableProps {
 }
 
 const ComparisonTable: React.FC<ComparisonTableProps> = ({ data, type, activeId }) => (
-    <Sheet variant="outlined" sx={{ width: '100%', boxShadow: 'sm', borderRadius: 'sm' }}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table" variant="soft" borderAxis="bothBetween">
+    <Sheet variant="outlined" sx={{ overflowX: 'auto', maxWidth: '100%', width: '100%', boxShadow: 'sm', borderRadius: 'sm' }}>
+        <Table
+            aria-label="simple table" variant="soft"
+            borderAxis="bothBetween"
+            sx={{
+                width: '100%',
+            }}
+        >
             <thead>
                 <tr>
                     <th style={{ width: '20%' }}>{type}</th>
