@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Box, Card, FormControl, FormHelperText, FormLabel, Select, Stack, Typography, Option, LinearProgress } from '@mui/joy';
+import { Box, Card, FormControl, FormHelperText, FormLabel, Select, Stack, Typography, Option, LinearProgress, Button } from '@mui/joy';
 import Grid from '@mui/joy/Grid';
 import { BarChart } from '@mui/x-charts';
 import { useEffect, useState } from 'react';
@@ -12,6 +13,8 @@ import StorageCard from '../components/StorageCard';
 import CompressorCard from '../components/CompressorCard';
 import CostsCard from '../components/CostsCard';
 import { useLocation } from 'react-router-dom';
+import ROUTE_CONSTANTS from '../routing/routeConstants';
+import { ArrowForward, RestartAlt } from '@mui/icons-material';
 
 
 const Results = () => {
@@ -131,7 +134,7 @@ const Results = () => {
                                 }}
                             >
                                 {
-                                    response && response?.compressors?.map(row => (
+                                    response && response?.compressors?.filter(i => !(i as any)['static']).map(row => (
                                         <Option value={row.id}>{row.meta?.title}</Option>
                                     ))
                                 }
@@ -156,7 +159,7 @@ const Results = () => {
                                 }}
                             >
                                 {
-                                    response && response?.storage?.map(row => (
+                                    response && response?.storage?.filter(i => !(i as any)['static']).map(row => (
                                         <Option value={row.id}>{row.meta?.title}</Option>
                                     ))
                                 }
@@ -250,7 +253,7 @@ const Results = () => {
                     />
                 }
             </Grid>
-            <Grid xs={12} xl={12}>
+            <Grid xs={12} xl={12} sx={{ marginTop: "20px" }}>
                 {response != undefined &&
                     <ComparisonTable
                         type="Storage"
@@ -259,6 +262,47 @@ const Results = () => {
                     />
                 }
             </Grid>
+            <Box
+                py={'80px'}
+                sx={{
+                    maxWidth: '800px',
+                    margin: 'auto',
+
+                }}
+            >
+                <Typography level="h3" color="primary" fontSize="lg" fontWeight="lg">
+                    What's Next
+                </Typography>
+                <Typography level="h2" pb={3}>
+                    Change your selected equipment or start over
+                </Typography>
+                <Typography sx={(theme) => ({ marginBottom: theme.spacing(3) })}>
+                    Please vary technologies to compare power requirements, levelised costs and much more.  If the infrastrucutre needs of your infrastructure change please restart the survey to update this.
+                </Typography>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        gap: 2,
+                        my: 4,
+                        '& > *': { flex: 'auto' },
+                    }}
+                >
+                    <Button
+                        component="a"
+                        href={ROUTE_CONSTANTS.DOCS}
+                        size="lg" variant="outlined" color="neutral">
+                        Learn More
+                    </Button>
+                    <Button
+                        component="a"
+                        href={ROUTE_CONSTANTS.CALCULATOR}
+                        size="lg"
+                        startDecorator={<RestartAlt />}>
+                        Restart
+                    </Button>
+                </Box>
+            </Box>
         </Grid>
     }</>)
 }
