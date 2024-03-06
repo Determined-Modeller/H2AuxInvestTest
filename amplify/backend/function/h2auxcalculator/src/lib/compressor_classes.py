@@ -215,7 +215,7 @@ class Compressor:
         
         self.results['power'] = sum(self.conditions.loc['power'])
         
-        base = cepci_24/cepci_88 * 7495 *  self.results['power'] ** 0.82
+        base = cepci_24/cepci_88 * 8305 *  self.results['power'] ** 0.82
         
         
         self.results['equipment'] = {'min':  base * 0.9,
