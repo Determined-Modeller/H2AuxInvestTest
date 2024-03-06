@@ -5,6 +5,7 @@ import { ArrowForward } from "@mui/icons-material";
 import TwoSidedLayout from "../components/TwoSidedLayout";
 import ROUTE_CONSTANTS from "../routing/routeConstants";
 import PartnerLogos from "../components/ProjectPartners";
+import Team from "../components/Team";
 
 
 
@@ -54,6 +55,7 @@ const Home = () => {
                 </Box>
             </TwoSidedLayout>
             <PartnerLogos />
+            <Team />
         </Box>
     );
 }
