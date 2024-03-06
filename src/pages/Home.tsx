@@ -4,6 +4,7 @@ import { Box, Button, Typography } from "@mui/joy"
 import { ArrowForward } from "@mui/icons-material";
 import TwoSidedLayout from "../components/TwoSidedLayout";
 import ROUTE_CONSTANTS from "../routing/routeConstants";
+import PartnerLogos from "../components/ProjectPartners";
 
 
 
@@ -26,7 +27,7 @@ const Home = () => {
                     Estimate costs of your hydrogen infrastructure
                 </Typography>
                 <Typography fontSize="lg" textColor="text.secondary" lineHeight="lg">
-                Rapidly estimate capital, operating, installation and energy costs for your end-use of hydrogen, compare available configurations and explore different technologies
+                    Rapidly estimate capital, operating, installation and energy costs for your end-use of hydrogen, compare available configurations and explore different technologies
                 </Typography>
                 <Box
                     sx={{
@@ -52,6 +53,7 @@ const Home = () => {
                     </Button>
                 </Box>
             </TwoSidedLayout>
+            <PartnerLogos />
         </Box>
     );
 }

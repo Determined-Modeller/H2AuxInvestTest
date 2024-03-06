@@ -14,7 +14,7 @@ import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import BookRoundedIcon from '@mui/icons-material/BookRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
-import WaterDropIcon from '@mui/icons-material/WaterDrop';
+import ProjectLogo2 from '../assets/ProjectLogo2.png';
 
 import GitHubIcon from '@mui/icons-material/GitHub';
 
@@ -74,24 +74,23 @@ export default function Header() {
       >
         <IconButton
           size="md"
-          variant="outlined"
           color="neutral"
           sx={{
             display: { xs: 'none', sm: 'inline-flex' },
             borderRadius: '50%',
           }}
         >
-          <WaterDropIcon />
+          <img src={ProjectLogo2} height={'50px'} alt="" />
         </IconButton>
         <Button
           variant="plain"
           color="neutral"
           component="a"
-          href="https://www.gchydrogen.co.uk/"
+          href="https://www.calculateh2.org/"
           size="sm"
           sx={{ alignSelf: 'center' }}
         >
-          Green Cat Hydrogen
+          H2AuxInvest
         </Button>
 
       </Stack>
@@ -120,6 +119,16 @@ export default function Header() {
           alignItems: 'center',
         }}
       >
+        <Button
+          variant="plain"
+          color="neutral"
+          component="a"
+          href="https://www.gchydrogen.co.uk/"
+          size="sm"
+          sx={{ alignSelf: 'center' }}
+        >
+          Green Cat Hydrogen
+        </Button>
         <Tooltip title="Github" variant="outlined">
           <IconButton
             size="sm"

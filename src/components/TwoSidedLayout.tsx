@@ -3,7 +3,7 @@ import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
 import Container from '@mui/joy/Container';
 import { typographyClasses } from '@mui/joy/Typography';
-import mainImage from '../assets/image1_0.jpg';
+import mainImage from '../assets/main.png';
 
 export default function TwoSidedLayout({
   children,
