@@ -89,18 +89,38 @@ const Results = () => {
         <Grid container spacing={2} sx={theme => ({ flexGrow: 1, padding: theme.spacing(1), maxWidth: "1500px", margin: "auto" })}>
             <Grid xs={12} xl={12}>
                 <Grid xs={12} xl={12} sx={(theme) => ({ marginY: theme.spacing(4) })}>
-                    <Typography level="h2" fontWeight={6} sx={(theme) => ({ marginBottom: theme.spacing(2) })}>
-                        Your Bespoke Results - Change your selected equipment types below to compare and explore the outputs
+                    <Box
+                        py={'50px'}
+                        sx={{
+                            maxWidth: '800px',
+                            margin: 'auto'
+                        }}
+                    >
+                        <Typography level="h3" color="primary" fontSize="lg" fontWeight="lg">
+                            Your Bespoke Results
+                        </Typography>
+                        <Typography level="h2" pb={3}>
+                            Change your selected equipment types below to compare and explore the outputs
+                        </Typography>
+                        <Typography sx={(theme) => ({ marginBottom: theme.spacing(3) })}>
+                            Our calculation tool shows detailed technical and commercial outputs for hydrogen compression, storage and dispensing, using your inputs to specify and cost your infrastructure.  Please vary technologies to compare power requirements, levelised costs and much more.  If the infrastrucutre needs of your infrastructure change please restart the survey to update this.
+                        </Typography>
+                    </Box>
+
+                    <Typography level="h2" fontWeight={6} sx={(theme) => ({ marginY: theme.spacing(4) })}>
+                        Configuration
                     </Typography>
-                    <Typography sx={(theme) => ({ marginBottom: theme.spacing(3) })}>
-                        Our calculation tool shows detailed technical and commercial outputs for hydrogen compression, storage and dispensing, using your inputs to specify and cost your infrastructure.  Please vary technologies to compare power requirements, levelised costs and much more.  If the infrastrucutre needs of your infrastructure change please restart the survey to update this.
-                    </Typography>
-                    <Stack direction='row' spacing={3}>
-                        <FormControl sx={{ width: 240 }}>
+                    <Box sx={{
+                        display: 'flex',
+                        gap: 2,
+                        flexWrap: 'wrap',
+                    }}>
+                        <FormControl sx={{ minWidth: 300 }}>
                             <FormLabel id="select-field-demo-label" htmlFor="select-field-demo-button">
                                 Compressor
                             </FormLabel>
                             <Select
+                                size='lg'
                                 onChange={(_, newValue) => handleCompressChange(newValue ?? '')}
                                 defaultValue={compressor?.id}
                                 slotProps={{
@@ -120,11 +140,12 @@ const Results = () => {
                                 Pick your compression equipment here
                             </FormHelperText>
                         </FormControl>
-                        <FormControl sx={{ width: 240 }}>
+                        <FormControl sx={{ minWidth: 300 }}>
                             <FormLabel id="select-field-demo-label" htmlFor="select-field-demo-button">
                                 Storage
                             </FormLabel>
                             <Select
+                                size='lg'
                                 onChange={(_, newValue) => handleStorageChange(newValue ?? '')}
                                 defaultValue={storage?.id}
                                 slotProps={{
@@ -144,7 +165,7 @@ const Results = () => {
                                 Pick your storage equipment here
                             </FormHelperText>
                         </FormControl>
-                    </Stack>
+                    </Box>
 
                 </Grid>
             </Grid>
@@ -174,7 +195,7 @@ const Results = () => {
 
                 <Card variant='soft' sx={{ minHeight: '100%' }}>
                     <Typography level="h3" fontWeight={3}>
-                        Levelised Cost of Hydrogen
+                        Levelised Cost of Hydrogen (£)
                     </Typography>
                     <BarChart
                         height={400}
