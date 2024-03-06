@@ -58,7 +58,7 @@ class Compressor:
         
     def set_peak_flowrate(self, new_peak_flowrate):
         self.peak_flowrate = new_peak_flowrate
-    
+
     
     def do_all_calculations(self):
         
@@ -208,30 +208,14 @@ class Compressor:
         '''
         Overridden in some child classes.
         
-        The code duplication in these methods can be removed as follows:
-        #######################################################################
-        base = (0.003125 * (self.compressor_pressure)**2 - 0.308375 * (self.compressor_pressure) + 622.3375) * self.compressor_capacity
-        
-        self.results['equipment_RG'] = {'min': base * 0.9,
-                                        'max': base * 1.1}
-        
-        self.results['equipment_lcoh_RG'] = {k: calculate_lcoh(self.lifetime, 'capex', self.results['equipment'][k], self.wacc, self.avg_flow)
-                                             for k in ['min', 'max']}
-        
-        # Check results match
-        for k in self.results['equipment']:
-            assert(math.isclose(self.results['equipment'][k], self.results['equipment_RG'][k]))
-            assert(math.isclose(self.results['equipment_lcoh'][k], self.results['equipment_lcoh_RG'][k]))
-        #######################################################################
-        
-        
         '''
+        
         cepci_88 = 342.5
         cepci_24 = 800
         
         self.results['power'] = sum(self.conditions.loc['power'])
         
-        base = cepci_24/cepci_88 * 4614 *  self.results['power'] ** 0.82
+        base = cepci_24/cepci_88 * 7495 *  self.results['power'] ** 0.82
         
         
         self.results['equipment'] = {'min':  base * 0.9,
