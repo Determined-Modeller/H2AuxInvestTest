@@ -58,10 +58,6 @@ class Compressor:
         
     def set_peak_flowrate(self, new_peak_flowrate):
         self.peak_flowrate = new_peak_flowrate
-        
-        
-    def set_avg_flowrate(self, new_avg_flowrate):
-        self.avg_flowrate = new_avg_flowrate
     
     
     def do_all_calculations(self):
@@ -270,7 +266,7 @@ class Compressor:
         self.results['cooling_energy'] = sum(self.conditions.loc['cooling_energy'])
         self.results['compression_energy'] = sum(self.conditions.loc['compression_energy'])
         
-        base = (self.results['cooling_energy'] + self.results['compression_energy']) * self.avg_flowrate * 8.760 * self.energy_price
+        base = (self.results['cooling_energy'] + self.results['compression_energy']) * self.avg_flow * 8.760 * self.energy_price
         
         self.results['energy'] = {'min':  base * 0.9,
                                   'avg':  base,
