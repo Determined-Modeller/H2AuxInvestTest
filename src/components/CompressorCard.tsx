@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Typography, Stack, CardContent } from '@mui/joy';
+import { Card, Typography, Stack, CardContent, Box } from '@mui/joy';
 import { ResponseSchemaCompressorsInner } from '../api/calculator';
 import { AcUnit, Compress, FlashOn } from '@mui/icons-material';
 
@@ -12,7 +12,16 @@ const CompressorCard: React.FC<CompressorCardProps> = ({ compressor }) => (
         <Typography level="h4" fontWeight={3}>
             {compressor?.meta?.title}
         </Typography>
-        <Stack direction="row" justifyContent={'space-evenly'}>
+        <Box sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 2,
+            padding: 2,
+
+        }}>
             <Card variant="plain" >
                 <CardContent>
                     <Stack spacing={0.5} justifyContent={'center'} alignContent={'center'} alignItems={'center'}>
@@ -40,7 +49,7 @@ const CompressorCard: React.FC<CompressorCardProps> = ({ compressor }) => (
                     </Stack>
                 </CardContent>
             </Card>
-        </Stack>
+        </Box>
     </Card>
 );
 

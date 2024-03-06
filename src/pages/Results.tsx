@@ -177,7 +177,7 @@ const Results = () => {
                     System Overview
                 </Typography>
             </Grid>
-            {/* <Grid xs={12} xl={5}>
+            <Grid xs={12} xl={5}>
                 <CompressorCard compressor={compressor} />
             </Grid>
             <Grid xs={12} xl={7} container spacing={2} sx={{ flexGrow: 1 }}>
@@ -187,7 +187,7 @@ const Results = () => {
                 <Grid xs={12} xl={6}>
                     <DispenserCard dispensor={dispensor} />
                 </Grid>
-            </Grid> */}
+            </Grid>
             {/* <Grid xs={12} xl={12}>
                 <Typography level="h2" fontWeight={6} sx={(theme) => ({ marginY: theme.spacing(4) })}>
                     Cost Analysis
