@@ -30,7 +30,7 @@ class Compressor:
         
         self.avg_flow = avg_flowrate
         self.peak_flowrate = peak_flowrate
-        self.compressor_leak = 0.03     # TODO is this constant for all compressor types?
+        self.compressor_leak = 0.03
         
         # Data sheet containing values for constants for different types of compressor
         base_path = os.path.dirname(os.path.abspath(__file__))
@@ -270,7 +270,7 @@ class Compressor:
         self.results['cooling_energy'] = sum(self.conditions.loc['cooling_energy'])
         self.results['compression_energy'] = sum(self.conditions.loc['compression_energy'])
         
-        base = self.results['cooling_energy'] + self.results['compression_energy'] * 8.760 * self.energy_price
+        base = (self.results['cooling_energy'] + self.results['compression_energy']) * self.avg_flowrate * 8.760 * self.energy_price
         
         self.results['energy'] = {'min':  base * 0.9,
                                   'avg':  base,
