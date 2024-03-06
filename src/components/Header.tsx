@@ -135,7 +135,7 @@ export default function Header() {
             variant="plain"
             color="neutral"
             component="a"
-            href={ROUTE_CONSTANTS.CALCULATOR}
+            href='https://github.com/bystran/H2AuxInvestTest/tree/master'
             sx={{ alignSelf: 'center' }}
           >
             <GitHubIcon />
