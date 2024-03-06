@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Box, Card, FormControl, FormHelperText, FormLabel, Select, Stack, Typography, Option, LinearProgress, Button } from '@mui/joy';
+import { Box, Card, FormControl, FormHelperText, FormLabel, Select, Typography, Option, LinearProgress, Button } from '@mui/joy';
 import Grid from '@mui/joy/Grid';
 import { BarChart } from '@mui/x-charts';
 import { useEffect, useState } from 'react';
@@ -14,7 +15,7 @@ import CompressorCard from '../components/CompressorCard';
 import CostsCard from '../components/CostsCard';
 import { useLocation } from 'react-router-dom';
 import ROUTE_CONSTANTS from '../routing/routeConstants';
-import { ArrowForward, RestartAlt } from '@mui/icons-material';
+import { RestartAlt } from '@mui/icons-material';
 
 
 const Results = () => {
@@ -188,13 +189,13 @@ const Results = () => {
                     <DispenserCard dispensor={dispensor} />
                 </Grid>
             </Grid>
-            {/* <Grid xs={12} xl={12}>
+            <Grid xs={12} xl={12}>
                 <Typography level="h2" fontWeight={6} sx={(theme) => ({ marginY: theme.spacing(4) })}>
                     Cost Analysis
                 </Typography>
-            </Grid> */}
+            </Grid>
 
-            {/* <Grid xs={12} xl={5}>
+            <Grid xs={12} xl={5}>
 
                 <Card variant='soft' sx={{ minHeight: '100%' }}>
                     <Typography level="h3" fontWeight={3}>
@@ -211,11 +212,11 @@ const Results = () => {
                         xAxis={[{ data: ['Compressor', 'Storage', 'Dispensor'], scaleType: 'band' }]}
                     />
                 </Card>
-            </Grid> */}
-            {/* <Grid xs={12} xl={7} rowSpacing={2}>
+            </Grid>
+            <Grid xs={12} xl={7} rowSpacing={2}>
                 <CostsCard compressor={compressor} storage={storage} dispenser={dispensor} />
                 <Card variant="soft">
-                    <Grid container spacing={2} sx={{ flexGrow: 1 }}>
+                    <Grid container sx={{ flexGrow: 1, maxWidth: "100%" }}>
                         <Grid xs={12} xl={6} >
                             <CostsPieChart
                                 title='Expected Fixed Costs (&pound;)'
@@ -238,7 +239,7 @@ const Results = () => {
                         </Grid>
                     </Grid>
                 </Card>
-            </Grid> */}
+            </Grid>
             <Grid xs={12} xl={12}>
                 <Typography level="h2" fontWeight={6} sx={(theme) => ({ marginY: theme.spacing(7) })}>
                     Equipment Comparison

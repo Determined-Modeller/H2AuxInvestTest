@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography } from '@mui/joy';
 import { PieChart } from '@mui/x-charts';
+import { Box } from '@mui/material';
 
 interface CostsPieChartProps {
     title: string;
@@ -8,7 +9,7 @@ interface CostsPieChartProps {
 }
 
 const CostsPieChart: React.FC<CostsPieChartProps> = ({ title, data }) => (
-    <>
+    <Box sx={{ maxWidth: '100%' }}>
         <Typography level="h4" fontWeight={3}>
             {title}
         </Typography>
@@ -34,11 +35,11 @@ const CostsPieChart: React.FC<CostsPieChartProps> = ({ title, data }) => (
                     padding: 0,
                 },
             }}
-            width={400}
+            width={330}
             height={320}
             title='Pie chart'
         />
-    </>
+    </Box>
 );
 
 export default CostsPieChart;
