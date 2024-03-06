@@ -100,7 +100,7 @@ class Dispenser():
         #     self.num_dispensers_needed = math.ceil(self.inputs['peak_hydrogen_dispensing_rate'] * self.dispensing_time / 60 / 24)
            
             
-        self.num_dispensers_needed = math.ceil(self.peak_flowrate / self.refuel_rate)
+        self.num_dispensers_needed = math.ceil(self.peak_flowrate / (self.refuel_rate * 2)) # 2 dispensing hoses per dispenser possible
        
         self.results['num_dispensers'] = self.num_dispensers_needed
         
