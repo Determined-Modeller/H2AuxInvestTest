@@ -8,7 +8,8 @@ const Docs = () => {
     const documentationSections = `
     <p>The H2 AuxInvest project aims to help address the problem of poor knowledge transfer in Scotland’s Hydrogen Supply Chain by providing an open-source tool.
 This tool helps developers assess the feasibility and performance of low TRL (Technology Readiness Level) components from small manufacturers, enhancing decision-making and
-encouraging the use of innovative technologies in hydrogen projects.</p>
+encouraging the use of innovative technologies in hydrogen projects.
+As of version 1.1, the scope is currently only valid for hydrogen filling operations, and not deblending or direct consumption (i.e. in a furnace) </p>
 <h1><strong>Vision</strong></h1>
 <p>=============</p>
 <p>H2AuxInvest aims to provide a platform offering:</p>
@@ -672,7 +673,7 @@ return (
         }}
     >
         <Typography level="h1" sx={{ marginBottom: '20px' }}>
-            Documentation
+            Documentation - Hydrogen Infrastructure Costing Tool
         </Typography>
         {/* Using dangerouslySetInnerHTML to inject HTML */}
         <div dangerouslySetInnerHTML={{ __html: documentationSections }} />
