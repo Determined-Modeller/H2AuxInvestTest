@@ -663,18 +663,21 @@ The method returns a detailed dictionary containing cost analysis for each piece
 <p>The tool’s accuracy is dependent on the quality and completeness of the input data. Assumptions are made regarding standard operational conditions and calculation workflow,
 it is recommended to consult with specialists for critical decisions. The tool is continuously updated to reflect new data and user feedback, yet it may not capture all nuances of every unique project scenario.</p>`;
 
-    return (
-        <Box
-            sx={{
-                height: '100vh',
-                overflowY: 'scroll',
-                padding: '20px',
-            }}
-        >
-            <Typography level="h1" sx={{ marginBottom: '20px' }}>Documentation</Typography>
-            <Typography>{documentationSections}</Typography>
-        </Box>
-    );
+return (
+    <Box
+        sx={{
+            height: '100vh',
+            overflowY: 'scroll',
+            padding: '20px',
+        }}
+    >
+        <Typography level="h1" sx={{ marginBottom: '20px' }}>
+            Documentation
+        </Typography>
+        {/* Using dangerouslySetInnerHTML to inject HTML */}
+        <div dangerouslySetInnerHTML={{ __html: documentationSections }} />
+    </Box>
+);
 };
 
 export default Docs;
