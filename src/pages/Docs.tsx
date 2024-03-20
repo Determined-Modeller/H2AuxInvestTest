@@ -352,43 +352,21 @@ as per the standard SAEJ2601. There is currently no ability to change this assum
 <th><strong>Storage</strong></th>
 <th><strong>Type III/IV Container</strong></th>
 <th><strong>Type I/II Container</strong></th>
-<th><strong>All Types</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Equipment Cost Eq. (HyJack)</td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.0013%20%5Ctimes%20%5Ctext%7BPressure%7D%5E2%20%2B%200.2151%20%5Ctimes%20%5Ctext%7BPressure%7D%20%2B%20382.78" alt="\inline0.0013 \times \text{Pressure}^2 + 0.2151 \times \text{Pressure} + 382.78" /></td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.0013%20%5Ctimes%20%5Ctext%7BPressure%7D%5E2%20%2B%200.2151%20%5Ctimes%20%5Ctext%7BPressure%7D%20%2B%20382.78" alt="\inline0.0013 \times \text{Pressure}^2 + 0.2151 \times \text{Pressure} + 382.78" /></td>
-<td></td>
-</tr>
-<tr>
 <td>Equipment Data</td>
 <td><img align="center" src="https://i.upmath.me/svg/%5Cinline(0.0025%20%5Ctimes%20%5Ctext%7BPressure%7D%5E2%20-%200.2467%20%5Ctimes%20%5Ctext%7BPressure%7D%20%2B%20497.87)%20%5Ctimes%201.15" alt="\inline(0.0025 \times \text{Pressure}^2 - 0.2467 \times \text{Pressure} + 497.87) \times 1.15" /></td>
 <td><img align="center" src="https://i.upmath.me/svg/%5Cinline(0.0025%20%5Ctimes%20%5Ctext%7BPressure%7D%5E2%20-%200.2467%20%5Ctimes%20%5Ctext%7BPressure%7D%20%2B%20497.87)" alt="\inline(0.0025 \times \text{Pressure}^2 - 0.2467 \times \text{Pressure} + 497.87)" /></td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.0031%20%5Ctimes%20%5Ctext%7BPressure%7D%5E2%20-%200.9867%20%5Ctimes%20%5Ctext%7BPressure%7D%20%2B%20655.97" alt="\inline0.0031 \times \text{Pressure}^2 - 0.9867 \times \text{Pressure} + 655.97" /></td>
-</tr>
-<tr>
-<td>Equipment Cost (HyJack II)</td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.0013%20%5Ctimes%20%5Ctext%7BPressure%7D%5E2%20%2B%200.4796%20%5Ctimes%20%5Ctext%7BPressure%7D%20%2B%20598.76" alt="\inline0.0013 \times \text{Pressure}^2 + 0.4796 \times \text{Pressure} + 598.76" /></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Equipment Data (II/IV)</td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.0031%20%5Ctimes%20%5Ctext%7BPressure%7D%5E2%20-%200.9938%20%5Ctimes%20%5Ctext%7BPressure%7D%20%2B%20655.53" alt="\inline0.0031 \times \text{Pressure}^2 - 0.9938 \times \text{Pressure} + 655.53" /></td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline(0.0065%20%5Ctimes%20%5Ctext%7BPressure%7D%5E2%20-%203.4089%20%5Ctimes%20%5Ctext%7BPressure%7D%20%2B%201021.5)%20%5Ctimes%201.1" alt="\inline(0.0065 \times \text{Pressure}^2 - 3.4089 \times \text{Pressure} + 1021.5) \times 1.1" /></td>
-<td></td>
 </tr>
 <tr>
 <td>Installed Cost Eq.</td>
 <td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.25%20%5Ctimes%20%5Ctext%7BEquipment%20Cost%7D" alt="\inline0.25 \times \text{Equipment Cost}" /></td>
 <td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.25%20%5Ctimes%20%5Ctext%7BEquipment%20Cost%7D" alt="\inline0.25 \times \text{Equipment Cost}" /></td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.25%20%5Ctimes%20%5Ctext%7BEquipment%20Cost%7D" alt="\inline0.25 \times \text{Equipment Cost}" /></td>
 </tr>
 <tr>
 <td>Maintenance Eq.</td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.02%20%5Ctimes%20%5Ctext%7Bequipment%5C_cost%7D" alt="\inline0.02 \times \text{equipment\_cost}" /></td>
 <td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.02%20%5Ctimes%20%5Ctext%7Bequipment%5C_cost%7D" alt="\inline0.02 \times \text{equipment\_cost}" /></td>
 <td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.02%20%5Ctimes%20%5Ctext%7Bequipment%5C_cost%7D" alt="\inline0.02 \times \text{equipment\_cost}" /></td>
 </tr>
