@@ -388,8 +388,8 @@ as per the standard SAEJ2601. There is currently no ability to change this assum
 <tr>
 <td>Energy Consumption</td>
 <td>N/A</td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.18%20%5Ctext%7B%20kWh%2Fkg%20to%20pre-cool%20to%20%7D%20-20%5E%5Ccirc%20C" alt="\inline0.18 \text{ kWh/kg to pre-cool to } -20^\circ C" /></td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.33%20%5Ctext%7B%20kWh%2Fkg%20to%20pre-cool%20to%20%7D%20-40%5E%5Ccirc%20C" alt="\inline0.33 \text{ kWh/kg to pre-cool to } -40^\circ C" /></td>
+<td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.1%20*%20Average%20Flowrate%20*%208.760%20*%20Energy%20Price" alt="\inline0.1 * Average Flowrate * 8.760 * Energy Price" /></td>
+<td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.2%20*%20Average%20Flowrate%20*%208.760%20*%20Energy%20Price" alt="\inline0.2 * Average Flowrate * 8.760 * Energy Price" /></td>
 </tr>
 <tr>
 <td>Equipment Cost Eq. (HyJack)</td>
@@ -399,9 +399,9 @@ as per the standard SAEJ2601. There is currently no ability to change this assum
 </tr>
 <tr>
 <td>Installed Cost Eq.</td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline(1%20%2B%208.1981)%20%5Ctimes%20%5Ctext%7BEquipment%5C_Cost%7D%5E%7B-0.345%7D" alt="\inline(1 + 8.1981) \times \text{Equipment\_Cost}^{-0.345}" /></td>
-<td></td>
-<td></td>
+<td><img align="center" src="https://i.upmath.me/svg/%5Cinline9.1981*(Equipment%20Cost)%5E(0.655)" alt="\inline9.1981*(Equipment Cost)^(0.655)" /></td>
+<td><img align="center" src="https://i.upmath.me/svg/%5Cinline9.1981*(Equipment%20Cost)%5E(0.655)" alt="\inline9.1981*(Equipment Cost)^(0.655)" /></td>
+<td><img align="center" src="https://i.upmath.me/svg/%5Cinline9.1981*(Equipment%20Cost)%5E(0.655)" alt="\inline9.1981*(Equipment Cost)^(0.655)" /></td>
 </tr>
 <tr>
 <td>Maintenance Eq.</td>
