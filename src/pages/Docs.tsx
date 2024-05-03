@@ -28,40 +28,41 @@ As of version 1.1, the scope is currently only valid for hydrogen filling operat
 <h1><strong>Supply Pressure</strong></h1>
 <hr>
 <p>The supply pressure available to the site (either through tube trailers or gas distribution pipes) is essential for sizing and the hydrogen infrastructure.</p>
-<p>The placeholder assumption here is of a hydrogen pipeline connected to hydrogen distribution piping, delivering hydrogen at up to 7 bar.
+<p>Pressures used always refer to the absolute pressure(a) (pressure relative to vacuum) rather than gauge pressure(g)</p>
+<p>The placeholder assumption here is of a hydrogen pipeline connected to hydrogen distribution piping, delivering hydrogen at up to 7 bar(a).
 Should this instead be via tube trailer, please choose the specific tube trailer delivery pressure,
 usually available on a public datasheet or by request.</p>
 <p>If you are still unsure about what pressure to choose, but know you will not be connected to the gas distribution network,
 it is sensible to start with one of the following commonly used tube trailer pressures in industry:</p>
 <ul>
-<li>200 bar</li>
-<li>300 bar</li>
-<li>380 bar</li>
-<li>450 bar</li>
-<li>500 bar</li>
+<li>200 bar(a)</li>
+<li>300 bar(a)</li>
+<li>380 bar(a)</li>
+<li>450 bar(a)</li>
+<li>500 bar(a)</li>
 </ul>
 <h1><strong>H2 User</strong></h1>
 <hr>
 <p>The parameters of the hydrogen demand (i.e., tank capacity and dispensing pressure of the vehicles) are crucial for specifying the correct hydrogen infrastructure.
 Please see the vehicle/trailer datasheet, or contact the vendor to confirm that this is correct.</p>
-<p>Jargon Buster - H35 is often used to indicate that fuelling is taking place at 350 bar and ambient temperature without precooling.</p>
+<p>Jargon Buster - H35 is often used to indicate that fuelling is taking place at 350 bar(a) and ambient temperature without precooling.</p>
 <p>If you are still unsure about what pressure to choose, but know you will be supplying tube trailers, it is sensible to start with one of the following commonly used configurations:</p>
 <ul>
-<li>200 bar, 580kg H2</li>
-<li>300 bar, 840kg H2</li>
-<li>380 bar, 1000kg H2</li>
-<li>450 bar, 1150kg H2</li>
-<li>500 bar, 1300kg H2</li>
+<li>200 bar(a), 580kg H2</li>
+<li>300 bar(a), 840kg H2</li>
+<li>380 bar(a), 1000kg H2</li>
+<li>450 bar(a), 1150kg H2</li>
+<li>500 bar(a), 1300kg H2</li>
 </ul>
 <p>If you are still unsure about what pressure to choose, but know you will be supplying small passenger vehicles, it is sensible to start with one of the following commonly used configurations:</p>
 <ul>
-<li>350 bar, 5kg H2</li>
-<li>700 bar, 5kg H2</li>
+<li>350 bar(a), 5kg H2</li>
+<li>700 bar(a), 5kg H2</li>
 </ul>
 <p>If you are still unsure about what pressure to choose, but know you will be supplying heavy duty vehicles, it is sensible to start with one of the following commonly used configurations:</p>
 <ul>
-<li>350 bar, 30kg H2</li>
-<li>700 bar, 30kg H2</li>
+<li>350 bar(a), 30kg H2</li>
+<li>700 bar(a), 30kg H2</li>
 </ul>
 <h1><strong>H2 Storage</strong></h1>
 <hr>
@@ -71,6 +72,8 @@ you specify what storage infrastructure you wish to use, outside of the fuelling
 A generally applied assumption where you are unsure about the distribution of hydrogen demand and do not have available profiles is to size this storage for a minimum of 2 days of demand on site,
 a worked example of this is below.</p>
 <p>Suggested minimum used storage = (number of vehicle fills over 2 days at peak frequency x vehicle storage tank size) or (peak hydrogen delivery flowrate required per hour * 48 hours)</p>
+<p>Compliance - As of May 2024, The controlled quantity of Hydrogen for The Planning (Hazardous Substances) Regulations 2015 is 2 Tonnes</p>
+<p>Compliance - As of May 2024, Hydrogen is a named dangerous substance under COMAH regulations threshold quantities are 5 Tonnes (lower tier) and 50 Tonnes (upper tier)</p>
 <h1><strong>H2 Demand</strong></h1>
 <hr>
 <p>The distribution of hydrogen demand is an important part of accurately specifying and costing any hydrogen infrastructure.
@@ -171,7 +174,7 @@ as per the standard SAEJ2601. There is currently no ability to change this assum
 <tbody>
 <tr>
 <td>Compression Variable 1</td>
-<td>Hydrogen Inlet Pressure [Bar or psi]</td>
+<td>Hydrogen Inlet Pressure [Bar(a) or psi]</td>
 <td>N/A</td>
 <td>Numerical</td>
 </tr>
@@ -207,7 +210,7 @@ as per the standard SAEJ2601. There is currently no ability to change this assum
 </tr>
 <tr>
 <td>Dispensing Variable 5</td>
-<td>Dispensing Pressure [Bar or psi]</td>
+<td>Dispensing Pressure [Bar(a) or psi]</td>
 <td>N/A</td>
 <td>Dropdown List (Options change based on vehicle/tubetrailer type)</td>
 </tr>
@@ -270,7 +273,7 @@ as per the standard SAEJ2601. There is currently no ability to change this assum
 <td><img align="center" src="https://i.upmath.me/svg/%5CinlineT_1(P_2%2FP_1)%5E%7B%5Cleft(%5Cgamma-1%5Cright)%2F%5Cgamma%7D" alt="\inlineT_1(P_2/P_1)^{\left(\gamma-1\right)/\gamma}" /></td>
 </tr>
 <tr>
-<td>Stage End Pressure [Bar]</td>
+<td>Stage End Pressure [Bar(a)]</td>
 <td><img align="center" src="https://i.upmath.me/svg/%5CinlineP_%7B%5Ctext%7BIN%7D%7D(P_1%2FP_2)%5E%7B1%2FN%7D" alt="\inlineP_{\text{IN}}(P_1/P_2)^{1/N}" /></td>
 <td><img align="center" src="https://i.upmath.me/svg/%5CinlineP_%7B%5Ctext%7BIN%7D%7D(P_1%2FP_2)%5E%7B1%2FN%7D" alt="\inlineP_{\text{IN}}(P_1/P_2)^{1/N}" /></td>
 <td><img align="center" src="https://i.upmath.me/svg/%5CinlineP_%7B%5Ctext%7BIN%7D%7D(P_1%2FP_2)%5E%7B1%2FN%7D" alt="\inlineP_{\text{IN}}(P_1/P_2)^{1/N}" /></td>
@@ -379,9 +382,9 @@ as per the standard SAEJ2601. There is currently no ability to change this assum
 <thead>
 <tr>
 <th><strong>Dispensing</strong></th>
-<th><strong>200 Bar Dispensing</strong></th>
-<th><strong>350 Bar Dispensing</strong></th>
-<th><strong>700 Bar Dispensing</strong></th>
+<th><strong>200 Bar(a) Dispensing</strong></th>
+<th><strong>350 Bar(a) Dispensing</strong></th>
+<th><strong>700 Bar(a) Dispensing</strong></th>
 </tr>
 </thead>
 <tbody>
@@ -609,7 +612,7 @@ Initializes an instance of the <strong>H2AuxCostCalculator</strong> class.</p>
 </ul>
 <p><em>Workflow and Calculations</em></p>
 <ol>
-<li><strong>Extracting Parameters</strong>: The method extracts and processes user inputs, including converting pressure units to bars and determining flow rates in kilograms per hour.</li>
+<li><strong>Extracting Parameters</strong>: The method extracts and processes user inputs, including converting pressure units to bar(a) and determining flow rates in kilograms per hour.</li>
 <li><strong>Instantiation of Hardware Classes</strong>:
 <ul>
 <li>Creates instances of <strong>Dispenser</strong>, <strong>Storage_I_II</strong>, <strong>Storage_III_IV</strong>, <strong>CentrifugalCompressor</strong>, <strong>DiaphragmCompressor</strong>, and <strong>PistonCompressor</strong> based on the processed inputs.</li>

@@ -65,7 +65,7 @@ const Calculator = () => {
                 <Typography fontSize={'lg'}>
                     
                     The following survey takes less than a minute, asking questions needed to provide reliable estimates of key inputs for calculations to size, specify and cost your hydrogen compression and storage infrastructure.
-                    More detail on these calculations is available in the documentation, always available in the top right of the page.  Should any issues arise please contact the team by raising a new issue on the project github page.
+                    More detail on these calculations is available in the documentation, always available in the top right of the page.  All pressures used in calculations and results are absolute pressures.  Should any issues arise please contact the team by raising a new issue on the project github page.
                     To find out more about how to participate as a manufacturer or a contributor, please email h2auxinvest@gchydrogen.co.uk
                 </Typography>
                 <Box
