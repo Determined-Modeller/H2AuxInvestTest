@@ -18,8 +18,6 @@ from service.calculator_service import CalculatorService
 ############################################
 
 
-
-
 json_string = '''
 {
   "hydrogen_inlet_pressure": {
@@ -65,7 +63,6 @@ request = RequestSchema.from_json(json_string)
 calculator = CalculatorService()
 response = calculator.calculate(request)
 
-print(0)
 # request = RequestSchema.from_json(json_string)
 # print(request.to_dict)
 
