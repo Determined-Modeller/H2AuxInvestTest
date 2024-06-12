@@ -4,7 +4,7 @@ import os
 import lib.constants as const
 import pandas as pd
 from lib.lcoh_calculator import calculate_lcoh
-
+from CoolProp.CoolProp import PropsSI
 
 class Compressor:
     '''
@@ -151,14 +151,16 @@ class Compressor:
         specific_heat_r_eq = const.specific_heat_r / (const.specific_heat_r - 1)        
         # Populate DataFrame with work done for each stage
         for stage in self.conditions.columns:
-            self.conditions.loc['work_done', stage] = specific_heat_r_eq * (const.specific_gas_constant * self.conditions.loc['inlet_t', stage] / const.h2_molar_mass) * (self.pressure_ratio ** (specific_heat_r_eq ** (-1))-1) / self.isen_efficiencies[stage]
+            compressbility_factor_inlet = PropsSI('Z','P', self.conditions.loc['inlet_p', stage], 'T',  self.conditions.loc['inlet_t', stage], 'Hydrogen')
+            compressbility_factor_outlet = PropsSI('Z','P', self.conditions.loc['outlet_p', stage], 'T',  self.conditions.loc['outlet_t', stage], 'Hydrogen')
+            comp_factor_average = (compressbility_factor_inlet + compressbility_factor_outlet)/2
+            self.conditions.loc['work_done', stage] = comp_factor_average * specific_heat_r_eq * (const.specific_gas_constant * self.conditions.loc['inlet_t', stage] / const.h2_molar_mass) * (self.pressure_ratio ** (specific_heat_r_eq ** (-1))-1) / self.isen_efficiencies[stage]
             
             
     def calculate_compressor_power(self):
         '''
         This method requires peak flowrate in kg/h as an input
         It calculates the power requirements of the compressor based on the work done, efficiency and hydrogen flowrate
-        
         '''
         
         # TODO - these values may vary by compressor type. Extract values from self.comp_data
