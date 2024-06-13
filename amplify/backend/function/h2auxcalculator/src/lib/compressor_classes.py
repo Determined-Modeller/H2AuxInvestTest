@@ -1,6 +1,7 @@
 #Compressor Classes
 
 import os
+import math
 import lib.constants as const
 import pandas as pd
 from lib.lcoh_calculator import calculate_lcoh
@@ -83,13 +84,10 @@ class Compressor:
         
         '''
         
-        if self.pressure_out / self.pressure_in < 4:
-            num_stages = 1
-        elif self.pressure_out / self.pressure_in < 17:
-            num_stages = 2
-        else:
-            num_stages = 3
-            
+        max_pressure_ratio = 4.1
+        
+        num_stages = math.log( self.pressure_out / self.pressure_in , max_pressure_ratio )
+          
         return num_stages
     
     
@@ -106,7 +104,7 @@ class Compressor:
         # Calculate the 3 values for each stage only once and store the
         # results for later lookup according to the value of self.num_stages 
         stages = dict()
-        stages[1] = [self.pressure_in, self.pressure_in * self.pressure_ratio, 303]
+        stages[1] = [self.pressure_in, self.pressure_in * self.pressure_ratio, 293]
         stages[2] = [self.pressure_in * self.pressure_ratio, self.pressure_in * self.pressure_ratio ** 2, 323]
         stages[3] = [self.pressure_in * self.pressure_ratio ** 2, self.pressure_in * self.pressure_ratio ** 3, 323]
         
@@ -164,20 +162,6 @@ class Compressor:
         It calculates the power requirements of the compressor based on the work done, efficiency and hydrogen flowrate
         '''
         
-        # TODO - these values may vary by compressor type. Extract values from self.comp_data
-        # self.mechanical_eff = 0.95
-        # self.electrical_eff = 0.95
-        
-        # print(f"{self.comp_type.capitalize()} Compressor")
-        # print(f"Mechanical efficiency: {self.mechanical_eff}, from file: {self.comp_data.loc[self.comp_type, 'mech_eff']}")
-        # print(f"Electrical efficiency: {self.electrical_eff}, from file: {self.comp_data.loc[self.comp_type, 'elec_eff']}")
-        # print("--------------------------------------------")
-        
-         
-        # for stage in self.conditions.columns:
-        #      self.conditions.loc['power', stage] = self.peak_flowrate / 3600 * self.conditions[stage]['work_done'] * (1 + self.compressor_leak) / (self.mechanical_eff * self.electrical_eff)
- 
-        
         mech_eff = self.comp_data.loc[self.comp_type, 'mech_eff']
         elec_eff = self.comp_data.loc[self.comp_type, 'elec_eff']
         
@@ -199,7 +183,7 @@ class Compressor:
     def calculate_cooling_energy(self):
         '''
         calculates energy needed to cool hydrogen between each compression stage and after the last stage
-        
+           
         '''
         
         # TODO - this 0.4 factor should be stored somewhere central, for each compressor type
@@ -305,4 +289,26 @@ class DiaphragmCompressor(Compressor):
 class CentrifugalCompressor(Compressor):
     def __init__(self, inputs, avg_flowrate, peak_flowrate):
         super().__init__(inputs, avg_flowrate, peak_flowrate, comp_type='centrifugal')
+    
+    
+    def calculate_number_of_stages(self):
+        '''
+        Description.
         
+        '''
+        
+        max_pressure_ratio = 2.5
+        
+        num_stages = math.log( self.pressure_out / self.pressure_in , max_pressure_ratio )
+        
+        '''
+        if self.pressure_out / self.pressure_in < 4.1:
+            num_stages = 1
+        elif self.pressure_out / self.pressure_in < 17:
+            num_stages = 2
+        else:
+            num_stages = 3
+        '''
+          
+        return num_stages
+    
