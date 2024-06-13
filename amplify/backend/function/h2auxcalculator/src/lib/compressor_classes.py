@@ -111,8 +111,8 @@ class Compressor:
         # Add values to new columns to check for equality with existing columns
         for stage_number in range(1, self.num_stages+1):
             self.conditions.loc[row_names, f'stage_{stage_number}'] = stages[stage_number]
-            
-        
+         
+         
     def calculate_outlet_temp(self):
         '''
         Description.
@@ -197,13 +197,15 @@ class Compressor:
         
         '''
         
-        cepci_88 = 342.5
-        cepci_24 = 800
-        
         self.results['power'] = sum(self.conditions.loc['power'])
         
-        base = cepci_24/cepci_88 * 8305 *  self.results['power'] ** 0.82
+        coeff_a = 0.04147
+        coeff_b = 454.8
+        coeff_c = 2.81e05
         
+        power = self.results['power']
+        
+        base = math.log(power) + coeff_a*power**2 + coeff_b*power + coeff_c
         
         self.results['equipment'] = {'min':  base * 0.9,
                                      'avg':  base,
@@ -279,12 +281,51 @@ class PistonCompressor(Compressor):
     
         for stage in self.conditions.columns:
             self.conditions.loc['isentropic_eff',stage] = self.isen_efficiencies[stage]
-
+    
+    def calculate_compressor_equipment_cost(self):
+        '''
+        Overridden in some child classes.
+        
+        '''
+        
+        self.results['power'] = sum(self.conditions.loc['power'])
+        
+        coeff_a = 0.03867
+        coeff_b = 446.7
+        coeff_c = 1.38e05
+        
+        power = self.results['power']
+        
+        base = math.log(power) + coeff_a*power**2 + coeff_b*power + coeff_c
+    
     
 class DiaphragmCompressor(Compressor):
     def __init__(self, inputs, avg_flowrate, peak_flowrate):
         super().__init__(inputs, avg_flowrate, peak_flowrate, comp_type='diaphragm')
         
+    def calculate_compressor_equipment_cost(self):
+        '''
+        Overridden in some child classes.
+        
+        '''
+        
+        self.results['power'] = sum(self.conditions.loc['power'])
+        
+        coeff_a = 0.04147
+        coeff_b = 454.8
+        coeff_c = 3.81e05
+        
+        power = self.results['power']
+        
+        base = math.log(power) + coeff_a*power**2 + coeff_b*power + coeff_c
+        
+        self.results['equipment'] = {'min':  base * 0.9,
+                                        'avg':  base,
+                                        'max':  base * 1.1}
+        
+        self.results['equipment_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['min'], self.wacc, self.avg_flow ),
+                                            'avg': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['avg'], self.wacc, self.avg_flow ),
+                                            'max': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.avg_flow )}
         
 class CentrifugalCompressor(Compressor):
     def __init__(self, inputs, avg_flowrate, peak_flowrate):
@@ -312,3 +353,27 @@ class CentrifugalCompressor(Compressor):
           
         return num_stages
     
+    def calculate_compressor_equipment_cost(self):
+        '''
+        Overridden in some child classes.
+        
+        '''
+        
+        self.results['power'] = sum(self.conditions.loc['power'])
+        
+        coeff_a = 0.03867
+        coeff_b = 446.7
+        coeff_c = 1.38e05
+        
+        power = self.results['power']
+        
+        base = math.log(power) + coeff_a*power**2 + coeff_b*power + coeff_c
+        
+        self.results['equipment'] = {'min':  base * 0.9,
+                                     'avg':  base,
+                                     'max':  base * 1.1}
+        
+        self.results['equipment_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['min'], self.wacc, self.avg_flow ),
+                                          'avg': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['avg'], self.wacc, self.avg_flow ),
+                                          'max': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.avg_flow )}
+        
