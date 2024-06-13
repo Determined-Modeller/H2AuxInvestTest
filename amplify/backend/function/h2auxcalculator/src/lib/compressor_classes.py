@@ -152,8 +152,8 @@ class Compressor:
         specific_heat_r_eq = const.specific_heat_r / (const.specific_heat_r - 1)        
         # Populate DataFrame with work done for each stage
         for stage in self.conditions.columns:
-            compressbility_factor_inlet = PropsSI('Z','P', self.conditions.loc['inlet_p', stage], 'T',  self.conditions.loc['inlet_t', stage], 'Hydrogen')
-            compressbility_factor_outlet = PropsSI('Z','P', self.conditions.loc['outlet_p', stage], 'T',  self.conditions.loc['outlet_t', stage], 'Hydrogen')
+            compressbility_factor_inlet = PropsSI('Z','P', self.conditions.loc['inlet_p', stage]*10e4, 'T',  self.conditions.loc['inlet_t', stage], 'Hydrogen')
+            compressbility_factor_outlet = PropsSI('Z','P', self.conditions.loc['outlet_p', stage]*10e4, 'T',  self.conditions.loc['outlet_t', stage], 'Hydrogen')
             comp_factor_average = (compressbility_factor_inlet + compressbility_factor_outlet)/2
             self.conditions.loc['work_done', stage] = comp_factor_average * specific_heat_r_eq * (const.specific_gas_constant * self.conditions.loc['inlet_t', stage] / const.h2_molar_mass) * (self.pressure_ratio ** (specific_heat_r_eq ** (-1))-1) / self.isen_efficiencies[stage]
             
