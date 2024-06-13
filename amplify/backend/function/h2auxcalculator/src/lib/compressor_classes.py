@@ -86,7 +86,7 @@ class Compressor:
         
         max_pressure_ratio = 4.1
         
-        num_stages = math.log( self.pressure_out / self.pressure_in , max_pressure_ratio )
+        num_stages = math.ceil(math.log( self.pressure_out / self.pressure_in , max_pressure_ratio))
           
         return num_stages
     
@@ -298,7 +298,15 @@ class PistonCompressor(Compressor):
         
         base = math.log(power) + coeff_a*power**2 + coeff_b*power + coeff_c
     
-    
+        self.results['equipment'] = {'min':  base * 0.9,
+                                     'avg':  base,
+                                     'max':  base * 1.1}
+        
+        self.results['equipment_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['min'], self.wacc, self.avg_flow ),
+                                          'avg': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['avg'], self.wacc, self.avg_flow ),
+                                          'max': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.avg_flow )}
+        
+        
 class DiaphragmCompressor(Compressor):
     def __init__(self, inputs, avg_flowrate, peak_flowrate):
         super().__init__(inputs, avg_flowrate, peak_flowrate, comp_type='diaphragm')
@@ -320,12 +328,12 @@ class DiaphragmCompressor(Compressor):
         base = math.log(power) + coeff_a*power**2 + coeff_b*power + coeff_c
         
         self.results['equipment'] = {'min':  base * 0.9,
-                                        'avg':  base,
-                                        'max':  base * 1.1}
+                                     'avg':  base,
+                                     'max':  base * 1.1}
         
         self.results['equipment_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['min'], self.wacc, self.avg_flow ),
-                                            'avg': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['avg'], self.wacc, self.avg_flow ),
-                                            'max': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.avg_flow )}
+                                          'avg': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['avg'], self.wacc, self.avg_flow ),
+                                          'max': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.avg_flow )}
         
 class CentrifugalCompressor(Compressor):
     def __init__(self, inputs, avg_flowrate, peak_flowrate):
@@ -340,7 +348,7 @@ class CentrifugalCompressor(Compressor):
         
         max_pressure_ratio = 2.5
         
-        num_stages = math.log( self.pressure_out / self.pressure_in , max_pressure_ratio )
+        num_stages = math.ceil(math.log( self.pressure_out / self.pressure_in , max_pressure_ratio))
         
         '''
         if self.pressure_out / self.pressure_in < 4.1:
