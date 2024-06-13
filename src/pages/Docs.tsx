@@ -255,7 +255,7 @@ as per the standard SAEJ2601. There is currently no ability to change this assum
 </table>
 <h1><strong>Compressor Calculations</strong></h1>
 <hr>
-<p>The table below describes the equations/correlations used to calculate key compression values</p>
+<p>The table below describes the equations/correlations used to calculate key compression values, all values used are absolute pressures, the coolprop package is used to calculate compressibility where applied, please see the repo for up-to-date details.</p>
 <table>
 <thead>
 <tr>
@@ -267,7 +267,7 @@ as per the standard SAEJ2601. There is currently no ability to change this assum
 </thead>
 <tbody>
 <tr>
-<td>Outlet Temperature [K]</td>
+<td>Discharge Temperature [K]</td>
 <td><img align="center" src="https://i.upmath.me/svg/%5CinlineT_1(P_2%2FP_1)%5E%7B%5Cleft(%5Cgamma-1%5Cright)%2F%5Cgamma%7D" alt="\inlineT_1(P_2/P_1)^{\left(\gamma-1\right)/\gamma}" /></td>
 <td><img align="center" src="https://i.upmath.me/svg/%5CinlineT_1(P_2%2FP_1)%5E%7B%5Cleft(%5Cgamma-1%5Cright)%2F%5Cgamma%7D" alt="\inlineT_1(P_2/P_1)^{\left(\gamma-1\right)/\gamma}" /></td>
 <td><img align="center" src="https://i.upmath.me/svg/%5CinlineT_1(P_2%2FP_1)%5E%7B%5Cleft(%5Cgamma-1%5Cright)%2F%5Cgamma%7D" alt="\inlineT_1(P_2/P_1)^{\left(\gamma-1\right)/\gamma}" /></td>
@@ -280,9 +280,9 @@ as per the standard SAEJ2601. There is currently no ability to change this assum
 </tr>
 <tr>
 <td>Isentropic Efficiency</td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline2.3082(P_2%2FP_1)%5E2%2B20.717(P_2%2FP_1)%2B40.719" alt="\inline2.3082(P_2/P_1)^2+20.717(P_2/P_1)+40.719" /></td>
+<td>82%</td>
 <td>85%</td>
-<td>77%</td>
+<td>78%</td>
 </tr>
 <tr>
 <td>Mechanical Efficiency</td>
@@ -298,9 +298,9 @@ as per the standard SAEJ2601. There is currently no ability to change this assum
 </tr>
 <tr>
 <td>Work [kJ/kg] (Stage)</td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline%5Cleft%5B%5Cfrac%7B%5Cgamma%7D%7B%5Cgamma-1%7D%5Cright%5D%5Cleft(%5Cfrac%7BR%20T_1%7D%7BM%7D%5Cright)%5Cleft%5B(P_2%2FP_1)%5E%7B%5Cleft(%5Cgamma-1%5Cright)%2F%5Cgamma%7D-1%5Cright%5D%20%2F%20%5Ctext%7BEff%5C_Ise%7D" alt="\inline\left[\frac{\gamma}{\gamma-1}\right]\left(\frac{R T_1}{M}\right)\left[(P_2/P_1)^{\left(\gamma-1\right)/\gamma}-1\right] / \text{Eff\_Ise}" /></td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline%5Cleft%5B%5Cfrac%7B%5Cgamma%7D%7B%5Cgamma-1%7D%5Cright%5D%5Cleft(%5Cfrac%7BR%20T_1%7D%7BM%7D%5Cright)%5Cleft%5B(P_2%2FP_1)%5E%7B%5Cleft(%5Cgamma-1%5Cright)%2F%5Cgamma%7D-1%5Cright%5D%20%2F%20%5Ctext%7BEff%5C_Ise%7D" alt="\inline\left[\frac{\gamma}{\gamma-1}\right]\left(\frac{R T_1}{M}\right)\left[(P_2/P_1)^{\left(\gamma-1\right)/\gamma}-1\right] / \text{Eff\_Ise}" /></td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline%5Cleft%5B%5Cfrac%7B(Z_1%2BZ_2)%2F2%5Cgamma%7D%7B%5Cgamma-1%7D%5Cright%5D%5Cleft(%5Cfrac%7BR%20T_1%7D%7BM%7D%5Cright)%5Cleft%5B(P_2%2FP_1)%5E%7B%5Cleft(%5Cgamma-1%5Cright)%2F%5Cgamma%7D-1%5Cright%5D%20%2F%20%5Ctext%7BEff%5C_Ise%7D" alt="\inline\left[\frac{(Z_1+Z_2)/2\gamma}{\gamma-1}\right]\left(\frac{R T_1}{M}\right)\left[(P_2/P_1)^{\left(\gamma-1\right)/\gamma}-1\right] / \text{Eff\_Ise}" /></td>
+<td><img align="center" src="https://i.upmath.me/svg/%5Cinline%5Cfrac%7B%5Cleft(%5Cfrac%7B(Z1%20%2B%20Z2)%7D%7B2%7D%5Cright)%20%5Ccdot%20%5Cfrac%7By%7D%7B(y-1)%7D%20%5Ccdot%20%5Cleft(%5Cfrac%7BR%20%5Ccdot%20T1%7D%7BM%7D%5Cright)%20%5Ccdot%20%5Cleft%5B%5Cleft(%5Cfrac%7BP2%7D%7BP1%7D%5Cright)%5E%7B%5Cfrac%7B(y-1)%7D%7By%7D%7D%20-%201%5Cright%5D%7D%7B%5Ctext%7BEff%5C_Ise%7D%7D" alt="\inline\frac{\left(\frac{(Z1 + Z2)}{2}\right) \cdot \frac{y}{(y-1)} \cdot \left(\frac{R \cdot T1}{M}\right) \cdot \left[\left(\frac{P2}{P1}\right)^{\frac{(y-1)}{y}} - 1\right]}{\text{Eff\_Ise}}" /></td>
+<td><img align="center" src="https://i.upmath.me/svg/%5Cinline%5Cfrac%7B%5Cleft(%5Cfrac%7B(Z1%20%2B%20Z2)%7D%7B2%7D%5Cright)%20%5Ccdot%20%5Cfrac%7By%7D%7B(y-1)%7D%20%5Ccdot%20%5Cleft(%5Cfrac%7BR%20%5Ccdot%20T1%7D%7BM%7D%5Cright)%20%5Ccdot%20%5Cleft%5B%5Cleft(%5Cfrac%7BP2%7D%7BP1%7D%5Cright)%5E%7B%5Cfrac%7B(y-1)%7D%7By%7D%7D%20-%201%5Cright%5D%7D%7B%5Ctext%7BEff%5C_Ise%7D%7D" alt="\inline\frac{\left(\frac{(Z1 + Z2)}{2}\right) \cdot \frac{y}{(y-1)} \cdot \left(\frac{R \cdot T1}{M}\right) \cdot \left[\left(\frac{P2}{P1}\right)^{\frac{(y-1)}{y}} - 1\right]}{\text{Eff\_Ise}}" /></td>
+<td><img align="center" src="https://i.upmath.me/svg/%5Cinline%5Cfrac%7B%5Cleft(%5Cfrac%7B(Z1%20%2B%20Z2)%7D%7B2%7D%5Cright)%20%5Ccdot%20%5Cfrac%7By%7D%7B(y-1)%7D%20%5Ccdot%20%5Cleft(%5Cfrac%7BR%20%5Ccdot%20T1%7D%7BM%7D%5Cright)%20%5Ccdot%20%5Cleft%5B%5Cleft(%5Cfrac%7BP2%7D%7BP1%7D%5Cright)%5E%7B%5Cfrac%7B(y-1)%7D%7By%7D%7D%20-%201%5Cright%5D%7D%7B%5Ctext%7BEff%5C_Ise%7D%7D" alt="\inline\frac{\left(\frac{(Z1 + Z2)}{2}\right) \cdot \frac{y}{(y-1)} \cdot \left(\frac{R \cdot T1}{M}\right) \cdot \left[\left(\frac{P2}{P1}\right)^{\frac{(y-1)}{y}} - 1\right]}{\text{Eff\_Ise}}" /></td>
 </tr>
 <tr>
 <td>Power [kW] (Stage)</td>
@@ -321,6 +321,12 @@ as per the standard SAEJ2601. There is currently no ability to change this assum
 <td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.4%20%5Ccdot%20%5Ctext%7BEnergy%7D" alt="\inline0.4 \cdot \text{Energy}" /></td>
 </tr>
 <tr>
+<td>Max Compression Ratio per Stage</td>
+<td>4.1</td>
+<td>4.1</td>
+<td>2.5</td>
+</tr>
+<tr>
 <td>Equipment Cost Eq. (Lit/Equipment)</td>
 <td><img align="center" src="https://i.upmath.me/svg/%5Cinline%5Ctext%7BCEPCI%7D(2024)%2F%5Ctext%7BCEPCI%7D(1988)%5Ccdot4614%5Ccdot%5Ctext%7BPower%7D%5E%7B0.82%7D" alt="\inline\text{CEPCI}(2024)/\text{CEPCI}(1988)\cdot4614\cdot\text{Power}^{0.82}" /></td>
 <td><img align="center" src="https://i.upmath.me/svg/%5Cinline%5Ctext%7BCEPCI%7D(2024)%2F%5Ctext%7BCEPCI%7D(1988)%5Ccdot4614%5Ccdot%5Ctext%7BPower%7D%5E%7B0.82%7D" alt="\inline\text{CEPCI}(2024)/\text{CEPCI}(1988)\cdot4614\cdot\text{Power}^{0.82}" /></td>
@@ -328,9 +334,15 @@ as per the standard SAEJ2601. There is currently no ability to change this assum
 </tr>
 <tr>
 <td>Installed Cost Eq.</td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline(1%2B8.1981)%5Ccdot%5Ctext%7BEquipment%5C_Cost%7D%5E%7B-0.345%7D" alt="\inline(1+8.1981)\cdot\text{Equipment\_Cost}^{-0.345}" /></td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline(1%2B8.1981)%5Ccdot%5Ctext%7BEquipment%5C_Cost%7D%5E%7B-0.345%7D" alt="\inline(1+8.1981)\cdot\text{Equipment\_Cost}^{-0.345}" /></td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline(1%2B8.1981)%5Ccdot%5Ctext%7BEquipment%5C_Cost%7D%5E%7B-0.345%7D" alt="\inline(1+8.1981)\cdot\text{Equipment\_Cost}^{-0.345}" /></td>
+<td><img align="center" src="https://i.upmath.me/svg/C%20%3D%20%5Cinline%5Clog(%5Cdot%7BW%7D_%7B%5Ctext%7BComp%7D%7D)%20%2B%20a%20%5Cleft(%5Cdot%7BW%7D_%7B%5Ctext%7BComp%7D%7D%5Cright)%5E2%20%2B%20b%20%5Ccdot%20%5Cdot%7BW%7D_%7B%5Ctext%7BComp%7D%7D%20%2B%20c" alt="C = \inline\log(\dot{W}_{\text{Comp}}) + a \left(\dot{W}_{\text{Comp}}\right)^2 + b \cdot \dot{W}_{\text{Comp}} + c" /></td>
+<td><img align="center" src="https://i.upmath.me/svg/C%20%3D%20%5Cinline%5Clog(%5Cdot%7BW%7D_%7B%5Ctext%7BComp%7D%7D)%20%2B%20a%20%5Cleft(%5Cdot%7BW%7D_%7B%5Ctext%7BComp%7D%7D%5Cright)%5E2%20%2B%20b%20%5Ccdot%20%5Cdot%7BW%7D_%7B%5Ctext%7BComp%7D%7D%20%2B%20c" alt="C = \inline\log(\dot{W}_{\text{Comp}}) + a \left(\dot{W}_{\text{Comp}}\right)^2 + b \cdot \dot{W}_{\text{Comp}} + c" /></td>
+<td><img align="center" src="https://i.upmath.me/svg/C%20%3D%20%5Cinline%5Clog(%5Cdot%7BW%7D_%7B%5Ctext%7BComp%7D%7D)%20%2B%20a%20%5Cleft(%5Cdot%7BW%7D_%7B%5Ctext%7BComp%7D%7D%5Cright)%5E2%20%2B%20b%20%5Ccdot%20%5Cdot%7BW%7D_%7B%5Ctext%7BComp%7D%7D%20%2B%20c" alt="C = \inline\log(\dot{W}_{\text{Comp}}) + a \left(\dot{W}_{\text{Comp}}\right)^2 + b \cdot \dot{W}_{\text{Comp}} + c" /></td>
+</tr>
+<tr>
+<td>Installed Cost Params</td>
+<td><img align="center" src="https://i.upmath.me/svg/a%20%3D%200.03867%2C%20%5Cquad%20b%20%3D%20446.7%2C%20%5Cquad%20c%20%3D%201.38%20%5Ctimes%2010%5E5" alt="a = 0.03867, \quad b = 446.7, \quad c = 1.38 \times 10^5" /></td>
+<td><img align="center" src="https://i.upmath.me/svg/a%20%3D%200.04147%2C%20%5Cquad%20b%20%3D%20454.8%2C%20%5Cquad%20c%20%3D%202.81%20%5Ctimes%2010%5E5" alt="a = 0.04147, \quad b = 454.8, \quad c = 2.81 \times 10^5" /></td>
+<td><img align="center" src="https://i.upmath.me/svg/a%20%3D%200.04147%2C%20%5Cquad%20b%20%3D%20454.8%2C%20%5Cquad%20c%20%3D%203.81%20%5Ctimes%2010%5E5" alt="a = 0.04147, \quad b = 454.8, \quad c = 3.81 \times 10^5" /></td>
 </tr>
 <tr>
 <td>Maintenance Eq.</td>
@@ -359,9 +371,9 @@ as per the standard SAEJ2601. There is currently no ability to change this assum
 </thead>
 <tbody>
 <tr>
-<td>Equipment Data</td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline(0.0025%20%5Ctimes%20%5Ctext%7BPressure%7D%5E2%20-%200.2467%20%5Ctimes%20%5Ctext%7BPressure%7D%20%2B%20497.87)%20%5Ctimes%201.15" alt="\inline(0.0025 \times \text{Pressure}^2 - 0.2467 \times \text{Pressure} + 497.87) \times 1.15" /></td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline(0.0025%20%5Ctimes%20%5Ctext%7BPressure%7D%5E2%20-%200.2467%20%5Ctimes%20%5Ctext%7BPressure%7D%20%2B%20497.87)" alt="\inline(0.0025 \times \text{Pressure}^2 - 0.2467 \times \text{Pressure} + 497.87)" /></td>
+<td>Equipment Cost</td>
+<td><img align="center" src="https://i.upmath.me/svg/%5Cinline%5Cleft(0.0025%20%5Ctimes%20%5Ctext%7BPressure%7D%5E2%20-%200.2467%20%5Ctimes%20%5Ctext%7BPressure%7D%20%2B%20497.87%5Cright)%5E%7B0.9%7D" alt="\inline\left(0.0025 \times \text{Pressure}^2 - 0.2467 \times \text{Pressure} + 497.87\right)^{0.9}" /></td>
+<td><img align="center" src="https://i.upmath.me/svg/%5Cinline%5Cleft(0.0025%20%5Ctimes%20%5Ctext%7BPressure%7D%5E2%20-%200.2467%20%5Ctimes%20%5Ctext%7BPressure%7D%20%2B%20497.87%5Cright)%5E%7B0.9%7D" alt="\inline\left(0.0025 \times \text{Pressure}^2 - 0.2467 \times \text{Pressure} + 497.87\right)^{0.9}" /></td>
 </tr>
 <tr>
 <td>Installed Cost Eq.</td>
@@ -391,8 +403,8 @@ as per the standard SAEJ2601. There is currently no ability to change this assum
 <tr>
 <td>Energy Consumption</td>
 <td>N/A</td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.1%20*%20Average%20Flowrate%20*%208.760%20*%20Energy%20Price" alt="\inline0.1 * Average Flowrate * 8.760 * Energy Price" /></td>
-<td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.2%20*%20Average%20Flowrate%20*%208.760%20*%20Energy%20Price" alt="\inline0.2 * Average Flowrate * 8.760 * Energy Price" /></td>
+<td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.1%20*%20Average%20Flowrate%20*%208.760%20" alt="\inline0.1 * Average Flowrate * 8.760 * Energy Price" /></td>
+<td><img align="center" src="https://i.upmath.me/svg/%5Cinline0.2%20*%20Average%20Flowrate%20*%208.760%20" alt="\inline0.2 * Average Flowrate * 8.760 * Energy Price" /></td>
 </tr>
 <tr>
 <td>Equipment Cost Eq. (HyJack)</td>
