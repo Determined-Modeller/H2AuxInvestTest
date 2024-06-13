@@ -290,9 +290,9 @@ class PistonCompressor(Compressor):
         
         self.results['power'] = sum(self.conditions.loc['power'])
         
-        coeff_a = 0.03867
-        coeff_b = 446.7
-        coeff_c = 1.38e05
+        coeff_a = 0.04147
+        coeff_b = 454.8
+        coeff_c = 3.81e05
         
         power = self.results['power']
         
