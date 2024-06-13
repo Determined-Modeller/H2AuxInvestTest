@@ -292,7 +292,7 @@ class PistonCompressor(Compressor):
         
         coeff_a = 0.04147
         coeff_b = 454.8
-        coeff_c = 3.81e05
+        coeff_c = 2.81e05
         
         power = self.results['power']
         
