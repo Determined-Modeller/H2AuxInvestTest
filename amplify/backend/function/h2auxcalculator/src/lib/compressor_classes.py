@@ -139,6 +139,7 @@ class Compressor:
             self.conditions.loc['isentropic_eff', stage] = self.isen_efficiencies[stage]
     
     
+    
     def calculate_work_done(self):
         '''
         The work done equation is the same for piston and diaphragm compressors,
