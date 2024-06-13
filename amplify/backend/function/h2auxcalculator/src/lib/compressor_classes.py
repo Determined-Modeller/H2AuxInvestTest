@@ -205,7 +205,7 @@ class Compressor:
         
         power = self.results['power']
         
-        base = math.log(power) + coeff_a*power**2 + coeff_b*power + coeff_c
+        base = math.log(power,10) + coeff_a*power**2 + coeff_b*power + coeff_c
         
         self.results['equipment'] = {'min':  base * 0.9,
                                      'avg':  base,
@@ -296,8 +296,8 @@ class PistonCompressor(Compressor):
         
         power = self.results['power']
         
-        base = math.log(power) + coeff_a*power**2 + coeff_b*power + coeff_c
-    
+        base = math.log(power,10) + coeff_a*power**2 + coeff_b*power + coeff_c
+
         self.results['equipment'] = {'min':  base * 0.9,
                                      'avg':  base,
                                      'max':  base * 1.1}
@@ -306,7 +306,7 @@ class PistonCompressor(Compressor):
                                           'avg': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['avg'], self.wacc, self.avg_flow ),
                                           'max': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.avg_flow )}
         
-        
+
 class DiaphragmCompressor(Compressor):
     def __init__(self, inputs, avg_flowrate, peak_flowrate):
         super().__init__(inputs, avg_flowrate, peak_flowrate, comp_type='diaphragm')
