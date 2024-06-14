@@ -18,10 +18,10 @@ class ApiAlgorithmMapper:
         response['vehicle_type'] = request['vehicle_type'].lower() # 'car' or 'hdv'
         response['energy_price_per_mwh'] = request['energy_price_per_mwh']*10
         response['is_storage_required'] = False if request['storage_mass'] == 0 else True
-        response['storage_requirement'] = request['storage_mass']['value']
-        response['storage_requirement_unit'] = request['storage_mass']['unit'].lower()
-        response['storage_pressure'] = request['storage_pressure']['value']
-        response['storage_pressure_unit'] = request['storage_pressure']['unit'].lower()
+        response['storage_requirement'] = request['storage_mass']['value'] if isinstance(request['storage_mass']['value'], (int, float)) else 0
+        response['storage_requirement_unit'] = request['storage_mass']['unit'].lower() if isinstance(request['storage_mass']['unit'], str) else 'kg'
+        response['storage_pressure'] = request['storage_pressure']['value'] if isinstance(request['storage_pressure']['value'], (int, float)) else 0
+        response['storage_pressure_unit'] = request['storage_pressure']['unit'].lower() if isinstance(request['storage_mass']['value'], str) else 'bar'
         # If the user specifies their own pressure and mass
         response['dispensing_pressure'] = request['dispensing_pressure']['value']
         response['dispensing_pressure_unit'] = request['dispensing_pressure']['unit'].lower()     
