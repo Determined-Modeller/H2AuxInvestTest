@@ -310,6 +310,11 @@ class PistonCompressor(Compressor):
 class DiaphragmCompressor(Compressor):
     def __init__(self, inputs, avg_flowrate, peak_flowrate):
         super().__init__(inputs, avg_flowrate, peak_flowrate, comp_type='diaphragm')
+        self.calculate_number_of_stages()
+        self.conditions = pd.DataFrame(data=0.0,
+                                index=['inlet_p', 'outlet_p', 'inlet_t', 'outlet_t', 'isentropic_eff', 'work_done', 'power', 'compression_energy', 'cooling_energy'],
+                                columns=[f'stage_{i+1}' for i in range(self.num_stages)])
+        
         
     def calculate_compressor_equipment_cost(self):
         '''
@@ -338,6 +343,7 @@ class DiaphragmCompressor(Compressor):
 class CentrifugalCompressor(Compressor):
     def __init__(self, inputs, avg_flowrate, peak_flowrate):
         super().__init__(inputs, avg_flowrate, peak_flowrate, comp_type='centrifugal')
+        self.calculate_number_of_stages()
         self.conditions = pd.DataFrame(data=0.0,
                                 index=['inlet_p', 'outlet_p', 'inlet_t', 'outlet_t', 'isentropic_eff', 'work_done', 'power', 'compression_energy', 'cooling_energy'],
                                 columns=[f'stage_{i+1}' for i in range(self.num_stages)])
