@@ -47,6 +47,7 @@ class Compressor:
         self.energy_price = inputs['energy_price_per_mwh']
         # Build a DataFrame to store computed P, T, work_done, etc. at each stage.
         # Specify initial row names.
+        print(self.num_stages)
         self.conditions = pd.DataFrame(data=0.0,
                                        index=['inlet_p', 'outlet_p', 'inlet_t', 'outlet_t', 'isentropic_eff', 'work_done', 'power', 'compression_energy', 'cooling_energy'],
                                        columns=[f'stage_{i+1}' for i in range(self.num_stages)])
