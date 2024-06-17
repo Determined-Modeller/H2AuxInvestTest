@@ -88,9 +88,9 @@ class Compressor:
         elif self.comp_type == 'diaphragm':
             stage_comp_ratio = 4.1
         elif self.comp_type == 'piston':
-            stage_comp_ratio = 4.1   
+            stage_comp_ratio = 4.1
         
-        num_stages = math.ceil(math.log( self.pressure_out / self.pressure_in , stage_comp_ratio))
+        num_stages = math.ceil(math.log(self.pressure_out / self.pressure_in , stage_comp_ratio))
           
         return num_stages
     
@@ -111,7 +111,9 @@ class Compressor:
         stages[1] = [self.pressure_in, self.pressure_in * self.pressure_ratio, 293]
         stages[2] = [self.pressure_in * self.pressure_ratio, self.pressure_in * self.pressure_ratio ** 2, 323]
         stages[3] = [self.pressure_in * self.pressure_ratio ** 2, self.pressure_in * self.pressure_ratio ** 3, 323]
-        
+        stages[4] = [self.pressure_in * self.pressure_ratio ** 3, self.pressure_in * self.pressure_ratio ** 4, 323]
+        stages[5] = [self.pressure_in * self.pressure_ratio ** 4, self.pressure_in * self.pressure_ratio ** 5, 323]
+                
         # Add values to new columns to check for equality with existing columns
         for stage_number in range(1, self.num_stages+1):
             self.conditions.loc[row_names, f'stage_{stage_number}'] = stages[stage_number]
@@ -314,10 +316,6 @@ class PistonCompressor(Compressor):
 class DiaphragmCompressor(Compressor):
     def __init__(self, inputs, avg_flowrate, peak_flowrate):
         super().__init__(inputs, avg_flowrate, peak_flowrate, comp_type='diaphragm')
-        self.calculate_number_of_stages()
-        self.conditions = pd.DataFrame(data=0.0,
-                                index=['inlet_p', 'outlet_p', 'inlet_t', 'outlet_t', 'isentropic_eff', 'work_done', 'power', 'compression_energy', 'cooling_energy'],
-                                columns=[f'stage_{i+1}' for i in range(self.num_stages)])
         
         
     def calculate_compressor_equipment_cost(self):
@@ -347,10 +345,6 @@ class DiaphragmCompressor(Compressor):
 class CentrifugalCompressor(Compressor):
     def __init__(self, inputs, avg_flowrate, peak_flowrate):
         super().__init__(inputs, avg_flowrate, peak_flowrate, comp_type='centrifugal')
-        self.calculate_number_of_stages()
-        self.conditions = pd.DataFrame(data=0.0,
-                                index=['inlet_p', 'outlet_p', 'inlet_t', 'outlet_t', 'isentropic_eff', 'work_done', 'power', 'compression_energy', 'cooling_energy'],
-                                columns=[f'stage_{i+1}' for i in range(self.num_stages)])
     
 
     def calculate_compressor_equipment_cost(self):
