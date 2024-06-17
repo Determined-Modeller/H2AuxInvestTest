@@ -338,7 +338,9 @@ class DiaphragmCompressor(Compressor):
 class CentrifugalCompressor(Compressor):
     def __init__(self, inputs, avg_flowrate, peak_flowrate):
         super().__init__(inputs, avg_flowrate, peak_flowrate, comp_type='centrifugal')
-    
+        self.conditions = pd.DataFrame(data=0.0,
+                                index=['inlet_p', 'outlet_p', 'inlet_t', 'outlet_t', 'isentropic_eff', 'work_done', 'power', 'compression_energy', 'cooling_energy'],
+                                columns=[f'stage_{i+1}' for i in range(self.num_stages)])
     
     def calculate_number_of_stages(self):
         '''
@@ -349,15 +351,6 @@ class CentrifugalCompressor(Compressor):
         max_pressure_ratio = 2.5
         
         num_stages = math.ceil(math.log( self.pressure_out / self.pressure_in , max_pressure_ratio))
-        
-        '''
-        if self.pressure_out / self.pressure_in < 4.1:
-            num_stages = 1
-        elif self.pressure_out / self.pressure_in < 17:
-            num_stages = 2
-        else:
-            num_stages = 3
-        '''
           
         return num_stages
     
