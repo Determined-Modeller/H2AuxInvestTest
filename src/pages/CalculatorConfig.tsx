@@ -11,6 +11,7 @@ import useRequest from "../hooks/useValidatedRequestForm";
 import { RequestSchema } from "../api/calculator";
 import { InfoOutlined } from "@mui/icons-material";
 import CalculatorInputLayout from "../components/CalculatorInputLayout";
+import useGetSubSchema from "../hooks/useGetSubSchema";
 
 const CalculatorConfig = () => {
 
@@ -18,12 +19,9 @@ const CalculatorConfig = () => {
     const navigate = useNavigate();
 
     const locationRequest = location.state as RequestSchema;
-    const modifiedSchema = {
-        ...schema,
-        required: []
-    }
+    const modifiedSchema = useGetSubSchema(['wacc', 'lifetime_years', 'energy_price_per_mwh'], schema)
 
-    const { request, errorMessages, handleChange } = useRequest({
+    const { request, errorMessages, handleChange, validateForm } = useRequest({
         ...locationRequest,
         wacc: 10,
         lifetime_years: 22,
@@ -41,7 +39,8 @@ const CalculatorConfig = () => {
     }
 
     const goToNext = () => {
-        if (canProceed()) {
+        const isValid = validateForm();
+        if (isValid && canProceed()) {
             navigate(ROUTE_CONSTANTS.CALCULATOR_RESULTS, { state: request });
         }
     }
