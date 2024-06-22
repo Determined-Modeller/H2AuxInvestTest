@@ -111,7 +111,7 @@ class Compressor:
         
         stages[1] = [self.pressure_in, self.pressure_in * self.pressure_ratio, 293]
         
-        for x in pd.Series(range(2,8)):
+        for x in pd.Series(range(2,10)):
             stages[x] = [self.pressure_in * self.pressure_ratio ** (x-1), self.pressure_in * self.pressure_ratio ** x, 323]
         
         # Add values to new columns to check for equality with existing columns
