@@ -73,7 +73,7 @@ const CalculatorSales = () => {
                     Please enter average and peak use of the infrastructure, as a flowrate or as vehicles per hour/day to estimate this.
                     If you are unsure of this please see the 'Choosing Your Inputs' portion of the documentation
                     - or use the standard inputs provided to explore the tool.  If you are completely unsure, try choosing a peak demand of between 6-8 vehicles per hour
-                    , and an average of around half of this to start.
+                    , and an average of around half of this to start. Please make sure your peak esitmate is higher than average, otherwise the results may not be accureate.
 
                 </Typography>
             </Box>
