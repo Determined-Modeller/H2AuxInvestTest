@@ -10,6 +10,22 @@ const useRequest = (initialRequest: RequestSchema, schema: object) => {
     const ajv = new Ajv();
     const validate = ajv.compile(schema);
 
+    const validateForm = () => {
+        const valid = validate(request);
+        console.log(request);
+
+        const newErrorMessages = { ...errorMessages };
+        console.log(validate.errors);
+
+        if (!valid && validate.errors) {
+            validate.errors.forEach((error: ErrorObject) => {
+                newErrorMessages[error.instancePath.substring(1).split('/').join('.')] = error.message || '';
+            });
+        }
+        setErrorMessages(newErrorMessages);
+        return valid;
+    }
+
     const handleChange = (newValue: any, path: string[]) => {
         setRequest(prevRequest => {
             const updatedRequest = { ...prevRequest };
@@ -25,17 +41,19 @@ const useRequest = (initialRequest: RequestSchema, schema: object) => {
                 validate.errors.forEach((error: ErrorObject) => {
                     if (error.instancePath === '/' + path.join('/')) {
                         newErrorMessages[path.join('.')] = error.message || '';
+                        console.log(newErrorMessages);
                     }
                 });
             } else {
                 delete newErrorMessages[path.join('.')];
+                delete newErrorMessages[path[0]]
             }
             setErrorMessages(newErrorMessages);
             return updatedRequest;
         });
     };
 
-    return { request, errorMessages, handleChange };
+    return { request, errorMessages, handleChange, validateForm };
 };
 
 export default useRequest;

@@ -20,11 +20,11 @@ const CalculatorIntake = () => {
     const locationRequest = location.state as RequestSchema;
     const modifiedSchema = schema;
     modifiedSchema.required = ['hydrogen_inlet_pressure']
-    const { request, errorMessages, handleChange } = useRequest({
+    const { request, errorMessages, handleChange, validateForm } = useRequest({
         ...locationRequest,
         hydrogen_inlet_pressure: {
-            ...locationRequest?.hydrogen_inlet_pressure,
-            unit: Pressure[Object.keys(Pressure)[0] as keyof typeof Pressure],
+            value: locationRequest?.hydrogen_inlet_pressure?.value ?? undefined,
+            unit: locationRequest?.hydrogen_inlet_pressure?.unit ?? Pressure[Object.keys(Pressure)[0] as keyof typeof Pressure],
         }
     }, modifiedSchema);
 
@@ -44,7 +44,8 @@ const CalculatorIntake = () => {
     }
 
     const goToNext = () => {
-        if (canProceed()) {
+        const isValid = validateForm();
+        if (isValid && canProceed()) {
             navigate(ROUTE_CONSTANTS.CALCULATOR_PLANT_TYPE, { state: request })
         }
     }
@@ -94,6 +95,10 @@ const CalculatorIntake = () => {
                     {!!errorMessages['hydrogen_inlet_pressure.value'] && <FormHelperText>
                         <InfoOutlined />
                         {errorMessages['hydrogen_inlet_pressure.value']}
+                    </FormHelperText>}
+                    {!!errorMessages['hydrogen_inlet_pressure'] && <FormHelperText>
+                        <InfoOutlined />
+                        {errorMessages['hydrogen_inlet_pressure']}
                     </FormHelperText>}
                 </FormControl>
                 <FormControl error={!!errorMessages['hydrogen_inlet_pressure.unit']}>
