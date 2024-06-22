@@ -58,14 +58,13 @@ const team = [
 const Team = () => {
     return (<Box sx={{ paddingTop: 10 }}>
         <Typography
-            paddingLeft={5}
             level="h1"
             fontWeight="xl"
             fontSize="clamp(1.875rem, 1.3636rem + 2.1818vw, 3rem)"
         >
             Project Team
         </Typography>
-        <Grid container spacing={3} rowSpacing={3} sx={{ padding: 5 }}>
+        <Grid container spacing={3} rowSpacing={3} sx={{ paddingY: 5 }}>
             {team.map((member, index) => (
                 <Grid key={index}>
                     <Card variant="soft" color="neutral" sx={{ boxShadow: 'lg', maxWidth: 315, height: '100%' }}>

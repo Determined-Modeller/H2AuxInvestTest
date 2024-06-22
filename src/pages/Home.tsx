@@ -1,15 +1,17 @@
 
 
-import { Box, Button, Typography } from "@mui/joy"
+import { Box, Button, Container, Typography } from "@mui/joy"
 import { ArrowForward } from "@mui/icons-material";
 import TwoSidedLayout from "../components/TwoSidedLayout";
 import ROUTE_CONSTANTS from "../routing/routeConstants";
 import PartnerLogos from "../components/ProjectPartners";
 import Team from "../components/Team";
+import { useNavigate } from "react-router-dom";
 
 
 
 const Home = () => {
+    const navigate = useNavigate();
     return (
         <Box
             sx={{
@@ -41,13 +43,13 @@ const Home = () => {
                 >
                     <Button
                         component="a"
-                        href={ROUTE_CONSTANTS.DOCS}
+                        onClick={() => navigate(ROUTE_CONSTANTS.DOCS)}
                         size="lg" variant="outlined" color="neutral">
                         Learn More
                     </Button>
                     <Button
                         component="a"
-                        href={ROUTE_CONSTANTS.CALCULATOR}
+                        onClick={() => navigate(ROUTE_CONSTANTS.CALCULATOR)}
                         size="lg"
                         endDecorator={<ArrowForward />}>
                         Get Started For Free
@@ -55,7 +57,26 @@ const Home = () => {
                 </Box>
             </TwoSidedLayout>
             <PartnerLogos />
-            <Team />
+            <Container
+                sx={(theme) => ({
+                    position: 'relative',
+                    minHeight: '80vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    py: 5,
+                    gap: 4,
+                    [theme.breakpoints.up(834)]: {
+                        flexDirection: 'row',
+                        gap: 6,
+                    },
+                    [theme.breakpoints.up(1199)]: {
+                        gap: 12,
+                    },
+                })}
+            >
+                <Team />
+            </Container>
+
         </Box>
     );
 }
