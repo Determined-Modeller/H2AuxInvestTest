@@ -21,7 +21,7 @@ const CalculatorSales = () => {
     const locationRequest = location.state as RequestSchema;
     const modifiedSchema = useGetSubSchema(["peak_hydrogen_dispensing_rate", "avg_hydrogen_dispensing_rate"], schema)
 
-    const { request, errorMessages, handleChange } = useRequest({
+    const { request, errorMessages, handleChange, validateForm } = useRequest({
         ...locationRequest,
         peak_hydrogen_dispensing_rate: {
             ...locationRequest?.peak_hydrogen_dispensing_rate,
@@ -42,7 +42,8 @@ const CalculatorSales = () => {
     }
 
     const goToNext = () => {
-        if (canProceed()) {
+        const isValid = validateForm();
+        if (isValid && canProceed()) {
             navigate(ROUTE_CONSTANTS.CALCULATOR_CONFIG, { state: request })
         }
     }
@@ -85,7 +86,7 @@ const CalculatorSales = () => {
                     '& > *': { flex: 'auto' },
                 }}
             >
-                <FormControl error={!!errorMessages['peak_hydrogen_dispensing_rate.value']}>
+                <FormControl error={!!errorMessages['peak_hydrogen_dispensing_rate.value'] || !!errorMessages['peak_hydrogen_dispensing_rate.value']}>
                     <FormLabel>Peak H2 Demand</FormLabel>
                     <Input
                         name="peak_hydrogen_dispensing_rate"
@@ -101,6 +102,12 @@ const CalculatorSales = () => {
                         <FormHelperText>
                             <InfoOutlined />
                             {errorMessages['peak_hydrogen_dispensing_rate.value']}
+                        </FormHelperText>
+                    }
+                    {!!errorMessages['peak_hydrogen_dispensing_rate'] &&
+                        <FormHelperText>
+                            <InfoOutlined />
+                            {errorMessages['peak_hydrogen_dispensing_rate']}
                         </FormHelperText>
                     }
                 </FormControl>
@@ -121,7 +128,7 @@ const CalculatorSales = () => {
                         ))}
                     </Select>
                 </FormControl>
-                <FormControl error={!!errorMessages['peak_hydrogen_dispensing_rate.value']}>
+                <FormControl error={!!errorMessages['peak_hydrogen_dispensing_rate.value'] || !!errorMessages['peak_hydrogen_dispensing_rate']}>
                     <FormLabel>Average H2 Demand</FormLabel>
                     <Input
                         name="avg_hydrogen_dispensing_rate"
@@ -137,6 +144,12 @@ const CalculatorSales = () => {
                         <FormHelperText>
                             <InfoOutlined />
                             {errorMessages['avg_hydrogen_dispensing_rate.value']}
+                        </FormHelperText>
+                    }
+                    {!!errorMessages['avg_hydrogen_dispensing_rate'] &&
+                        <FormHelperText>
+                            <InfoOutlined />
+                            {errorMessages['avg_hydrogen_dispensing_rate']}
                         </FormHelperText>
                     }
                 </FormControl>
