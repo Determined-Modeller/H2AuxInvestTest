@@ -1,15 +1,18 @@
 
 
-import { Box, Button, Card, Typography, useColorScheme } from "@mui/joy";
+import { Box, Button, Card, Divider, Typography, useColorScheme } from "@mui/joy";
 
 import Diagram from '../assets/diagram_input.png';
 import DiagramInverse from '../assets/diagram_inverse.png';
 import { ArrowForward } from "@mui/icons-material";
 import ROUTE_CONSTANTS from "../routing/routeConstants";
+import { useNavigate } from "react-router-dom";
 
 
 const Calculator = () => {
     const { mode } = useColorScheme();
+    const navigate = useNavigate();
+
     return (
         <Box
             sx={{
@@ -17,7 +20,7 @@ const Calculator = () => {
             }}
         >
             <Box
-                py={'50px'}
+                py={'2em'}
                 sx={{
                     maxWidth: '800px',
                     margin: 'auto'
@@ -27,48 +30,59 @@ const Calculator = () => {
                     H2AuxInvest
 
                 </Typography>
-                <Typography level="h2">
+                <Typography level="h2" pb={'2em'}>
                     Hydrogen Infrastructure Costing Tool
                 </Typography>
+                <Card
+                    variant="soft"
+                    sx={{
+                        marginTop: '50px',
+                        borderWidth: 3,
+                        borderRadius: 'sm',
+                        maxWidth: '800px',
+                        margin: 'auto',
+                    }}
+                >
+                    <Box
+                        py={'50px'}
+                        sx={{
+                            maxWidth: '400px',
+                            margin: 'auto'
+                        }}
+                    >
+                        {mode === 'light' ? <img src={Diagram} width={'90%'} /> : <img src={DiagramInverse} width={'90%'} />}
+                    </Box>
+                </Card>
             </Box>
-            <Card
-                variant="soft"
+            <Box
+                pt={'2em'}
+                pb={'3em'}
                 sx={{
-                    marginTop: '50px',
-                    borderWidth: 3,
-                    borderRadius: 'sm',
                     maxWidth: '800px',
                     margin: 'auto',
+                    display: 'grid',
+                    gap: 3,
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
                 }}
             >
                 <Box
-                    py={'50px'}
-                    sx={{
-                        maxWidth: '400px',
-                        margin: 'auto'
-                    }}
+                    sx={theme => ({
+                        paddingBottom: theme.spacing(3)
+                    })}
                 >
-                    {mode === 'light' ? <img src={Diagram} width={'90%'} /> : <img src={DiagramInverse} width={'90%'} />}
+                    <Typography level="h3" fontSize={'lg'} pb="20px">
+                        Let’s calculate the key parameters of your hydrogen infrastructure
+                    </Typography>
+                    <Typography fontSize={'lg'}>
+                        This tool, created as part of the project, H2Auxinvest, an open-source, non-profit initiative, funded by the Scottish Government through the Emerging Energy Technologies Fund (EETF) is designed to support the hydrogen supply chain by enablng greater transparency on cost and requirements for end-users of hydrogen, encouraging manufacturer data sharing and hosting up-to-date cost estimations.
+
+                        The following survey takes less than a minute, asking questions to provide reliable estimates of key inputs for calculations to size, specify and cost your hydrogen compression and storage infrastructure.
+                        More detail on these calculations is available in the documentation, always available in the top right of the page.  Should any issues arise please contact the team by raising a new issue on the project github page.
+                        To find out more about how to participate as a manufacturer or a contributor, please email h2auxinvest@gchydrogen.co.uk
+                    </Typography>
                 </Box>
-            </Card>
 
-            <Box
-                py={'50px'}
-                sx={{
-                    maxWidth: '800px',
-                    margin: 'auto'
-                }}
-            >
-                <Typography level="h3" fontSize={'lg'} pb="20px">
-                    Let’s calculate the key parameters of your hydrogen infrastructure
-                </Typography>
-                <Typography fontSize={'lg'}>
-                    This tool, created as part of the project, H2Auxinvest, an open-source, non-profit initiative, funded by the Scottish Government through the Emerging Energy Technologies Fund (EETF) is designed to support the hydrogen supply chain by enablng greater transparency on cost and requirements for end-users of hydrogen, encouraging manufacturer data sharing and hosting up-to-date cost estimations.
-
-                    The following survey takes less than a minute, asking questions to provide reliable estimates of key inputs for calculations to size, specify and cost your hydrogen compression and storage infrastructure.
-                    More detail on these calculations is available in the documentation, always available in the top right of the page.  Should any issues arise please contact the team by raising a new issue on the project github page.
-                    To find out more about how to participate as a manufacturer or a contributor, please email h2auxinvest@gchydrogen.co.uk
-                </Typography>
                 <Box
                     sx={{
                         maxWidth: "400px",
@@ -81,28 +95,43 @@ const Calculator = () => {
                 >
                     <Button
                         component="a"
-                        href={ROUTE_CONSTANTS.DOCS}
+                        onClick={() => navigate(ROUTE_CONSTANTS.DOCS)}
                         size="lg" variant="outlined" color="neutral">
                         Learn More
                     </Button>
                     <Button
                         component="a"
-                        href={ROUTE_CONSTANTS.CALCULATOR_INTAKE}
+                        onClick={() => navigate(ROUTE_CONSTANTS.CALCULATOR_INTAKE)}
                         size="lg"
                         endDecorator={<ArrowForward />}>
                         Start
                     </Button>
                 </Box>
             </Box>
-            s
-            <Typography color="neutral" fontSize="sm" fontWeight="sm">
-                All calculations and data provided by H2AuxInvest's Hydrogen Infrastructure Costing Tool are for informational purposes only. While this tool aims to provide helpful and accurate information, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information produced.
-                The information provided by the Hydrogen Infrastructure Costing Tool is not a substitute for professional advice. Engineering decisions should not be made solely on the basis of this tool. Always seek the guidance of qualified professionals before making any such decisions.
-                H2AuxInvest's Hydrogen Infrastructure Costing Tool is an open-source project developed for educational and informational purposes under principles of fair use. The tool is designed to support and further the understanding and roll-out of hydrogen infrastructure.
-                In no event shall H2AuxInvest or contributors to the Hydrogen Infrastructure Costing Tool be liable for any special, direct, indirect, consequential, or incidental damages or any damages whatsoever, whether in an action of contract, negligence, or other torts, arising out of or in connection with the use of the tool or the contents of the tool. H2AuxInvest reserves the right to make additions, deletions, or modifications to the contents of the tool at any time without prior notice.
-                The Hydrogen Infrastructure Costing Tool is provided under a MIT License, which allows for redistribution and use in source and binary forms, with or without modification. Users are expected to credit the original creation and not use the tool in a manner that infringes upon the intellectual property rights of H2AuxInvest or any third parties.
-                By using the Hydrogen Infrastructure Costing Tool, you accept this disclaimer in full. If you disagree with any part of this disclaimer, do not use the provided tool or any affiliated websites or services
-            </Typography>
+
+            <Box
+                sx={theme => ({
+                    maxWidth: '800px',
+                    margin: 'auto',
+                    paddingTop: theme.spacing(1)
+                })}
+            >
+                <Divider
+                    sx={theme => ({
+                        maxWidth: '800px',
+                        margin: 'auto',
+                        marginY: theme.spacing(5)
+                    })}
+                />
+                <Typography color="neutral" fontSize="xs" fontWeight="xs">
+                    All calculations and data provided by H2AuxInvest's Hydrogen Infrastructure Costing Tool are for informational purposes only. While this tool aims to provide helpful and accurate information, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information produced.
+                    The information provided by the Hydrogen Infrastructure Costing Tool is not a substitute for professional advice. Engineering decisions should not be made solely on the basis of this tool. Always seek the guidance of qualified professionals before making any such decisions.
+                    H2AuxInvest's Hydrogen Infrastructure Costing Tool is an open-source project developed for educational and informational purposes under principles of fair use. The tool is designed to support and further the understanding and roll-out of hydrogen infrastructure.
+                    In no event shall H2AuxInvest or contributors to the Hydrogen Infrastructure Costing Tool be liable for any special, direct, indirect, consequential, or incidental damages or any damages whatsoever, whether in an action of contract, negligence, or other torts, arising out of or in connection with the use of the tool or the contents of the tool. H2AuxInvest reserves the right to make additions, deletions, or modifications to the contents of the tool at any time without prior notice.
+                    The Hydrogen Infrastructure Costing Tool is provided under a MIT License, which allows for redistribution and use in source and binary forms, with or without modification. Users are expected to credit the original creation and not use the tool in a manner that infringes upon the intellectual property rights of H2AuxInvest or any third parties.
+                    By using the Hydrogen Infrastructure Costing Tool, you accept this disclaimer in full. If you disagree with any part of this disclaimer, do not use the provided tool or any affiliated websites or services
+                </Typography>
+            </Box>
 
         </Box>
     );

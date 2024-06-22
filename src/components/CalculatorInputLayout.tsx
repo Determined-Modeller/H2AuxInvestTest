@@ -16,16 +16,24 @@ const Layout: React.FC<LayoutProps> = ({ activeStep, onNext, onBack, children })
             }}
         >
             <Box
-                py={'70px'}
+                py={'2em'}
                 sx={{
                     maxWidth: '800px',
                     margin: 'auto'
                 }}
             >
+                <Typography level="h3" color="primary" fontSize="lg" fontWeight="lg">
+                    H2AuxInvest
+
+                </Typography>
+                <Typography level="h2" pb={'2em'}>
+                    Hydrogen Infrastructure Costing Tool
+                </Typography>
                 <ProgressTracker activeStep={activeStep} />
             </Box>
             <Box
-                pb={'50px'}
+                pt={'2em'}
+                pb={'3em'}
                 sx={{
                     maxWidth: '800px',
                     margin: 'auto',
