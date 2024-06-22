@@ -26,7 +26,7 @@ class RequestSchemaDispensingMass(BaseModel):
     """
     RequestSchemaDispensingMass
     """
-    value: Union[confloat(le=3E+3, ge=0, strict=True), conint(le=3000, ge=0, strict=True)] = Field(...)
+    value: Union[confloat(le=3E+3, ge=1, strict=True), conint(le=3000, ge=1, strict=True)] = Field(...)
     unit: Mass = Field(...)
     __properties = ["value", "unit"]
 

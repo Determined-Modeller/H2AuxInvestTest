@@ -19,13 +19,13 @@ import json
 
 
 from typing import Optional, Union
-from pydantic import BaseModel, StrictFloat, StrictInt, StrictStr, validator
+from pydantic import BaseModel, StrictStr, confloat, conint, validator
 
 class DispensingRate(BaseModel):
     """
     DispensingRate
     """
-    value: Optional[Union[StrictFloat, StrictInt]] = None
+    value: Optional[Union[confloat(le=1.5E+4, ge=1, strict=True), conint(le=15000, ge=1, strict=True)]] = None
     unit: Optional[StrictStr] = None
     __properties = ["value", "unit"]
 

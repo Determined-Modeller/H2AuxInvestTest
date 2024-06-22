@@ -10,6 +10,7 @@ import CalculatorInputLayout from "../components/CalculatorInputLayout";
 import schema from '../api/calculator/schema.json';
 import useRequest from "../hooks/useValidatedRequestForm";
 import { InfoOutlined } from "@mui/icons-material";
+import useGetSubSchema from "../hooks/useGetSubSchema";
 
 
 const CalculatorSales = () => {
@@ -18,21 +19,18 @@ const CalculatorSales = () => {
     const navigate = useNavigate();
 
     const locationRequest = location.state as RequestSchema;
-    const modifiedSchema = {
-        ...schema,
-        required: []
-    }
+    const modifiedSchema = useGetSubSchema(["peak_hydrogen_dispensing_rate", "avg_hydrogen_dispensing_rate"], schema)
 
     const { request, errorMessages, handleChange } = useRequest({
         ...locationRequest,
         peak_hydrogen_dispensing_rate: {
-            ...locationRequest.peak_hydrogen_dispensing_rate,
+            ...locationRequest?.peak_hydrogen_dispensing_rate,
             unit: locationRequest?.peak_hydrogen_dispensing_rate?.unit ??
                 DispensingRateUnitEnum[Object.keys(DispensingRateUnitEnum)[0] as keyof typeof DispensingRateUnitEnum],
 
         },
         avg_hydrogen_dispensing_rate: {
-            ...locationRequest.avg_hydrogen_dispensing_rate,
+            ...locationRequest?.avg_hydrogen_dispensing_rate,
             unit: locationRequest?.avg_hydrogen_dispensing_rate?.unit ??
                 DispensingRateUnitEnum[Object.keys(DispensingRateUnitEnum)[0] as keyof typeof DispensingRateUnitEnum],
 
