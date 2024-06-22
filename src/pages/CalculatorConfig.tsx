@@ -96,7 +96,7 @@ const CalculatorConfig = () => {
                     }
                 </FormControl>
 
-                <Box width={500} marginTop={4} marginBottom={3}>
+                <Box width={'80%'} maxWidth={500} marginTop={4} marginBottom={3}>
                     <Divider sx={{ '--Divider-childPosition': `50%` }}>
                         Advanced (optional)
                     </Divider>
