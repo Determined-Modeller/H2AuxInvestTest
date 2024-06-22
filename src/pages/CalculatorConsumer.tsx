@@ -10,6 +10,8 @@ import CalculatorInputLayout from "../components/CalculatorInputLayout";
 import schema from '../api/calculator/schema.json';
 import useRequest from "../hooks/useValidatedRequestForm";
 import { InfoOutlined } from "@mui/icons-material";
+import useGetSubSchema from "../hooks/useGetSubSchema";
+import { ChangeEvent } from "react";
 
 const CalculatorConsumer = () => {
 
@@ -17,12 +19,13 @@ const CalculatorConsumer = () => {
     const navigate = useNavigate();
     const locationRequest = location.state as RequestSchema;
     const modifiedSchema = {
-        ...schema,
+        ...useGetSubSchema(["is_storage_required", "storage_pressure", "storage_mass"], schema),
         required: []
     }
 
-    const { request, errorMessages, handleChange } = useRequest({
+    const { request, errorMessages, handleChange, validateForm } = useRequest({
         ...locationRequest,
+        is_storage_required: locationRequest?.is_storage_required ?? false,
         storage_pressure: {
             ...locationRequest?.storage_pressure,
             unit: locationRequest?.storage_pressure?.unit ?? Pressure[Object.keys(Pressure)[0] as keyof typeof Pressure],
@@ -44,7 +47,8 @@ const CalculatorConsumer = () => {
 
 
     const goToNext = () => {
-        if (canProceed()) {
+        const isValid = validateForm();
+        if (!request.is_storage_required || (isValid && canProceed())) {
             navigate(ROUTE_CONSTANTS.CALCULATOR_SALES, { state: request })
         }
     }
@@ -52,6 +56,12 @@ const CalculatorConsumer = () => {
     const goToPrevious = () => {
         navigate(ROUTE_CONSTANTS.CALCULATOR_PLANT_TYPE, { state: request })
     }
+
+    const handleIsStorageRequiredToggle = (e: ChangeEvent<HTMLInputElement>) => {
+        handleChange(e.target.checked as boolean, ['is_storage_required'])
+    }
+
+    console.log(errorMessages);
 
 
     return (
@@ -73,7 +83,7 @@ const CalculatorConsumer = () => {
                 <Typography fontSize={'sm'}>
                     Enter details of additional hydrogen storage you wish to have on site.
                     If you are unsure of what to choose, please see the 'Choosing Your Inputs' portion of the documentation,
-                    or use default values provided for commonly selected setups. We highly recommend specifying storage, if 
+                    or use default values provided for commonly selected setups. We highly recommend specifying storage, if
                     this is unknown we suggest specifying the pressure of your end use (e.g. 350/700 bar), and also suggest
                     a minimum of 100kg (or 2 days of demand) to get representative results.
                     Your chosen storage mass may impact compliance with local laws, including COMAH tiers, refer to the docs for more information
@@ -95,7 +105,7 @@ const CalculatorConsumer = () => {
                         <Typography component="label" endDecorator={<Switch
                             disabled={false}
                             checked={request.is_storage_required}
-                            onChange={(e) => handleChange(e.target.checked as boolean, ['is_storage_required'])}
+                            onChange={(e) => handleIsStorageRequiredToggle(e)}
                             size="lg"
                             variant="solid"
                         />}>
@@ -107,7 +117,7 @@ const CalculatorConsumer = () => {
                     </FormControl>
                 </Box>
                 {request.is_storage_required && <>
-                    <FormControl error={!!errorMessages['storage_pressure.value']}>
+                    <FormControl error={!!errorMessages['storage_pressure.value'] || !!errorMessages['storage_pressure']}>
                         <FormLabel>Storage Pressure</FormLabel>
                         <Input
                             name="storage_pressure"
@@ -123,6 +133,13 @@ const CalculatorConsumer = () => {
                             <FormHelperText>
                                 <InfoOutlined />
                                 {errorMessages['storage_pressure.value']}
+                            </FormHelperText>
+                        }
+
+                        {!!errorMessages['storage_pressure'] &&
+                            <FormHelperText>
+                                <InfoOutlined />
+                                {errorMessages['storage_pressure']}
                             </FormHelperText>
                         }
                     </FormControl>
@@ -143,7 +160,7 @@ const CalculatorConsumer = () => {
                             ))}
                         </Select>
                     </FormControl>
-                    <FormControl error={!!errorMessages['storage_mass.value']}>
+                    <FormControl error={!!errorMessages['storage_mass.value'] || !!errorMessages['storage_mass']}>
                         <FormLabel>Storage Mass</FormLabel>
                         <Input
                             name="storage_mass"
@@ -159,6 +176,12 @@ const CalculatorConsumer = () => {
                             <FormHelperText>
                                 <InfoOutlined />
                                 {errorMessages['storage_mass.value']}
+                            </FormHelperText>
+                        }
+                        {!!errorMessages['storage_mass'] &&
+                            <FormHelperText>
+                                <InfoOutlined />
+                                {errorMessages['storage_mass']}
                             </FormHelperText>
                         }
                     </FormControl>

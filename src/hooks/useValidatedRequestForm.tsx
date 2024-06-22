@@ -22,6 +22,13 @@ const useRequest = (initialRequest: RequestSchema, schema: object) => {
         return valid;
     }
 
+    const isInValidationErrors = (errors: ErrorObject<string, Record<string, any>, unknown>[] | null | undefined, path: string) => {
+        return errors && !!errors.find(e => e.instancePath === path)
+    }
+    const isInNewErrorMessages = (errors: Record<string, string>, path: string) => {
+        return !!errors[path];
+    }
+
     const handleChange = (newValue: any, path: string[]) => {
         setRequest(prevRequest => {
             const updatedRequest = { ...prevRequest };
@@ -34,6 +41,9 @@ const useRequest = (initialRequest: RequestSchema, schema: object) => {
             const valid = validate(updatedRequest);
             const newErrorMessages = { ...errorMessages };
             if (!valid && validate.errors) {
+                console.log("invalid")
+                console.log(validate.errors)
+                console.log(errorMessages)
                 validate.errors.forEach((error: ErrorObject) => {
                     if (error.instancePath === '/' + path.join('/')) {
                         newErrorMessages[path.join('.')] = error.message || '';
@@ -41,8 +51,14 @@ const useRequest = (initialRequest: RequestSchema, schema: object) => {
                 });
             } else {
                 delete newErrorMessages[path.join('.')];
-                delete newErrorMessages[path[0]]
+                delete newErrorMessages[path[0]];
             }
+
+            if (!isInValidationErrors(validate.errors, '/' + path.join('/')) && isInNewErrorMessages(newErrorMessages, path.join("."))) {
+                delete newErrorMessages[path.join('.')];
+                delete newErrorMessages[path[0]];
+            }
+
             setErrorMessages(newErrorMessages);
             return updatedRequest;
         });
