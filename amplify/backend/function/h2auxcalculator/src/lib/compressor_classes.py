@@ -108,12 +108,12 @@ class Compressor:
         # Calculate the 3 values for each stage only once and store the
         # results for later lookup according to the value of self.num_stages 
         stages = dict()
+        
         stages[1] = [self.pressure_in, self.pressure_in * self.pressure_ratio, 293]
-        stages[2] = [self.pressure_in * self.pressure_ratio, self.pressure_in * self.pressure_ratio ** 2, 323]
-        stages[3] = [self.pressure_in * self.pressure_ratio ** 2, self.pressure_in * self.pressure_ratio ** 3, 323]
-        stages[4] = [self.pressure_in * self.pressure_ratio ** 3, self.pressure_in * self.pressure_ratio ** 4, 323]
-        stages[5] = [self.pressure_in * self.pressure_ratio ** 4, self.pressure_in * self.pressure_ratio ** 5, 323]
-                
+        
+        for x in pd.Series(range(2,8)):
+            stages[x] = [self.pressure_in * self.pressure_ratio ** (x-1), self.pressure_in * self.pressure_ratio ** x, 323]
+        
         # Add values to new columns to check for equality with existing columns
         for stage_number in range(1, self.num_stages+1):
             self.conditions.loc[row_names, f'stage_{stage_number}'] = stages[stage_number]
