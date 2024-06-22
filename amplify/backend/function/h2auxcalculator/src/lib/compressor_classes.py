@@ -1,10 +1,11 @@
 #Compressor Classes
 
 import os
+import math
 import lib.constants as const
 import pandas as pd
 from lib.lcoh_calculator import calculate_lcoh
-
+from CoolProp.CoolProp import PropsSI
 
 class Compressor:
     '''
@@ -27,10 +28,9 @@ class Compressor:
         self.comp_type = comp_type
         # A name to specify the type of equipment when reporting costs
         self.name = self.comp_type + " compressor"
-        
         self.avg_flow = avg_flowrate
         self.peak_flowrate = peak_flowrate
-        self.compressor_leak = 0.03     # TODO is this constant for all compressor types?
+        self.compressor_leak = 0.03
         
         # Data sheet containing values for constants for different types of compressor
         base_path = os.path.dirname(os.path.abspath(__file__))
@@ -58,11 +58,7 @@ class Compressor:
         
     def set_peak_flowrate(self, new_peak_flowrate):
         self.peak_flowrate = new_peak_flowrate
-        
-        
-    def set_avg_flowrate(self, new_avg_flowrate):
-        self.avg_flowrate = new_avg_flowrate
-    
+
     
     def do_all_calculations(self):
         
@@ -87,13 +83,15 @@ class Compressor:
         
         '''
         
-        if self.pressure_out / self.pressure_in < 4:
-            num_stages = 1
-        elif self.pressure_out / self.pressure_in < 17:
-            num_stages = 2
-        else:
-            num_stages = 3
-            
+        if self.comp_type == 'centrifugal':
+            stage_comp_ratio = 2.5
+        elif self.comp_type == 'diaphragm':
+            stage_comp_ratio = 4.1
+        elif self.comp_type == 'piston':
+            stage_comp_ratio = 4.1
+        
+        num_stages = math.ceil(math.log(self.pressure_out / self.pressure_in , stage_comp_ratio))
+          
         return num_stages
     
     
@@ -110,15 +108,17 @@ class Compressor:
         # Calculate the 3 values for each stage only once and store the
         # results for later lookup according to the value of self.num_stages 
         stages = dict()
-        stages[1] = [self.pressure_in, self.pressure_in * self.pressure_ratio, 303]
-        stages[2] = [self.pressure_in * self.pressure_ratio, self.pressure_in * self.pressure_ratio ** 2, 323]
-        stages[3] = [self.pressure_in * self.pressure_ratio ** 2, self.pressure_in * self.pressure_ratio ** 3, 323]
+        
+        stages[1] = [self.pressure_in, self.pressure_in * self.pressure_ratio, 293]
+        
+        for x in pd.Series(range(2,10)):
+            stages[x] = [self.pressure_in * self.pressure_ratio ** (x-1), self.pressure_in * self.pressure_ratio ** x, 323]
         
         # Add values to new columns to check for equality with existing columns
         for stage_number in range(1, self.num_stages+1):
             self.conditions.loc[row_names, f'stage_{stage_number}'] = stages[stage_number]
-            
-        
+         
+         
     def calculate_outlet_temp(self):
         '''
         Description.
@@ -143,6 +143,7 @@ class Compressor:
             self.conditions.loc['isentropic_eff', stage] = self.isen_efficiencies[stage]
     
     
+    
     def calculate_work_done(self):
         '''
         The work done equation is the same for piston and diaphragm compressors,
@@ -155,29 +156,17 @@ class Compressor:
         specific_heat_r_eq = const.specific_heat_r / (const.specific_heat_r - 1)        
         # Populate DataFrame with work done for each stage
         for stage in self.conditions.columns:
-            self.conditions.loc['work_done', stage] = specific_heat_r_eq * (const.specific_gas_constant * self.conditions.loc['inlet_t', stage] / const.h2_molar_mass) * (self.pressure_ratio ** (specific_heat_r_eq ** (-1))-1) / self.isen_efficiencies[stage]
+            compressbility_factor_inlet = PropsSI('Z','P', self.conditions.loc['inlet_p', stage]*10e4, 'T',  self.conditions.loc['inlet_t', stage], 'Hydrogen')
+            compressbility_factor_outlet = PropsSI('Z','P', self.conditions.loc['outlet_p', stage]*10e4, 'T',  self.conditions.loc['outlet_t', stage], 'Hydrogen')
+            comp_factor_average = (compressbility_factor_inlet + compressbility_factor_outlet)/2
+            self.conditions.loc['work_done', stage] = comp_factor_average * specific_heat_r_eq * (const.specific_gas_constant * self.conditions.loc['inlet_t', stage] / const.h2_molar_mass) * (self.pressure_ratio ** (specific_heat_r_eq ** (-1))-1) / self.isen_efficiencies[stage]
             
             
     def calculate_compressor_power(self):
         '''
         This method requires peak flowrate in kg/h as an input
         It calculates the power requirements of the compressor based on the work done, efficiency and hydrogen flowrate
-        
         '''
-        
-        # TODO - these values may vary by compressor type. Extract values from self.comp_data
-        # self.mechanical_eff = 0.95
-        # self.electrical_eff = 0.95
-        
-        # print(f"{self.comp_type.capitalize()} Compressor")
-        # print(f"Mechanical efficiency: {self.mechanical_eff}, from file: {self.comp_data.loc[self.comp_type, 'mech_eff']}")
-        # print(f"Electrical efficiency: {self.electrical_eff}, from file: {self.comp_data.loc[self.comp_type, 'elec_eff']}")
-        # print("--------------------------------------------")
-        
-         
-        # for stage in self.conditions.columns:
-        #      self.conditions.loc['power', stage] = self.peak_flowrate / 3600 * self.conditions[stage]['work_done'] * (1 + self.compressor_leak) / (self.mechanical_eff * self.electrical_eff)
- 
         
         mech_eff = self.comp_data.loc[self.comp_type, 'mech_eff']
         elec_eff = self.comp_data.loc[self.comp_type, 'elec_eff']
@@ -200,7 +189,7 @@ class Compressor:
     def calculate_cooling_energy(self):
         '''
         calculates energy needed to cool hydrogen between each compression stage and after the last stage
-        
+           
         '''
         
         # TODO - this 0.4 factor should be stored somewhere central, for each compressor type
@@ -212,31 +201,17 @@ class Compressor:
         '''
         Overridden in some child classes.
         
-        The code duplication in these methods can be removed as follows:
-        #######################################################################
-        base = (0.003125 * (self.compressor_pressure)**2 - 0.308375 * (self.compressor_pressure) + 622.3375) * self.compressor_capacity
-        
-        self.results['equipment_RG'] = {'min': base * 0.9,
-                                        'max': base * 1.1}
-        
-        self.results['equipment_lcoh_RG'] = {k: calculate_lcoh(self.lifetime, 'capex', self.results['equipment'][k], self.wacc, self.avg_flow)
-                                             for k in ['min', 'max']}
-        
-        # Check results match
-        for k in self.results['equipment']:
-            assert(math.isclose(self.results['equipment'][k], self.results['equipment_RG'][k]))
-            assert(math.isclose(self.results['equipment_lcoh'][k], self.results['equipment_lcoh_RG'][k]))
-        #######################################################################
-        
-        
         '''
-        cepci_88 = 342.5
-        cepci_24 = 800
         
         self.results['power'] = sum(self.conditions.loc['power'])
         
-        base = cepci_24/cepci_88 * 4614 *  self.results['power'] ** 0.82
+        coeff_a = 0.04147
+        coeff_b = 454.8
+        coeff_c = 2.81e05
         
+        power = self.results['power']
+        
+        base = math.log(power,10) + coeff_a*power**2 + coeff_b*power + coeff_c
         
         self.results['equipment'] = {'min':  base * 0.9,
                                      'avg':  base,
@@ -270,7 +245,7 @@ class Compressor:
         self.results['cooling_energy'] = sum(self.conditions.loc['cooling_energy'])
         self.results['compression_energy'] = sum(self.conditions.loc['compression_energy'])
         
-        base = self.results['cooling_energy'] + self.results['compression_energy'] * 8.760 * self.energy_price
+        base = (self.results['cooling_energy'] + self.results['compression_energy']) * self.avg_flow * 8.760 * self.energy_price
         
         self.results['energy'] = {'min':  base * 0.9,
                                   'avg':  base,
@@ -312,14 +287,87 @@ class PistonCompressor(Compressor):
     
         for stage in self.conditions.columns:
             self.conditions.loc['isentropic_eff',stage] = self.isen_efficiencies[stage]
-
     
+    def calculate_compressor_equipment_cost(self):
+        '''
+        Overridden in some child classes.
+        
+        '''
+        
+        self.results['power'] = sum(self.conditions.loc['power'])
+        
+        coeff_a = 0.04147
+        coeff_b = 454.8
+        coeff_c = 2.81e05
+        
+        power = self.results['power']
+        
+        base = math.log(power,10) + coeff_a*power**2 + coeff_b*power + coeff_c
+
+        self.results['equipment'] = {'min':  base * 0.9,
+                                     'avg':  base,
+                                     'max':  base * 1.1}
+        
+        self.results['equipment_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['min'], self.wacc, self.avg_flow ),
+                                          'avg': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['avg'], self.wacc, self.avg_flow ),
+                                          'max': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.avg_flow )}
+        
+
 class DiaphragmCompressor(Compressor):
     def __init__(self, inputs, avg_flowrate, peak_flowrate):
         super().__init__(inputs, avg_flowrate, peak_flowrate, comp_type='diaphragm')
         
         
+    def calculate_compressor_equipment_cost(self):
+        '''
+        Overridden in some child classes.
+        
+        '''
+        
+        self.results['power'] = sum(self.conditions.loc['power'])
+        
+        coeff_a = 0.04147
+        coeff_b = 454.8
+        coeff_c = 3.81e05
+        
+        power = self.results['power']
+        
+        base = math.log(power) + coeff_a*power**2 + coeff_b*power + coeff_c
+        
+        self.results['equipment'] = {'min':  base * 0.9,
+                                     'avg':  base,
+                                     'max':  base * 1.1}
+        
+        self.results['equipment_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['min'], self.wacc, self.avg_flow ),
+                                          'avg': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['avg'], self.wacc, self.avg_flow ),
+                                          'max': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.avg_flow )}
+        
 class CentrifugalCompressor(Compressor):
     def __init__(self, inputs, avg_flowrate, peak_flowrate):
         super().__init__(inputs, avg_flowrate, peak_flowrate, comp_type='centrifugal')
+    
+
+    def calculate_compressor_equipment_cost(self):
+        '''
+        Overridden in some child classes.
+        
+        '''
+        
+        self.results['power'] = sum(self.conditions.loc['power'])
+        
+        coeff_a = 0.03867
+        coeff_b = 446.7
+        coeff_c = 1.38e05
+        
+        power = self.results['power']
+        
+        base = math.log(power) + coeff_a*power**2 + coeff_b*power + coeff_c
+        
+        self.results['equipment'] = {'min':  base * 0.9,
+                                     'avg':  base,
+                                     'max':  base * 1.1}
+        
+        self.results['equipment_lcoh'] = {'min': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['min'], self.wacc, self.avg_flow ),
+                                          'avg': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['avg'], self.wacc, self.avg_flow ),
+                                          'max': calculate_lcoh(self.lifetime, 'capex', self.results['equipment']['max'], self.wacc, self.avg_flow )}
         

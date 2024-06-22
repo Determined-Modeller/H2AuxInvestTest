@@ -25,9 +25,9 @@ const CalculatorConfig = () => {
 
     const { request, errorMessages, handleChange } = useRequest({
         ...locationRequest,
-        wacc: 12,
+        wacc: 10,
         lifetime_years: 22,
-        energy_price_per_mwh: 29,
+        energy_price_per_mwh: 24.4,
         is_precooling_used: false
     }, modifiedSchema);
 

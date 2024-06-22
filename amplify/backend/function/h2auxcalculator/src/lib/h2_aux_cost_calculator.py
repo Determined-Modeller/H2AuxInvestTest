@@ -54,9 +54,6 @@ class H2AuxCostCalculator:
 
         else:
             print('peak_hydrogen_dispensing_rate_quant wrong unit specified')
-        
-        print(avg_flowrate)
-        print(peak_flowrate)
 
 
         ####################################################

@@ -72,13 +72,12 @@ const Calculator = () => {
                     })}
                 >
                     <Typography level="h3" fontSize={'lg'} pb="20px">
-                        Let’s calculate the key parameters of your hydrogen infrastructure
+                        Let's calculate the key parameters of your hydrogen infrastructure
                     </Typography>
                     <Typography fontSize={'lg'}>
-                        This tool, created as part of the project, H2Auxinvest, an open-source, non-profit initiative, funded by the Scottish Government through the Emerging Energy Technologies Fund (EETF) is designed to support the hydrogen supply chain by enablng greater transparency on cost and requirements for end-users of hydrogen, encouraging manufacturer data sharing and hosting up-to-date cost estimations.
 
-                        The following survey takes less than a minute, asking questions to provide reliable estimates of key inputs for calculations to size, specify and cost your hydrogen compression and storage infrastructure.
-                        More detail on these calculations is available in the documentation, always available in the top right of the page.  Should any issues arise please contact the team by raising a new issue on the project github page.
+                        The following survey takes less than a minute, asking questions needed to provide reliable estimates of key inputs for calculations to size, specify and cost your hydrogen compression and storage infrastructure.
+                        More detail on these calculations is available in the documentation, always available in the top right of the page.  All pressures used in calculations and results are absolute pressures.  Should any issues arise please contact the team by raising a new issue on the project github page.
                         To find out more about how to participate as a manufacturer or a contributor, please email h2auxinvest@gchydrogen.co.uk
                     </Typography>
                 </Box>

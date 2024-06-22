@@ -73,7 +73,10 @@ const CalculatorConsumer = () => {
                 <Typography fontSize={'sm'}>
                     Enter details of additional hydrogen storage you wish to have on site.
                     If you are unsure of what to choose, please see the 'Choosing Your Inputs' portion of the documentation,
-                    or use default values provided for commonly selected setups.
+                    or use default values provided for commonly selected setups. We highly recommend specifying storage, if 
+                    this is unknown we suggest specifying the pressure of your end use (e.g. 350/700 bar), and also suggest
+                    a minimum of 100kg (or 2 days of demand) to get representative results.
+                    Your chosen storage mass may impact compliance with local laws, including COMAH tiers, refer to the docs for more information
                 </Typography>
             </Box>
             <Box

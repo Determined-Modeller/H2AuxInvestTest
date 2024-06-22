@@ -17,10 +17,6 @@ import pprint
 import re  # noqa: F401
 from aenum import Enum, no_arg
 
-
-
-
-
 class Mass(str, Enum):
     """
     Mass
