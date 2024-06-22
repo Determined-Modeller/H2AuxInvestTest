@@ -10,6 +10,7 @@ import schema from '../api/calculator/schema.json';
 import { InfoOutlined } from "@mui/icons-material";
 import CalculatorInputLayout from "../components/CalculatorInputLayout";
 import useRequest from "../hooks/useValidatedRequestForm";
+import useGetSubSchema from "../hooks/useGetSubSchema";
 
 
 
@@ -18,8 +19,8 @@ const CalculatorIntake = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const locationRequest = location.state as RequestSchema;
-    const modifiedSchema = schema;
-    modifiedSchema.required = ['hydrogen_inlet_pressure']
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const modifiedSchema = useGetSubSchema(['hydrogen_inlet_pressure'], schema)
     const { request, errorMessages, handleChange, validateForm } = useRequest({
         ...locationRequest,
         hydrogen_inlet_pressure: {
@@ -31,6 +32,8 @@ const CalculatorIntake = () => {
 
 
     const canProceed = () => {
+        console.log(Object.keys(errorMessages));
+
         return hasAllRequiredFields() && Object.keys(errorMessages).length === 0;
     }
 
@@ -101,7 +104,7 @@ const CalculatorIntake = () => {
                         {errorMessages['hydrogen_inlet_pressure']}
                     </FormHelperText>}
                 </FormControl>
-                <FormControl error={!!errorMessages['hydrogen_inlet_pressure.unit']}>
+                <FormControl error={!!errorMessages['hydrogen_inlet_pressure.unit'] || !!errorMessages['hydrogen_inlet_pressure']}>
                     <FormLabel>Units</FormLabel>
                     <Select size="lg" color="neutral"
                         value={request.hydrogen_inlet_pressure?.unit ?? ''}

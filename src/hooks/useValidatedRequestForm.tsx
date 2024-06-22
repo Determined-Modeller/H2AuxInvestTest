@@ -12,11 +12,7 @@ const useRequest = (initialRequest: RequestSchema, schema: object) => {
 
     const validateForm = () => {
         const valid = validate(request);
-        console.log(request);
-
         const newErrorMessages = { ...errorMessages };
-        console.log(validate.errors);
-
         if (!valid && validate.errors) {
             validate.errors.forEach((error: ErrorObject) => {
                 newErrorMessages[error.instancePath.substring(1).split('/').join('.')] = error.message || '';
@@ -41,7 +37,6 @@ const useRequest = (initialRequest: RequestSchema, schema: object) => {
                 validate.errors.forEach((error: ErrorObject) => {
                     if (error.instancePath === '/' + path.join('/')) {
                         newErrorMessages[path.join('.')] = error.message || '';
-                        console.log(newErrorMessages);
                     }
                 });
             } else {

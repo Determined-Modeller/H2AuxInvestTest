@@ -16,6 +16,7 @@ import { Mass, Pressure, RequestSchema, RequestSchemaVehicleTypeEnum } from "../
 import schema from '../api/calculator/schema.json';
 import useRequest from "../hooks/useValidatedRequestForm";
 import CalculatorInputLayout from "../components/CalculatorInputLayout";
+import useGetSubSchema from "../hooks/useGetSubSchema";
 const options = [
     {
         type: RequestSchemaVehicleTypeEnum.Tubetrailer,
@@ -185,9 +186,9 @@ const CalculatorPlantType = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const locationRequest = location.state as RequestSchema;
-    const modifiedSchema = schema;
-    modifiedSchema.required = ['hydrogen_inlet_pressure']
-    const { request, errorMessages, handleChange } = useRequest({
+    const modifiedSchema = useGetSubSchema(['dispensing_pressure', 'dispensing_mass', 'vehicle_type'], schema)
+
+    const { request, errorMessages, handleChange, validateForm } = useRequest({
         ...locationRequest,
         dispensing_pressure: {
             ...locationRequest?.dispensing_pressure,
@@ -196,7 +197,9 @@ const CalculatorPlantType = () => {
         dispensing_mass: {
             ...locationRequest?.dispensing_mass,
             unit: locationRequest?.dispensing_mass?.unit ?? Mass[Object.keys(Mass)[0] as keyof typeof Mass],
-        }
+        },
+        dispensing_type: locationRequest?.dispensing_type,
+        vehicle_type: locationRequest?.vehicle_type
     }, modifiedSchema);
     console.log(request);
 
@@ -214,7 +217,8 @@ const CalculatorPlantType = () => {
     }
 
     const goToNext = () => {
-        if (canProceed()) {
+        const isValid = validateForm();
+        if (isValid && canProceed()) {
             navigate(ROUTE_CONSTANTS.CALCULATOR_CONSUMER, { state: request })
         }
     }
@@ -224,6 +228,14 @@ const CalculatorPlantType = () => {
     };
 
 
+    const defaultVehicleSelectValue = () => {
+        const option = options.find(option => option.type as RequestSchemaVehicleTypeEnum === request.vehicle_type);
+        if (!option) {
+            return;
+        } else {
+            return option.name;
+        }
+    }
 
 
     const handleSelectChange = (
@@ -232,7 +244,6 @@ const CalculatorPlantType = () => {
     ) => {
         const option = options.find(option => option.name === newValue);
         if (!option) return;
-        console.log(option);
 
 
         handleChange(option.type, ['vehicle_type']);
@@ -361,12 +372,12 @@ const CalculatorPlantType = () => {
                             '& > *': { flex: 'auto' },
                         }}
                     >
-                        <FormControl error={!!errorMessages['dispensing_pressure.value']}>
+                        <FormControl error={!!errorMessages['vehicle_type']}>
                             <FormLabel>Consumption</FormLabel>
                             <Select
                                 size="lg"
                                 onChange={handleSelectChange}
-                                defaultValue="Eric"
+                                defaultValue={"" + defaultVehicleSelectValue()}
                                 slotProps={{
                                     listbox: {
                                         sx: {
@@ -398,7 +409,7 @@ const CalculatorPlantType = () => {
                             </Select>
                         </FormControl>
                         {request.vehicle_type === RequestSchemaVehicleTypeEnum.Custom && <>
-                            <FormControl error={!!errorMessages['dispensing_pressure.value']}>
+                            <FormControl error={!!errorMessages['dispensing_pressure.value'] || !!errorMessages['dispensing_pressure']}>
                                 <FormLabel>Dispensing Pressure</FormLabel>
                                 <Input
                                     name="dispensing_pressure"
@@ -415,6 +426,12 @@ const CalculatorPlantType = () => {
                                     <FormHelperText>
                                         <InfoOutlined />
                                         {errorMessages['dispensing_pressure.value']}
+                                    </FormHelperText>
+                                }
+                                {!!errorMessages['dispensing_pressure'] &&
+                                    <FormHelperText>
+                                        <InfoOutlined />
+                                        {errorMessages['dispensing_pressure']}
                                     </FormHelperText>
                                 }
                             </FormControl>
@@ -435,7 +452,7 @@ const CalculatorPlantType = () => {
                                     ))}
                                 </Select>
                             </FormControl>
-                            <FormControl error={!!errorMessages['dispensing_mass.value']}>
+                            <FormControl error={!!errorMessages['dispensing_mass.value'] || !!errorMessages['dispensing_mass']}>
                                 <FormLabel>Dispensing Mass</FormLabel>
                                 <Input
                                     name="dispensing_mass"
