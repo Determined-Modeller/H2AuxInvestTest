@@ -28,8 +28,6 @@ const Results = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            console.log("hook is called");
-
             const res = await postCalculate(formData);
             setResponse(res);
             setCompressor(res?.compressors?.[0] ?? undefined);
