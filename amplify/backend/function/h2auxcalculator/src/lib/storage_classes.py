@@ -128,7 +128,10 @@ class Storage_I_II(Storage):
     # overridden method
     def calculate_storage_equipment_cost(self):
         
-        base = (0.0025 * (self.storage_pressure)**2 - 0.2467 * (self.storage_pressure) + 497.87)  * self.storage_capacity * (self.storage_capacity/500)**(-0.1)
+        if self.storage_capacity == 0:
+            base = 0
+        else:
+            base = (0.0025 * (self.storage_pressure)**2 - 0.2467 * (self.storage_pressure) + 497.87)  * self.storage_capacity * (self.storage_capacity/500)**(-0.1)
         
         self.results['equipment'] = {'min': (base * 0.9),
                                      'avg': (base * 1.0),
@@ -154,7 +157,10 @@ class Storage_III_IV(Storage):
         
         '''
         
-        base = (0.002875 * (self.storage_pressure)**2 - 0.283705 * (self.storage_pressure) + 572.55)  * self.storage_capacity * (self.storage_capacity/500)**(-0.1)
+        if self.storage_capacity == 0:
+            base = 0
+        else:
+            base = (0.002875 * (self.storage_pressure)**2 - 0.283705 * (self.storage_pressure) + 572.55)  * self.storage_capacity * (self.storage_capacity/500)**(-0.1)
         
         self.results['equipment'] = {'min': (base * 0.9),
                                      'avg': (base * 1.0),
