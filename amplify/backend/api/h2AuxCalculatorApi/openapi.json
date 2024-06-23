@@ -297,8 +297,6 @@
             "required": [
                 "hydrogen_inlet_pressure",
                 "energy_price_per_mwh",
-                "storage_mass",
-                "storage_pressure",
                 "dispensing_pressure",
                 "dispensing_mass",
                 "avg_hydrogen_dispensing_rate",

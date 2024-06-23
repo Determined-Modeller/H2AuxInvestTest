@@ -35,8 +35,8 @@ class RequestSchema(BaseModel):
     dispensing_type: Optional[StrictStr] = None
     energy_price_per_mwh: Union[confloat(le=1E+4, ge=0, strict=True), conint(le=10000, ge=0, strict=True)] = Field(...)
     is_storage_required: Optional[StrictBool] = None
-    storage_mass: RequestSchemaStorageMass = Field(...)
-    storage_pressure: RequestSchemaStoragePressure = Field(...)
+    storage_mass: Optional[RequestSchemaStorageMass] = None
+    storage_pressure: Optional[RequestSchemaStoragePressure] = None
     dispensing_pressure: RequestSchemaDispensingPressure = Field(...)
     dispensing_mass: RequestSchemaDispensingMass = Field(...)
     avg_hydrogen_dispensing_rate: DispensingRate = Field(...)
