@@ -461,7 +461,10 @@ const mockData = {
 
 
 const postCalculate = async (req: RequestSchema): Promise<ResponseSchema> => {
-    console.log(req)
+    if (!req.is_storage_required) {
+        delete req['storage_mass'];
+        delete req['storage_pressure'];
+    }
     const restOperation = post({
         apiName: 'h2AuxCalculatorApi',
         path: '/calculator/calculate',
