@@ -78,8 +78,8 @@ class H2AuxCostCalculator:
                     diaphragm_compressor,
                     piston_compressor]
 
-        if response['is_storage_required']:
-            hardware += [storage_a, storage_b]
+        # if response['is_storage_required']:
+        hardware += [storage_a, storage_b]
 
 
         #########################################################
@@ -87,9 +87,9 @@ class H2AuxCostCalculator:
         #########################################################
 
         # Storage
-        if response['is_storage_required']:
-            storage_a.calculate_all()
-            storage_b.calculate_all()
+        # if response['is_storage_required']:
+        storage_a.calculate_all()
+        storage_b.calculate_all()
 
         # Compressors
         centrifugal_compressor.do_all_calculations()
