@@ -49,12 +49,12 @@ export interface RequestSchema {
      * @type {RequestSchemaStorageMass}
      * @memberof RequestSchema
      */
-    storage_mass: RequestSchemaStorageMass;
+    storage_mass?: RequestSchemaStorageMass;
     /**
      * @type {RequestSchemaStoragePressure}
      * @memberof RequestSchema
      */
-    storage_pressure: RequestSchemaStoragePressure;
+    storage_pressure?: RequestSchemaStoragePressure;
     /**
      * @type {RequestSchemaDispensingPressure}
      * @memberof RequestSchema
