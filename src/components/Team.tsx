@@ -11,7 +11,6 @@ import image1 from '../assets/profiles/rhodri.jpeg';
 import image2 from '../assets/profiles/pavel.jpeg';
 import image3 from '../assets/profiles/david.jpeg';
 import image4 from '../assets/profiles/drRay.jpeg';
-import image5 from '../assets/profiles/kara.jpeg';
 import { Box } from '@mui/material';
 import { CardActions } from '@mui/joy';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -21,7 +20,7 @@ const team = [
     {
         name: 'Rhodri Hawkins',
         role: 'Project Lead',
-        description: 'An award-winning engineer, Rhodri identified poor communication, complex evaluations of requirements and a lack of data availability as key roadblocks to a successful hydrogen economy.  As a result they started, and lead H2AuxInvest, designed to tackle these issues head on and enable the energy transition',
+        description: 'Started, and leads H2AuxInvest, a seasoned hydrogen engineer determined to collaborate to enable the energy transition',
         linkedIn: 'https://www.linkedin.com/in/rhodri-hawkins/',
         image: image1,
     },
@@ -33,10 +32,10 @@ const team = [
         image: image2,
     },
     {
-        name: 'David Crawford',
+        name: 'David Starley',
         role: 'Steering Committee Member',
-        description: 'David brings an extensive multi-disciplinary engineering background and focus on creation of a high-value domestic hydrogen supply chains to the project, allowing us to make the most of the opportunity to engage with manufacturers and end-users through this project',
-        linkedIn: 'https://www.linkedin.com/in/david-crawford-a03678134/',
+        description: 'David brings an extensive multi-disciplinary engineering background and is a determined advocate for a greener future',
+        linkedIn: 'https://www.linkedin.com/in/david-starley-1560a4171/',
         image: image3,
     },
     {
@@ -45,26 +44,21 @@ const team = [
         description: 'Bringing more than 50 years of experience in industrial gasses and hydrogen, including more than 35 years with Air Products, Ray brings an invaluable industry and practical perspective to the project',
         linkedIn: 'https://www.linkedin.com/in/raysacks/',
         image: image4,
-    },
-    {
-        name: 'Kara Hazelgrave',
-        role: 'Steering Committee Member',
-        description: 'A well known energy systems researcher in Scotland, with a drive to provide and promote the equipment and systems required for the clean energy transition',
-        linkedIn: 'https://www.linkedin.com/in/karahazelgrave/',
-        image: image5,
+    
     },
 ];
 
 const Team = () => {
     return (<Box sx={{ paddingTop: 10 }}>
         <Typography
+            paddingLeft={5}
             level="h1"
             fontWeight="xl"
             fontSize="clamp(1.875rem, 1.3636rem + 2.1818vw, 3rem)"
         >
             Project Team
         </Typography>
-        <Grid container spacing={3} rowSpacing={3} sx={{ paddingY: 5 }}>
+        <Grid container spacing={3} rowSpacing={3} sx={{ padding: 5 }}>
             {team.map((member, index) => (
                 <Grid key={index}>
                     <Card variant="soft" color="neutral" sx={{ boxShadow: 'lg', maxWidth: 315, height: '100%' }}>
