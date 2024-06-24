@@ -10,8 +10,8 @@ import logo4 from '../assets/partner_logos/RicardoLogo.png';
 const logos = [
     { src: logo3, url: 'https://www.partner3.com' },
     { src: logo1, url: 'https://www.gov.scot/about/how-government-is-run/directorates/energy-and-climate-change/' },
-    { src: logo2, url: 'https://www.ricardo.com/en/services/technical-consulting/energy-transition/hydrogen-consultancy' },
-    { src: logo4, url: 'https://www.ricardo.com/en/services/technical-consulting/energy-transition/hydrogen-consultancy' },
+    { src: logo2, url: 'https://www.flexergy.net/' },
+    { src: logo4, url: '' },
 ];
 
 const PartnerLogos = () => {
