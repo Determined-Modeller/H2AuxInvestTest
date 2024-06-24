@@ -27,11 +27,11 @@ const CalculatorConsumer = () => {
         ...locationRequest,
         is_storage_required: locationRequest?.is_storage_required ?? false,
         storage_pressure: {
-            ...locationRequest?.storage_pressure,
+            value: locationRequest?.storage_pressure?.value ?? 0,
             unit: locationRequest?.storage_pressure?.unit ?? Pressure[Object.keys(Pressure)[0] as keyof typeof Pressure],
         },
         storage_mass: {
-            ...locationRequest?.storage_mass,
+            value: locationRequest?.storage_mass?.value ?? 0,
             unit: locationRequest?.storage_mass?.unit ?? Mass[Object.keys(Mass)[0] as keyof typeof Mass],
         }
     }, modifiedSchema);
